@@ -55,7 +55,6 @@ struct TopBarView: View {
                     HStack {
                         Button {
                             // TODO
-                            print("edit")
                         } label: {
                             Text("Edit")
                                 .font(.title3)
@@ -65,7 +64,6 @@ struct TopBarView: View {
                         Spacer()
                         Button {
                             // TODO
-                            print("square")
                         } label: {
                             Image(systemName: "square.and.pencil")
                                 .foregroundColor(.blue)

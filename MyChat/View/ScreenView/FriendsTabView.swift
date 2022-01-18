@@ -18,12 +18,15 @@ struct FriendsTabView: View {
                     FriendsRowView()
                 }
             }
-            Spacer()
+            BottomBarView(bottomBarType: BottomBarType.Friends)
         }
         .padding(.top, CGFloat(UIApplication.shared.windows.first?.safeAreaInsets.top ?? 0))
         .ignoresSafeArea(edges: .top)
         .navigationBarTitle("", displayMode: .inline)
         .navigationBarHidden(true)
+        .onAppear {
+            UINavigationBar.setAnimationsEnabled(false)
+        }
     }
 }
 

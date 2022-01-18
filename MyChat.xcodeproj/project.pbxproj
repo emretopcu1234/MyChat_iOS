@@ -22,6 +22,7 @@
 		29C3735F278E318D00E34242 /* SpecificChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C3735E278E318D00E34242 /* SpecificChatView.swift */; };
 		29C37361278E31DE00E34242 /* ChatsTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C37360278E31DE00E34242 /* ChatsTabView.swift */; };
 		29C37365278E3ADA00E34242 /* TopBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C37364278E3ADA00E34242 /* TopBarView.swift */; };
+		29F718042797626E000DEA71 /* BottomBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F718032797626E000DEA71 /* BottomBarView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,7 @@
 		29C3735E278E318D00E34242 /* SpecificChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecificChatView.swift; sourceTree = "<group>"; };
 		29C37360278E31DE00E34242 /* ChatsTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsTabView.swift; sourceTree = "<group>"; };
 		29C37364278E3ADA00E34242 /* TopBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBarView.swift; sourceTree = "<group>"; };
+		29F718032797626E000DEA71 /* BottomBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomBarView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +123,7 @@
 				2928AEE7278F556600A45FC6 /* FriendsRowView.swift */,
 				295FB6442790B3EF007AA467 /* ChatsRowView.swift */,
 				295FB6482790D9A2007AA467 /* SpecificChatRowView.swift */,
+				29F718032797626E000DEA71 /* BottomBarView.swift */,
 			);
 			path = ReusableView;
 			sourceTree = "<group>";
@@ -223,6 +226,7 @@
 				29C37359278E313A00E34242 /* FriendsTabView.swift in Sources */,
 				29C3735D278E315300E34242 /* ProfileTabView.swift in Sources */,
 				29C37361278E31DE00E34242 /* ChatsTabView.swift in Sources */,
+				29F718042797626E000DEA71 /* BottomBarView.swift in Sources */,
 				295FB6452790B3EF007AA467 /* ChatsRowView.swift in Sources */,
 				29C3735F278E318D00E34242 /* SpecificChatView.swift in Sources */,
 				294803802794C5DB00C8D9F5 /* KeyboardAction.swift in Sources */,

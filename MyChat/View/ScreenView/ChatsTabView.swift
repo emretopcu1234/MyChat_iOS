@@ -18,12 +18,15 @@ struct ChatsTabView: View {
                     ChatsRowView()
                 }
             }
-            Spacer()
+            BottomBarView(bottomBarType: BottomBarType.Chats)
         }
         .padding(.top, CGFloat(UIApplication.shared.windows.first?.safeAreaInsets.top ?? 0))
         .ignoresSafeArea(edges: .top)
         .navigationBarTitle("", displayMode: .inline)
         .navigationBarHidden(true)
+        .onAppear {
+            UINavigationBar.setAnimationsEnabled(false)
+        }
     }
 }
 

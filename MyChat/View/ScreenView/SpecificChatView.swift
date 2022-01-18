@@ -13,7 +13,7 @@ struct SpecificChatView: View {
 
     @State var keyboardActive = false
     @State var textFieldMessage: String = ""
-    
+
     var body: some View {
         VStack(spacing: 0) {
             ZStack {
@@ -89,6 +89,9 @@ struct SpecificChatView: View {
         .navigationBarTitle("", displayMode: .inline)
         .navigationBarHidden(true)
         .adaptsToKeyboard()
+        .onAppear {
+            UINavigationBar.setAnimationsEnabled(true)
+        }
     }
 }
 

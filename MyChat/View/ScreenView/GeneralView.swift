@@ -11,24 +11,12 @@ struct GeneralView: View {
     
     init(){
         UITabBar.appearance().backgroundColor = UIColor(named: "DarkWhite")
+        UINavigationBar.setAnimationsEnabled(false)
     }
     
     var body: some View {
         NavigationView {
-            TabView {
-                FriendsTabView()
-                    .tabItem {
-                        Label("Friends", systemImage: "person.3.fill")
-                    }
-                ChatsTabView()
-                    .tabItem {
-                        Label("Chats", systemImage: "message.fill")
-                    }
-                ProfileTabView()
-                    .tabItem {
-                        Label("Profile", systemImage: "person.fill")
-                    }
-            }
+            FriendsTabView()
         }
     }
 }
