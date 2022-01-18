@@ -2,15 +2,14 @@
 //  ContentView.swift
 //  MyChat
 //
-//  Created by Emre Topçu on 12.01.2022.
+//  Created by Emre Topçu on 13.01.2022.
 //
 
 import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        GeneralView()
     }
 }
 
