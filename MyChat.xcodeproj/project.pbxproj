@@ -22,6 +22,7 @@
 		29C3735F278E318D00E34242 /* SpecificChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C3735E278E318D00E34242 /* SpecificChatView.swift */; };
 		29C37361278E31DE00E34242 /* ChatsTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C37360278E31DE00E34242 /* ChatsTabView.swift */; };
 		29C37365278E3ADA00E34242 /* TopBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C37364278E3ADA00E34242 /* TopBarView.swift */; };
+		29F1EF5B2798B36C009A6C8D /* FriendProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F1EF5A2798B36C009A6C8D /* FriendProfileView.swift */; };
 		29F718042797626E000DEA71 /* BottomBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F718032797626E000DEA71 /* BottomBarView.swift */; };
 /* End PBXBuildFile section */
 
@@ -42,6 +43,7 @@
 		29C3735E278E318D00E34242 /* SpecificChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecificChatView.swift; sourceTree = "<group>"; };
 		29C37360278E31DE00E34242 /* ChatsTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsTabView.swift; sourceTree = "<group>"; };
 		29C37364278E3ADA00E34242 /* TopBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBarView.swift; sourceTree = "<group>"; };
+		29F1EF5A2798B36C009A6C8D /* FriendProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendProfileView.swift; sourceTree = "<group>"; };
 		29F718032797626E000DEA71 /* BottomBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomBarView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -112,6 +114,7 @@
 				29C3735C278E315300E34242 /* ProfileTabView.swift */,
 				29C3735E278E318D00E34242 /* SpecificChatView.swift */,
 				29C37360278E31DE00E34242 /* ChatsTabView.swift */,
+				29F1EF5A2798B36C009A6C8D /* FriendProfileView.swift */,
 			);
 			path = ScreenView;
 			sourceTree = "<group>";
@@ -235,6 +238,7 @@
 				2928AEE8278F556600A45FC6 /* FriendsRowView.swift in Sources */,
 				29C37349278E300B00E34242 /* GeneralView.swift in Sources */,
 				29C37347278E300B00E34242 /* MyChatApp.swift in Sources */,
+				29F1EF5B2798B36C009A6C8D /* FriendProfileView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

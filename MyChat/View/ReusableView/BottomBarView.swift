@@ -29,6 +29,7 @@ struct BottomBarView: View {
                 .offset(y: 10)
                 .foregroundColor(bottomBarType == BottomBarType.Friends ? .blue : .gray)
             }
+            .disabled(bottomBarType == BottomBarType.Friends)
             Spacer()
             NavigationLink(destination: ChatsTabView()) {
                 VStack(spacing: 5) {
@@ -40,6 +41,7 @@ struct BottomBarView: View {
                 .offset(y: 10)
                 .foregroundColor(bottomBarType == BottomBarType.Chats ? .blue : .gray)
             }
+            .disabled(bottomBarType == BottomBarType.Chats)
             Spacer()
             NavigationLink(destination: ProfileTabView()) {
                 VStack(spacing: 5) {
@@ -51,6 +53,7 @@ struct BottomBarView: View {
                 .offset(y: 10)
                 .foregroundColor(bottomBarType == BottomBarType.Profile ? .blue : .gray)
             }
+            .disabled(bottomBarType == BottomBarType.Profile)
         }
         .frame(height: 55)
         .padding(.leading, 40)

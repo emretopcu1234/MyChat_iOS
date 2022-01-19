@@ -68,7 +68,6 @@ struct SpecificChatView: View {
                                 // TODO
                             } label: {
                                 Image(systemName: "arrow.up.circle.fill")
-                                    .foregroundColor(.blue)
                                     .scaleEffect(2)
                                     .padding()
                                     .offset(y: -15)

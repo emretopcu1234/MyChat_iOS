@@ -19,10 +19,7 @@ struct MyChatApp: App {
 
 // TODO LIST:
 
-// bottombarview'daki tab simgeleri butona çevrilecek. eğer aynı tabdaysak butona basma engellenecek.
-
-// friendsrowview ve chatsrowview butona çevrilecek. (böylece tıklandığında yanıp sönme efekti gelmiş olacak.)
-
+// ilk olarak foreach'lere swipe to delete functionality eklenecek.
 
 // ProfileTabView'da yer alan @StateObject var keyboardHeightHelper = KeyboardHeightHelper() ifadesi o view'dan silinip uygulamanın ilk açılacak ekranına eklenecek. uygulama ilk açıldığında login/enrollment page geleceği için orada mutlaka keyboard kullanılmak zorunda. daha sonra kişi login olup uygulamayı kapatıp yeniden açtığında login page gelmeyecek ama zaten keyboardheight ilk girişte userdefault dosyasına eklenmiş olduğu için sıkıntı olmayacak.
 

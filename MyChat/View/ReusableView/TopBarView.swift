@@ -38,7 +38,6 @@ struct TopBarView: View {
                             // TODO
                         } label: {
                             Image(systemName: "plus")
-                                .foregroundColor(.blue)
                                 .scaleEffect(1.5)
                                 .padding()
                         }
@@ -58,7 +57,6 @@ struct TopBarView: View {
                         } label: {
                             Text("Edit")
                                 .font(.title3)
-                                .foregroundColor(.blue)
                                 .padding()
                         }
                         Spacer()
@@ -66,7 +64,6 @@ struct TopBarView: View {
                             // TODO
                         } label: {
                             Image(systemName: "square.and.pencil")
-                                .foregroundColor(.blue)
                                 .scaleEffect(1.5)
                                 .padding()
                         }
@@ -90,7 +87,6 @@ struct TopBarView: View {
                             presentationMode.wrappedValue.dismiss()
                         } label: {
                             Image(systemName: "chevron.left")
-                                .foregroundColor(.blue)
                                 .scaleEffect(1.5)
                                 .padding()
                         }

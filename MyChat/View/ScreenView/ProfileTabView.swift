@@ -23,7 +23,7 @@ struct ProfileTabView: View {
             Image(systemName: "person.circle")
                 .resizable()
                 .aspectRatio(1, contentMode: .fill)
-                .frame(width: 150, height: 150)
+                .frame(width: 200, height: 200)
                 .foregroundColor(.gray)
                 // TODO dışarıdan bir resim eklenince clipShape(Circle()) yapılacak.
             Button {
@@ -39,7 +39,6 @@ struct ProfileTabView: View {
                 .frame(maxWidth: UIScreen.main.bounds.width - 30)
                 .padding(.top, 10)
                 .padding(.bottom, 10)
-                .foregroundColor(.blue)
                 .background(.white)
                 .cornerRadius(15)
             }
