@@ -9,13 +9,15 @@ import SwiftUI
 
 struct FriendsTabView: View {
     
+    @State var editPressed: Bool? = false
+    
     var body: some View {
         VStack(spacing: 0) {
-            TopBarView(topBarType: TopBarType.Friends)
+            TopBarView(topBarType: TopBarType.Friends, friendsEditPressed: $editPressed, chatsEditPressed: .constant(nil))
                 .frame(height: 60)
             ScrollView(showsIndicators: false) {
                 ForEach(0 ..< 15) { item in
-                    FriendsRowView()
+                    FriendsRowView(editPressed: $editPressed)
                 }
             }
             BottomBarView(bottomBarType: BottomBarType.Friends)

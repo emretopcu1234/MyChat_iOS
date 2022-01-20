@@ -17,13 +17,12 @@ struct ProfileTabView: View {
     
     var body: some View {
         VStack(spacing: 10) {
-            TopBarView(topBarType: TopBarType.Profile)
+            TopBarView(topBarType: TopBarType.Profile, friendsEditPressed: .constant(nil), chatsEditPressed: .constant(nil))
                 .frame(height: 60)
-            
             Image(systemName: "person.circle")
                 .resizable()
                 .aspectRatio(1, contentMode: .fill)
-                .frame(width: 200, height: 200)
+                .frame(width: UIScreen.self.main.bounds.height > 900 ? 200 : 150, height: UIScreen.self.main.bounds.height > 900 ? 200 : 150)
                 .foregroundColor(.gray)
                 // TODO dışarıdan bir resim eklenince clipShape(Circle()) yapılacak.
             Button {
@@ -44,7 +43,6 @@ struct ProfileTabView: View {
             }
 
             Spacer()
-                .padding(.bottom, 30)
             Group {
                 VStack(alignment: .leading, spacing: 0) {
                     Text("Name")
@@ -96,7 +94,6 @@ struct ProfileTabView: View {
             }
             
             Spacer()
-                .padding(.bottom, 100)
             Button {
                 // TODO
             } label: {

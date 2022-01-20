@@ -19,7 +19,7 @@ struct MyChatApp: App {
 
 // TODO LIST:
 
-// ilk olarak foreach'lere swipe to delete functionality eklenecek.
+// Friends ve Chats kısmında edit butonuna basıldığında bottom bar değişecek (delete tuşu gelecek, gerçek appteki gibi)
 
 // ProfileTabView'da yer alan @StateObject var keyboardHeightHelper = KeyboardHeightHelper() ifadesi o view'dan silinip uygulamanın ilk açılacak ekranına eklenecek. uygulama ilk açıldığında login/enrollment page geleceği için orada mutlaka keyboard kullanılmak zorunda. daha sonra kişi login olup uygulamayı kapatıp yeniden açtığında login page gelmeyecek ama zaten keyboardheight ilk girişte userdefault dosyasına eklenmiş olduğu için sıkıntı olmayacak.
 

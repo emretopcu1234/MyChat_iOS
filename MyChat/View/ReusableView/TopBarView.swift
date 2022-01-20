@@ -19,7 +19,9 @@ struct TopBarView: View {
     var topBarType: TopBarType
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    
+    @Binding var friendsEditPressed: Bool?
+    @Binding var chatsEditPressed: Bool?
+        
     var body: some View {
         
         HStack {
@@ -33,6 +35,30 @@ struct TopBarView: View {
                         Spacer()
                     }
                     HStack {
+                        Button {
+                            withAnimation {
+                                friendsEditPressed!.toggle()
+                            }
+                        } label: {
+                            if let pressed = friendsEditPressed {
+                                if !pressed {
+                                    Text("Edit")
+                                        .font(.title3)
+                                        .padding()
+                                }
+                                else {
+                                    Text("Done")
+                                        .font(.title3)
+                                        .bold()
+                                        .padding()
+                                }
+                            }
+                            else {
+                                Text("Edit")
+                                    .font(.title3)
+                                    .padding()
+                            }
+                        }
                         Spacer()
                         Button {
                             // TODO
@@ -53,11 +79,28 @@ struct TopBarView: View {
                     }
                     HStack {
                         Button {
-                            // TODO
+                            withAnimation {
+                                chatsEditPressed!.toggle()
+                            }
                         } label: {
-                            Text("Edit")
-                                .font(.title3)
-                                .padding()
+                            if let pressed = chatsEditPressed {
+                                if !pressed {
+                                    Text("Edit")
+                                        .font(.title3)
+                                        .padding()
+                                }
+                                else {
+                                    Text("Done")
+                                        .font(.title3)
+                                        .bold()
+                                        .padding()
+                                }
+                            }
+                            else {
+                                Text("Edit")
+                                    .font(.title3)
+                                    .padding()
+                            }
                         }
                         Spacer()
                         Button {
@@ -124,7 +167,7 @@ struct TopBarView: View {
 
 struct TopBarView_Previews: PreviewProvider {
     static var previews: some View {
-        TopBarView(topBarType: TopBarType.SpecificChat)
+        TopBarView(topBarType: TopBarType.Friends, friendsEditPressed: .constant(false), chatsEditPressed: .constant(false))
             .previewLayout(.sizeThatFits)
     }
 }

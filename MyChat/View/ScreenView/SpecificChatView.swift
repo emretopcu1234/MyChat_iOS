@@ -45,7 +45,7 @@ struct SpecificChatView: View {
                     }
                 }
                 VStack {
-                    TopBarView(topBarType: TopBarType.SpecificChat)
+                    TopBarView(topBarType: TopBarType.SpecificChat, friendsEditPressed: .constant(nil), chatsEditPressed: .constant(nil))
                         .frame(height: 60)
                     Spacer()
                     VStack {
