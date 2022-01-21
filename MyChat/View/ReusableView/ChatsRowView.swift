@@ -9,10 +9,12 @@ import SwiftUI
 
 struct ChatsRowView: View {
     
-    @State var enterChat: Bool?
-    @State var offsetDelete = CGSize.zero
-    @State var chatSelected = false
-    @Binding var editPressed: Bool?
+    @State private var enterChat: Bool?
+    @State private var offsetDelete = CGSize.zero
+    @State private var chatSelected = false
+    @Binding var anyChatDragging: Bool
+    @Binding var anyDragCancelled: Bool
+    @Binding var editPressed: Bool
     
     var body: some View {
         ZStack {
@@ -20,17 +22,17 @@ struct ChatsRowView: View {
                 Divider()
                 NavigationLink(destination: SpecificChatView(), tag: true, selection: $enterChat) {
                     Button {
-                        if editPressed! {
+                        if editPressed {
                             chatSelected.toggle()
                         }
                         else {
-                            if offsetDelete.width == 0 {
+                            if anyDragCancelled {
                                 UINavigationBar.setAnimationsEnabled(true)
                                 enterChat = true
                             }
                             else {
                                 withAnimation {
-                                    offsetDelete.width = 0
+                                    anyDragCancelled = true
                                 }
                             }
                         }
@@ -76,33 +78,42 @@ struct ChatsRowView: View {
             .padding(.leading)
             .padding(.trailing)
             .padding(.bottom, 5)
-            .offset(x: editPressed! ? 50 : min(0, offsetDelete.width))
+            .offset(x: editPressed ? 50 : min(0, offsetDelete.width))
             .background(chatSelected ? Color("LightBlue") : .white)
             .gesture(
                 DragGesture()
                     .onChanged{ gesture in
-                        if !editPressed! {
+                        if !editPressed {
                             withAnimation {
                                 offsetDelete.width = max(-70, gesture.translation.width)
+                                anyChatDragging = true
+                                anyDragCancelled = false
                             }
                         }
                     }
                     .onEnded{ _ in
-                        if offsetDelete.width < -50 && !editPressed! {
+                        if offsetDelete.width < -50 && !editPressed {
                             withAnimation {
                                 offsetDelete.width = -70
+                                anyChatDragging = false
                             }
                         }
                         else {
                             withAnimation {
                                 offsetDelete.width = 0
+                                anyChatDragging = false
                             }
                         }
                     }
-                )
+            )
             .onTapGesture {
-                withAnimation {
-                    offsetDelete.width = 0
+                if editPressed{
+                    chatSelected.toggle()
+                }
+                else {
+                    withAnimation {
+                        anyDragCancelled = true
+                    }
                 }
             }
             
@@ -112,7 +123,7 @@ struct ChatsRowView: View {
                     .aspectRatio(1, contentMode: .fill)
                     .frame(width: 20, height: 20)
                     .padding()
-                    .offset(x: editPressed! ? 0 : -50, y: 5)
+                    .offset(x: editPressed ? 0 : -50, y: 5)
                     .foregroundColor(.blue)
                     .onTapGesture {
                         chatSelected.toggle()
@@ -146,8 +157,22 @@ struct ChatsRowView: View {
             withAnimation {
                 offsetDelete.width = 0
             }
-            if !pressed! {
+            if !pressed {
                 chatSelected = false
+            }
+        }
+        .onChange(of: anyChatDragging) { dragging in
+            if dragging && offsetDelete.width == -70 {  // that means, current chat is already dragged (because its offset is -70), so at the moment there is another chat dragging, and therefore this chat should be undragged.
+                withAnimation {
+                    offsetDelete.width = 0
+                }
+            }
+        }
+        .onChange(of: anyDragCancelled) { cancelled in
+            if cancelled {
+                withAnimation {
+                    offsetDelete.width = 0
+                }
             }
         }
     }
@@ -155,6 +180,6 @@ struct ChatsRowView: View {
 
 struct ChatsRowView_Previews: PreviewProvider {
     static var previews: some View {
-        ChatsRowView(editPressed: .constant(false))
+        ChatsRowView(anyChatDragging: .constant(false), anyDragCancelled: .constant(true), editPressed: .constant(false))
     }
 }

@@ -9,18 +9,20 @@ import SwiftUI
 
 struct ChatsTabView: View {
     
-    @State var editPressed: Bool? = false
+    @State var anyDragCancelled = true
+    @State var anyChatDragging = false
+    @State var editPressed = false
     
     var body: some View {
         VStack(spacing: 0) {
-            TopBarView(topBarType: TopBarType.Chats, friendsEditPressed: .constant(nil), chatsEditPressed: $editPressed)
+            TopBarView(topBarType: TopBarType.Chats, friendsEditPressed: .constant(false), chatsEditPressed: $editPressed)
                 .frame(height: 60)
             ScrollView(showsIndicators: false) {
                 ForEach(0 ..< 15) { item in
-                    ChatsRowView(editPressed: $editPressed)
+                    ChatsRowView(anyChatDragging: $anyChatDragging, anyDragCancelled: $anyDragCancelled, editPressed: $editPressed)
                 }
             }
-            BottomBarView(bottomBarType: BottomBarType.Chats)
+            BottomBarView(bottomBarType: editPressed ? BottomBarType.Delete : BottomBarType.Chats)
         }
         .padding(.top, CGFloat(UIApplication.shared.windows.first?.safeAreaInsets.top ?? 0))
         .ignoresSafeArea(edges: .top)

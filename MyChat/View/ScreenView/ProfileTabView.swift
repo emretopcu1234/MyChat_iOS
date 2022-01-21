@@ -17,7 +17,7 @@ struct ProfileTabView: View {
     
     var body: some View {
         VStack(spacing: 10) {
-            TopBarView(topBarType: TopBarType.Profile, friendsEditPressed: .constant(nil), chatsEditPressed: .constant(nil))
+            TopBarView(topBarType: TopBarType.Profile, friendsEditPressed: .constant(false), chatsEditPressed: .constant(false))
                 .frame(height: 60)
             Image(systemName: "person.circle")
                 .resizable()

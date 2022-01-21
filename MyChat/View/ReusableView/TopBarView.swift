@@ -19,8 +19,8 @@ struct TopBarView: View {
     var topBarType: TopBarType
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    @Binding var friendsEditPressed: Bool?
-    @Binding var chatsEditPressed: Bool?
+    @Binding var friendsEditPressed: Bool
+    @Binding var chatsEditPressed: Bool
         
     var body: some View {
         
@@ -37,25 +37,18 @@ struct TopBarView: View {
                     HStack {
                         Button {
                             withAnimation {
-                                friendsEditPressed!.toggle()
+                                friendsEditPressed.toggle()
                             }
                         } label: {
-                            if let pressed = friendsEditPressed {
-                                if !pressed {
-                                    Text("Edit")
-                                        .font(.title3)
-                                        .padding()
-                                }
-                                else {
-                                    Text("Done")
-                                        .font(.title3)
-                                        .bold()
-                                        .padding()
-                                }
-                            }
-                            else {
+                            if !friendsEditPressed {
                                 Text("Edit")
                                     .font(.title3)
+                                    .padding()
+                            }
+                            else {
+                                Text("Done")
+                                    .font(.title3)
+                                    .bold()
                                     .padding()
                             }
                         }
@@ -67,6 +60,7 @@ struct TopBarView: View {
                                 .scaleEffect(1.5)
                                 .padding()
                         }
+                        .disabled(friendsEditPressed ? true : false)
                     }
                 }
             case .Chats:
@@ -80,25 +74,18 @@ struct TopBarView: View {
                     HStack {
                         Button {
                             withAnimation {
-                                chatsEditPressed!.toggle()
+                                chatsEditPressed.toggle()
                             }
                         } label: {
-                            if let pressed = chatsEditPressed {
-                                if !pressed {
-                                    Text("Edit")
-                                        .font(.title3)
-                                        .padding()
-                                }
-                                else {
-                                    Text("Done")
-                                        .font(.title3)
-                                        .bold()
-                                        .padding()
-                                }
-                            }
-                            else {
+                            if !chatsEditPressed {
                                 Text("Edit")
                                     .font(.title3)
+                                    .padding()
+                            }
+                            else {
+                                Text("Done")
+                                    .font(.title3)
+                                    .bold()
                                     .padding()
                             }
                         }
@@ -110,6 +97,7 @@ struct TopBarView: View {
                                 .scaleEffect(1.5)
                                 .padding()
                         }
+                        .disabled(chatsEditPressed ? true : false)
                     }
                 }
             case .SpecificChat:

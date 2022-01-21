@@ -9,27 +9,29 @@ import SwiftUI
 
 struct FriendsRowView: View {
     
-    @State var showFriendProfile = false
-    @State var offsetDelete = CGSize.zero
-    @State var friendSelected = false
-    @Binding var editPressed: Bool?
+    @State private var showFriendProfile = false
+    @State private var offsetDelete = CGSize.zero
+    @State private var friendSelected = false
+    @Binding var anyFriendDragging: Bool
+    @Binding var anyDragCancelled: Bool
+    @Binding var editPressed: Bool
     
     var body: some View {
         ZStack {
             VStack {
                 Divider()
                 Button {
-                    if editPressed! {
+                    if editPressed {
                         friendSelected.toggle()
                     }
                     else {
-                        if offsetDelete.width == 0 {
+                        if anyDragCancelled {
                             UINavigationBar.setAnimationsEnabled(true)
                             showFriendProfile = true
                         }
                         else {
                             withAnimation {
-                                offsetDelete.width = 0
+                                anyDragCancelled = true
                             }
                         }
                     }
@@ -58,33 +60,42 @@ struct FriendsRowView: View {
                 }
             }
             .padding(.bottom, 5)
-            .offset(x: editPressed! ? 50 : min(0, offsetDelete.width))
+            .offset(x: editPressed ? 50 : min(0, offsetDelete.width))
             .background(friendSelected ? Color("LightBlue") : .white)
             .gesture(
-                DragGesture()
+                 DragGesture()
                     .onChanged{ gesture in
-                        if !editPressed! {
+                        if !editPressed {
                             withAnimation {
                                 offsetDelete.width = max(-70, gesture.translation.width)
+                                anyFriendDragging = true
+                                anyDragCancelled = false
                             }
                         }
                     }
                     .onEnded{ _ in
-                        if offsetDelete.width < -50 && !editPressed! {
+                        if offsetDelete.width < -50 && !editPressed {
                             withAnimation {
                                 offsetDelete.width = -70
+                                anyFriendDragging = false
                             }
                         }
                         else {
                             withAnimation {
                                 offsetDelete.width = 0
+                                anyFriendDragging = false
                             }
                         }
                     }
-                )
+            )
             .onTapGesture {
-                withAnimation {
-                    offsetDelete.width = 0
+                if editPressed{
+                    friendSelected.toggle()
+                }
+                else {
+                    withAnimation {
+                        anyDragCancelled = true
+                    }
                 }
             }
             
@@ -94,7 +105,7 @@ struct FriendsRowView: View {
                     .aspectRatio(1, contentMode: .fill)
                     .frame(width: 20, height: 20)
                     .padding()
-                    .offset(x: editPressed! ? 0 : -50, y: 5)
+                    .offset(x: editPressed ? 0 : -50, y: 5)
                     .foregroundColor(.blue)
                     .onTapGesture {
                         friendSelected.toggle()
@@ -128,8 +139,22 @@ struct FriendsRowView: View {
             withAnimation {
                 offsetDelete.width = 0
             }
-            if !pressed! {
+            if !pressed {
                 friendSelected = false
+            }
+        }
+        .onChange(of: anyFriendDragging) { dragging in
+            if dragging && offsetDelete.width == -70 { // that means, current friend is already dragged (because its offset is -70), so at the moment there is another friend dragging, and therefore this friend should be undragged.
+                withAnimation {
+                    offsetDelete.width = 0
+                }
+            }
+        }
+        .onChange(of: anyDragCancelled) { cancelled in
+            if cancelled {
+                withAnimation {
+                    offsetDelete.width = 0
+                }
             }
         }
     }
@@ -137,6 +162,6 @@ struct FriendsRowView: View {
 
 struct FriendsRowView_Previews: PreviewProvider {
     static var previews: some View {
-        FriendsRowView(editPressed: .constant(false))
+        FriendsRowView(anyFriendDragging: .constant(false), anyDragCancelled: .constant(true), editPressed: .constant(false))
     }
 }
