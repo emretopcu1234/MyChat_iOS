@@ -13,6 +13,8 @@ struct SpecificChatView: View {
 
     @State var keyboardActive = false
     @State var textFieldMessage: String = ""
+    
+    @FocusState private var isMessageFocused: Bool
 
     var body: some View {
         VStack(spacing: 0) {
@@ -41,6 +43,7 @@ struct SpecificChatView: View {
                     UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                     withAnimation {
                         keyboardActive = false
+                        isMessageFocused = false
                     }
                 }
                 VStack {
@@ -56,14 +59,16 @@ struct SpecificChatView: View {
                                 .background(.white)
                                 .cornerRadius(15)
                                 .offset(y: -15)
+                                .focused($isMessageFocused)
                                 .onTapGesture {
                                     withAnimation {
                                         keyboardActive = true
+                                        isMessageFocused = true
                                     }
                                 }
                             Spacer()
                             Button {
-                                // TODO
+                                isMessageFocused = true
                             } label: {
                                 Image(systemName: "arrow.up.circle.fill")
                                     .scaleEffect(2)
@@ -92,6 +97,8 @@ struct SpecificChatView: View {
 
 struct SpecificChatView_Previews: PreviewProvider {
     static var previews: some View {
-        SpecificChatView()
+        ZStack {
+            SpecificChatView()
+        }
     }
 }

@@ -12,6 +12,8 @@ struct FriendsRowView: View {
     @State private var showFriendProfile = false
     @State private var offsetDelete = CGSize.zero
     @State private var friendSelected = false
+    @State private var showDeleteConfirmation = false
+    
     @Binding var anyFriendDragging: Bool
     @Binding var anyDragCancelled: Bool
     @Binding var editPressed: Bool
@@ -122,6 +124,21 @@ struct FriendsRowView: View {
                         Text("Delete")
                             .font(.system(size: 15))
                             .foregroundColor(.white)
+                            .onTapGesture {
+                                UINavigationBar.setAnimationsEnabled(true)
+                                showDeleteConfirmation = true
+                            }
+                            .confirmationDialog("", isPresented: $showDeleteConfirmation) {
+                                Button("Delete", role: .destructive) {
+                                    // TODO
+                                    anyDragCancelled = true
+                                }
+                                Button("Cancel", role: .cancel) {
+                                    anyDragCancelled = true
+                                }
+                            } message: {
+                                Text("Are you sure you want to delete the chat with Michael Clooney?")
+                            }
                         Spacer()
                     }
                     .frame(width: 70)

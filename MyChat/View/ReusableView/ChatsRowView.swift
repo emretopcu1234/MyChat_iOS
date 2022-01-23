@@ -12,6 +12,8 @@ struct ChatsRowView: View {
     @State private var enterChat: Bool?
     @State private var offsetDelete = CGSize.zero
     @State private var chatSelected = false
+    @State private var showDeleteConfirmation = false
+    
     @Binding var anyChatDragging: Bool
     @Binding var anyDragCancelled: Bool
     @Binding var editPressed: Bool
@@ -138,6 +140,21 @@ struct ChatsRowView: View {
                         Text("Delete")
                             .font(.system(size: 15))
                             .foregroundColor(.white)
+                            .onTapGesture {
+                                UINavigationBar.setAnimationsEnabled(true)
+                                showDeleteConfirmation = true
+                            }
+                            .confirmationDialog("", isPresented: $showDeleteConfirmation) {
+                                Button("Delete", role: .destructive) {
+                                    // TODO
+                                    anyDragCancelled = true
+                                }
+                                Button("Cancel", role: .cancel) {
+                                    anyDragCancelled = true
+                                }
+                            } message: {
+                                Text("Are you sure you want to delete the chat with Michael Clooney?")
+                            }
                         Spacer()
                     }
                     .frame(width: 70)

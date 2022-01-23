@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2907C490279DF521006E33A2 /* WelcomePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2907C48F279DF521006E33A2 /* WelcomePageView.swift */; };
+		2907C492279DFF45006E33A2 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2907C491279DFF45006E33A2 /* LoginView.swift */; };
+		2907C494279E01AE006E33A2 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2907C493279E01AE006E33A2 /* RegisterView.swift */; };
 		2928AEE8278F556600A45FC6 /* FriendsRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2928AEE7278F556600A45FC6 /* FriendsRowView.swift */; };
 		2934EB91279CB776007DE589 /* CreateFriendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2934EB90279CB776007DE589 /* CreateFriendView.swift */; };
 		294803802794C5DB00C8D9F5 /* KeyboardAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2948037F2794C5DB00C8D9F5 /* KeyboardAction.swift */; };
@@ -30,6 +33,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2907C48F279DF521006E33A2 /* WelcomePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomePageView.swift; sourceTree = "<group>"; };
+		2907C491279DFF45006E33A2 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		2907C493279E01AE006E33A2 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		2928AEE7278F556600A45FC6 /* FriendsRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsRowView.swift; sourceTree = "<group>"; };
 		2934EB90279CB776007DE589 /* CreateFriendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateFriendView.swift; sourceTree = "<group>"; };
 		2948037F2794C5DB00C8D9F5 /* KeyboardAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardAction.swift; sourceTree = "<group>"; };
@@ -123,6 +129,9 @@
 				29F1EF5A2798B36C009A6C8D /* FriendProfileView.swift */,
 				2934EB90279CB776007DE589 /* CreateFriendView.swift */,
 				29BCB106279CC54800369F76 /* CreateChatView.swift */,
+				2907C48F279DF521006E33A2 /* WelcomePageView.swift */,
+				2907C491279DFF45006E33A2 /* LoginView.swift */,
+				2907C493279E01AE006E33A2 /* RegisterView.swift */,
 			);
 			path = ScreenView;
 			sourceTree = "<group>";
@@ -236,9 +245,11 @@
 				295FB6492790D9A2007AA467 /* SpecificChatRowView.swift in Sources */,
 				295FB64D2790E018007AA467 /* ChatBubbleShape.swift in Sources */,
 				29C37359278E313A00E34242 /* FriendsTabView.swift in Sources */,
+				2907C494279E01AE006E33A2 /* RegisterView.swift in Sources */,
 				29BCB107279CC54800369F76 /* CreateChatView.swift in Sources */,
 				29C3735D278E315300E34242 /* ProfileTabView.swift in Sources */,
 				29C37361278E31DE00E34242 /* ChatsTabView.swift in Sources */,
+				2907C490279DF521006E33A2 /* WelcomePageView.swift in Sources */,
 				29F718042797626E000DEA71 /* BottomBarView.swift in Sources */,
 				295FB6452790B3EF007AA467 /* ChatsRowView.swift in Sources */,
 				29C3735F278E318D00E34242 /* SpecificChatView.swift in Sources */,
@@ -250,6 +261,7 @@
 				2928AEE8278F556600A45FC6 /* FriendsRowView.swift in Sources */,
 				29C37349278E300B00E34242 /* GeneralView.swift in Sources */,
 				29C37347278E300B00E34242 /* MyChatApp.swift in Sources */,
+				2907C492279DFF45006E33A2 /* LoginView.swift in Sources */,
 				29F1EF5B2798B36C009A6C8D /* FriendProfileView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

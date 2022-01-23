@@ -9,6 +9,8 @@ import SwiftUI
 
 struct CreateChatView: View {
     
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    
     @Binding var newChatSelected: Bool
     
     var body: some View {
@@ -16,7 +18,7 @@ struct CreateChatView: View {
             ZStack {
                 HStack {
                     Button {
-                        // TODO
+                        presentationMode.wrappedValue.dismiss()
                     } label: {
                         Text("Cancel")
                             .font(.title3)

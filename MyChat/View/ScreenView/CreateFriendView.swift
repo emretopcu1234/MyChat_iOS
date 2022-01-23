@@ -9,13 +9,17 @@ import SwiftUI
 
 struct CreateFriendView: View {
     
-    @State var textFieldMobile: String = ""
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    
+    @State private var textFieldMobile: String = ""
+    
+    @FocusState private var isMobileFocused: Bool
     
     var body: some View {
         VStack {
             HStack {
                 Button {
-                    // TODO
+                    presentationMode.wrappedValue.dismiss()
                 } label: {
                     Text("Cancel")
                         .font(.title3)
@@ -32,7 +36,7 @@ struct CreateFriendView: View {
                     Text("Create")
                         .font(.title3)
                         .padding(.trailing)
-                        .disabled(true)
+                        .disabled(textFieldMobile.count == 0 ? true : false)
                 }
             }
             Spacer()
@@ -44,14 +48,12 @@ struct CreateFriendView: View {
                 TextField("Enter mobile", text: $textFieldMobile)
                     .padding(.leading)
                     .keyboardType(.numberPad)
+                    .focused($isMobileFocused)
             }
             .frame(maxWidth: UIScreen.main.bounds.width - 30)
             .padding(EdgeInsets.init(top: 10, leading: 0, bottom: 10, trailing: 0))
             .background(.white)
             .cornerRadius(15)
-            .onTapGesture {
-                // TODO
-            }
             Spacer()
         }
         .frame(width: UIScreen.self.main.bounds.width, height: UIScreen.self.main.bounds.height)
@@ -61,12 +63,17 @@ struct CreateFriendView: View {
         .adaptsToKeyboard()
         .onAppear {
             UINavigationBar.setAnimationsEnabled(true)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                isMobileFocused = true
+            }
         }
     }
 }
 
 struct CreateFriendView_Previews: PreviewProvider {
     static var previews: some View {
-        CreateFriendView()
+        ZStack {
+            CreateFriendView()
+        }
     }
 }
