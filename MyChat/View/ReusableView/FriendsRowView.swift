@@ -52,8 +52,7 @@ struct FriendsRowView: View {
                         }
                     }
                 }
-                .padding(.leading)
-                .padding(.trailing)
+                .padding(EdgeInsets.init(top: 0, leading: 10, bottom: 0, trailing: 10))
                 .buttonStyle(PlainButtonStyle())
                 .sheet(isPresented: $showFriendProfile) {
                     FriendProfileView()

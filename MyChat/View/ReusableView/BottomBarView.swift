@@ -65,12 +65,12 @@ struct BottomBarView: View {
                 } label: {
                     Text("Delete")
                         .font(.title3)
+                        .disabled(true)
                 }
             }
         }
         .frame(height: 55)
-        .padding(.leading, 40)
-        .padding(.trailing, 40)
+        .padding(EdgeInsets.init(top: 0, leading: 40, bottom: 0, trailing: 40))
         .background(Color("DarkWhite"))
         .ignoresSafeArea(.keyboard)
     }

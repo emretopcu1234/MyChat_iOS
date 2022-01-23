@@ -33,8 +33,7 @@ struct SpecificChatView: View {
                             
                         }
                     }
-                    .padding(.top, 25)
-                    .padding(.bottom, 15)
+                    .padding(EdgeInsets.init(top: 25, leading: 0, bottom: 15, trailing: 0))
                     .frame(height: UIScreen.self.main.bounds.height - 155)
                     .offset(y: keyboardActive ? -keyboardHeight + 70 : -10)
                 }
@@ -45,7 +44,7 @@ struct SpecificChatView: View {
                     }
                 }
                 VStack {
-                    TopBarView(topBarType: TopBarType.SpecificChat, friendsEditPressed: .constant(false), chatsEditPressed: .constant(false))
+                    TopBarView(topBarType: TopBarType.SpecificChat, friendsEditPressed: .constant(false), chatsEditPressed: .constant(false), newChatSelected: .constant(false))
                         .frame(height: 60)
                     Spacer()
                     VStack {
@@ -53,8 +52,7 @@ struct SpecificChatView: View {
                             TextField("Message", text: $textFieldMessage)
                                 .frame(height:30)
                                 .frame(maxWidth: .infinity)
-                                .padding(.leading)
-                                .padding(.trailing)
+                                .padding(EdgeInsets.init(top: 0, leading: 10, bottom: 0, trailing: 10))
                                 .background(.white)
                                 .cornerRadius(15)
                                 .offset(y: -15)
@@ -73,8 +71,7 @@ struct SpecificChatView: View {
                                     .offset(y: -15)
                             }
                         }
-                        .padding()
-                        .padding(.bottom, 20)
+                        .padding(EdgeInsets.init(top: 13, leading: 10, bottom: 37, trailing: 10))
                         .background(Color("DarkWhite"))
                         .frame(height: 20)
                         .offset(y: keyboardActive ? -keyboardHeight + 120 : -10)
@@ -82,8 +79,7 @@ struct SpecificChatView: View {
                 }
             }
         }
-        .padding(.top, CGFloat(UIApplication.shared.windows.first?.safeAreaInsets.top ?? 0))
-        .padding(.bottom, 10)
+        .padding(EdgeInsets.init(top: CGFloat(UIApplication.shared.windows.first?.safeAreaInsets.top ?? 0), leading: 0, bottom: 10, trailing: 0))
         .ignoresSafeArea(edges: .all)
         .navigationBarTitle("", displayMode: .inline)
         .navigationBarHidden(true)

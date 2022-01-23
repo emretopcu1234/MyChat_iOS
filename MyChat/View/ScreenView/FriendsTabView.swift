@@ -13,10 +13,9 @@ struct FriendsTabView: View {
     @State var anyFriendDragging = false
     @State var editPressed = false
     
-    
     var body: some View {
         VStack(spacing: 0) {
-            TopBarView(topBarType: TopBarType.Friends, friendsEditPressed: $editPressed, chatsEditPressed: .constant(false))
+            TopBarView(topBarType: TopBarType.Friends, friendsEditPressed: $editPressed, chatsEditPressed: .constant(false), newChatSelected: .constant(false))
                 .frame(height: 60)
             ScrollView(showsIndicators: false) {
                 ForEach(0 ..< 15) { index in

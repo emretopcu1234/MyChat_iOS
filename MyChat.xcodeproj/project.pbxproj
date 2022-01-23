@@ -8,11 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		2928AEE8278F556600A45FC6 /* FriendsRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2928AEE7278F556600A45FC6 /* FriendsRowView.swift */; };
+		2934EB91279CB776007DE589 /* CreateFriendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2934EB90279CB776007DE589 /* CreateFriendView.swift */; };
 		294803802794C5DB00C8D9F5 /* KeyboardAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2948037F2794C5DB00C8D9F5 /* KeyboardAction.swift */; };
 		295FB6452790B3EF007AA467 /* ChatsRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295FB6442790B3EF007AA467 /* ChatsRowView.swift */; };
 		295FB6472790BBE7007AA467 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295FB6462790BBE7007AA467 /* ContentView.swift */; };
 		295FB6492790D9A2007AA467 /* SpecificChatRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295FB6482790D9A2007AA467 /* SpecificChatRowView.swift */; };
 		295FB64D2790E018007AA467 /* ChatBubbleShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295FB64C2790E018007AA467 /* ChatBubbleShape.swift */; };
+		29BCB107279CC54800369F76 /* CreateChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29BCB106279CC54800369F76 /* CreateChatView.swift */; };
+		29BCB109279CC63500369F76 /* CreateChatRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29BCB108279CC63500369F76 /* CreateChatRowView.swift */; };
 		29C37347278E300B00E34242 /* MyChatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C37346278E300B00E34242 /* MyChatApp.swift */; };
 		29C37349278E300B00E34242 /* GeneralView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C37348278E300B00E34242 /* GeneralView.swift */; };
 		29C3734B278E300B00E34242 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29C3734A278E300B00E34242 /* Assets.xcassets */; };
@@ -28,11 +31,14 @@
 
 /* Begin PBXFileReference section */
 		2928AEE7278F556600A45FC6 /* FriendsRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsRowView.swift; sourceTree = "<group>"; };
+		2934EB90279CB776007DE589 /* CreateFriendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateFriendView.swift; sourceTree = "<group>"; };
 		2948037F2794C5DB00C8D9F5 /* KeyboardAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardAction.swift; sourceTree = "<group>"; };
 		295FB6442790B3EF007AA467 /* ChatsRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsRowView.swift; sourceTree = "<group>"; };
 		295FB6462790BBE7007AA467 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		295FB6482790D9A2007AA467 /* SpecificChatRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecificChatRowView.swift; sourceTree = "<group>"; };
 		295FB64C2790E018007AA467 /* ChatBubbleShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBubbleShape.swift; sourceTree = "<group>"; };
+		29BCB106279CC54800369F76 /* CreateChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateChatView.swift; sourceTree = "<group>"; };
+		29BCB108279CC63500369F76 /* CreateChatRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateChatRowView.swift; sourceTree = "<group>"; };
 		29C37343278E300B00E34242 /* MyChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		29C37346278E300B00E34242 /* MyChatApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyChatApp.swift; sourceTree = "<group>"; };
 		29C37348278E300B00E34242 /* GeneralView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralView.swift; sourceTree = "<group>"; };
@@ -115,6 +121,8 @@
 				29C3735E278E318D00E34242 /* SpecificChatView.swift */,
 				29C37360278E31DE00E34242 /* ChatsTabView.swift */,
 				29F1EF5A2798B36C009A6C8D /* FriendProfileView.swift */,
+				2934EB90279CB776007DE589 /* CreateFriendView.swift */,
+				29BCB106279CC54800369F76 /* CreateChatView.swift */,
 			);
 			path = ScreenView;
 			sourceTree = "<group>";
@@ -127,6 +135,7 @@
 				295FB6442790B3EF007AA467 /* ChatsRowView.swift */,
 				295FB6482790D9A2007AA467 /* SpecificChatRowView.swift */,
 				29F718032797626E000DEA71 /* BottomBarView.swift */,
+				29BCB108279CC63500369F76 /* CreateChatRowView.swift */,
 			);
 			path = ReusableView;
 			sourceTree = "<group>";
@@ -227,14 +236,17 @@
 				295FB6492790D9A2007AA467 /* SpecificChatRowView.swift in Sources */,
 				295FB64D2790E018007AA467 /* ChatBubbleShape.swift in Sources */,
 				29C37359278E313A00E34242 /* FriendsTabView.swift in Sources */,
+				29BCB107279CC54800369F76 /* CreateChatView.swift in Sources */,
 				29C3735D278E315300E34242 /* ProfileTabView.swift in Sources */,
 				29C37361278E31DE00E34242 /* ChatsTabView.swift in Sources */,
 				29F718042797626E000DEA71 /* BottomBarView.swift in Sources */,
 				295FB6452790B3EF007AA467 /* ChatsRowView.swift in Sources */,
 				29C3735F278E318D00E34242 /* SpecificChatView.swift in Sources */,
+				2934EB91279CB776007DE589 /* CreateFriendView.swift in Sources */,
 				294803802794C5DB00C8D9F5 /* KeyboardAction.swift in Sources */,
 				29C37365278E3ADA00E34242 /* TopBarView.swift in Sources */,
 				295FB6472790BBE7007AA467 /* ContentView.swift in Sources */,
+				29BCB109279CC63500369F76 /* CreateChatRowView.swift in Sources */,
 				2928AEE8278F556600A45FC6 /* FriendsRowView.swift in Sources */,
 				29C37349278E300B00E34242 /* GeneralView.swift in Sources */,
 				29C37347278E300B00E34242 /* MyChatApp.swift in Sources */,

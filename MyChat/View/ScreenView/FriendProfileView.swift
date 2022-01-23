@@ -19,21 +19,6 @@ struct FriendProfileView: View {
                 .frame(height: 30)
             VStack(alignment: .leading, spacing: 0) {
                 HStack {
-                    Text("Name")
-                        .font(.title3)
-                        .padding(.leading)
-                    Spacer()
-                }
-                Text("Michael Clooney")
-                    .padding(.leading)
-            }
-            .frame(maxWidth: UIScreen.main.bounds.width - 50)
-            .padding(.top, 10)
-            .padding(.bottom, 10)
-            .background(.white)
-            .cornerRadius(15)
-            VStack(alignment: .leading, spacing: 0) {
-                HStack {
                     Text("Mobile")
                         .font(.title3)
                         .padding(.leading)
@@ -44,8 +29,21 @@ struct FriendProfileView: View {
                     .keyboardType(.numberPad)
             }
             .frame(maxWidth: UIScreen.main.bounds.width - 50)
-            .padding(.top, 10)
-            .padding(.bottom, 10)
+            .padding(EdgeInsets.init(top: 10, leading: 0, bottom: 10, trailing: 0))
+            .background(.white)
+            .cornerRadius(15)
+            VStack(alignment: .leading, spacing: 0) {
+                HStack {
+                    Text("Name")
+                        .font(.title3)
+                        .padding(.leading)
+                    Spacer()
+                }
+                Text("Michael Clooney")
+                    .padding(.leading)
+            }
+            .frame(maxWidth: UIScreen.main.bounds.width - 50)
+            .padding(EdgeInsets.init(top: 10, leading: 0, bottom: 10, trailing: 0))
             .background(.white)
             .cornerRadius(15)
             VStack(alignment: .leading, spacing: 0) {
@@ -60,8 +58,7 @@ struct FriendProfileView: View {
                 
             }
             .frame(maxWidth: UIScreen.main.bounds.width - 50)
-            .padding(.top, 10)
-            .padding(.bottom, 10)
+            .padding(EdgeInsets.init(top: 10, leading: 0, bottom: 10, trailing: 0))
             .background(.white)
             .cornerRadius(15)
             Spacer()

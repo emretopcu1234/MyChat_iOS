@@ -66,8 +66,7 @@ struct ChatsRowView: View {
                                     Text("13")
                                         .foregroundColor(.white)
                                 }
-                                .padding(.top, 3)
-                                .padding(.trailing, 3)
+                                .padding(EdgeInsets.init(top: 3, leading: 0, bottom: 0, trailing: 3))
                             }
                         }
                     }
@@ -75,9 +74,7 @@ struct ChatsRowView: View {
                 }
                 .buttonStyle(PlainButtonStyle())
             }
-            .padding(.leading)
-            .padding(.trailing)
-            .padding(.bottom, 5)
+            .padding(EdgeInsets.init(top: 0, leading: 10, bottom: 5, trailing: 10))
             .offset(x: editPressed ? 50 : min(0, offsetDelete.width))
             .background(chatSelected ? Color("LightBlue") : .white)
             .gesture(

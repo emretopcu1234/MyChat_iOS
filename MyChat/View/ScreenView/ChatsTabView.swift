@@ -12,10 +12,11 @@ struct ChatsTabView: View {
     @State var anyDragCancelled = true
     @State var anyChatDragging = false
     @State var editPressed = false
+    @State var newChatSelected = false
     
     var body: some View {
         VStack(spacing: 0) {
-            TopBarView(topBarType: TopBarType.Chats, friendsEditPressed: .constant(false), chatsEditPressed: $editPressed)
+            TopBarView(topBarType: TopBarType.Chats, friendsEditPressed: .constant(false), chatsEditPressed: $editPressed, newChatSelected: $newChatSelected)
                 .frame(height: 60)
             ScrollView(showsIndicators: false) {
                 ForEach(0 ..< 15) { item in

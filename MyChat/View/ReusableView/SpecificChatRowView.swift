@@ -22,43 +22,105 @@ struct SpecificChatRowView: View {
         HStack {
             switch specificChatRowType {
             case .Sender:
-                HStack {
-                    Spacer()
-                        .frame(width:60)
-                    Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt")
-                        .font(.system(size: 17))
-                        .padding(8)
-                        .offset(x:-30)
-                        .frame(maxWidth: .infinity, alignment: .trailing)
-                        .background(Color("LightGreen"))
-                        .clipShape(ChatBubbleShape(isSender: true))
-                        .overlay(
-                            Text("19:45")
-                                .font(.system(size: 12))
-                                .foregroundColor(.gray)
-                                .padding(5)
-                            , alignment: .bottomTrailing)
+                VStack {
+                    HStack {
+                        Spacer()
+                        Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt")
+                            .font(.system(size: 17))
+                            .padding(EdgeInsets.init(top: 8, leading: 10, bottom: 8, trailing: 45))
+                            .overlay(
+                                Text("19:45")
+                                    .font(.system(size: 12))
+                                    .foregroundColor(.gray)
+                                    .padding(EdgeInsets.init(top: 8, leading: 0, bottom: 3, trailing: 10))
+                                , alignment: .bottomTrailing)
+                            .background(Color("LightGreen"))
+                            .clipShape(ChatBubbleShape(isSender: true))
+                    }
+                    .padding(EdgeInsets.init(top: 0, leading: 60, bottom: 0, trailing: 6))
+                    HStack {
+                        Spacer()
+                        Text("Lorem ipsum ")
+                            .font(.system(size: 17))
+                            .padding(EdgeInsets.init(top: 8, leading: 10, bottom: 8, trailing: 45))
+                            .overlay(
+                                Text("19:45")
+                                    .font(.system(size: 12))
+                                    .foregroundColor(.gray)
+                                    .padding(EdgeInsets.init(top: 8, leading: 0, bottom: 3, trailing: 10))
+                                , alignment: .bottomTrailing)
+                            .background(Color("LightGreen"))
+                            .clipShape(ChatBubbleShape(isSender: true))
+                    }
+                    .padding(EdgeInsets.init(top: 0, leading: 60, bottom: 0, trailing: 6))
+                    HStack {
+                        Spacer()
+                        Text("Lorem ipsum dolor s, consectetur adipiscing elit")
+                            .font(.system(size: 17))
+                            .padding(EdgeInsets.init(top: 8, leading: 10, bottom: 8, trailing: 45))
+                            .overlay(
+                                Text("19:45")
+                                    .font(.system(size: 12))
+                                    .foregroundColor(.gray)
+                                    .padding(EdgeInsets.init(top: 8, leading: 0, bottom: 3, trailing: 10))
+                                , alignment: .bottomTrailing)
+                            .background(Color("LightGreen"))
+                            .clipShape(ChatBubbleShape(isSender: true))
+                    }
+                    .padding(EdgeInsets.init(top: 0, leading: 60, bottom: 0, trailing: 6))
                 }
-                .padding(.trailing, 6)
             case .Receiver:
-                HStack {
-                    Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt")
-                        .font(.system(size: 17))
-                        .padding(8)
-                        .padding(.trailing, 30)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .background(.white)
-                        .clipShape(ChatBubbleShape(isSender: false))
-                        .overlay(
-                            Text("19:45")
-                                .font(.system(size: 12))
-                                .foregroundColor(.gray)
-                                .padding(5)
-                            , alignment: .bottomTrailing)
-                    Spacer()
-                        .frame(width:60)
+                VStack {
+                    HStack {
+                        Text("Lorem ipsum")
+                            .font(.system(size: 17))
+                            .padding(EdgeInsets.init(top: 8, leading: 10, bottom: 8, trailing: 50))
+                            .overlay(
+                                Text("19:45")
+                                    .font(.system(size: 12))
+                                    .foregroundColor(.gray)
+                                    .padding(EdgeInsets.init(top: 8, leading: 10, bottom: 3, trailing: 10))
+                                , alignment: .bottomTrailing)
+                            .background(.white)
+                            .clipShape(ChatBubbleShape(isSender: false))
+                            
+                        Spacer()
+                    }
+                    .padding(EdgeInsets.init(top: 0, leading: 6, bottom: 0, trailing: 60))
+                    HStack {
+                        Text("Lorem ipsum dolor sit amet, consectetur adipiscing eli")
+                            .font(.system(size: 17))
+                            .padding(EdgeInsets.init(top: 8, leading: 10, bottom: 8, trailing: 50))
+                            .overlay(
+                                Text("19:45")
+                                    .font(.system(size: 12))
+                                    .foregroundColor(.gray)
+                                    .padding(EdgeInsets.init(top: 8, leading: 10, bottom: 3, trailing: 10))
+                                , alignment: .bottomTrailing)
+                            .background(.white)
+                            .clipShape(ChatBubbleShape(isSender: false))
+                            
+                        Spacer()
+                    }
+                    .padding(EdgeInsets.init(top: 0, leading: 6, bottom: 0, trailing: 60))
+                    HStack {
+                        Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt")
+                            .font(.system(size: 17))
+                            .padding(EdgeInsets.init(top: 8, leading: 10, bottom: 8, trailing: 50))
+                            .overlay(
+                                Text("19:45")
+                                    .font(.system(size: 12))
+                                    .foregroundColor(.gray)
+                                    .padding(EdgeInsets.init(top: 8, leading: 10, bottom: 3, trailing: 10))
+                                , alignment: .bottomTrailing)
+                            .background(.white)
+                            .clipShape(ChatBubbleShape(isSender: false))
+                            
+                        Spacer()
+                    }
+                    .padding(EdgeInsets.init(top: 0, leading: 6, bottom: 0, trailing: 60))
                 }
-                .padding(.leading, 6)
+                
             case .NewDate:
                 HStack {
                     Spacer()
@@ -87,6 +149,6 @@ struct SpecificChatRowView: View {
 
 struct SpecificChatRowView_Previews: PreviewProvider {
     static var previews: some View {
-        SpecificChatRowView(specificChatRowType: SpecificChatRowType.Receiver)
+        SpecificChatRowView(specificChatRowType: SpecificChatRowType.Sender)
     }
 }

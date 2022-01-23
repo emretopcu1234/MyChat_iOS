@@ -19,8 +19,14 @@ struct TopBarView: View {
     var topBarType: TopBarType
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    
+    @State private var showCreateFriendView = false
+    @State private var showCreateChatView = false
+    @State private var enterChat: Bool?
+    
     @Binding var friendsEditPressed: Bool
     @Binding var chatsEditPressed: Bool
+    @Binding var newChatSelected: Bool
         
     var body: some View {
         
@@ -54,52 +60,68 @@ struct TopBarView: View {
                         }
                         Spacer()
                         Button {
-                            // TODO
+                            UINavigationBar.setAnimationsEnabled(true)
+                            showCreateFriendView = true
                         } label: {
                             Image(systemName: "plus")
                                 .scaleEffect(1.5)
                                 .padding()
                         }
                         .disabled(friendsEditPressed ? true : false)
+                        .sheet(isPresented: $showCreateFriendView) {
+                            CreateFriendView()
+                        }
                     }
                 }
             case .Chats:
-                ZStack {
-                    HStack {
-                        Spacer()
-                        Text("Chats")
-                            .font(.title2)
-                        Spacer()
+                NavigationLink(destination: SpecificChatView(), tag: true, selection: $enterChat) {
+                    ZStack {
+                        HStack {
+                            Spacer()
+                            Text("Chats")
+                                .font(.title2)
+                            Spacer()
+                        }
+                        HStack {
+                            Button {
+                                withAnimation {
+                                    chatsEditPressed.toggle()
+                                }
+                            } label: {
+                                if !chatsEditPressed {
+                                    Text("Edit")
+                                        .font(.title3)
+                                        .padding()
+                                }
+                                else {
+                                    Text("Done")
+                                        .font(.title3)
+                                        .bold()
+                                        .padding()
+                                }
+                            }
+                            Spacer()
+                            Button {
+                                UINavigationBar.setAnimationsEnabled(true)
+                                showCreateChatView = true
+                            } label: {
+                                Image(systemName: "square.and.pencil")
+                                    .scaleEffect(1.5)
+                                    .padding()
+                            }
+                            .disabled(chatsEditPressed ? true : false)
+                            .sheet(isPresented: $showCreateChatView) {
+                                CreateChatView(newChatSelected: $newChatSelected)
+                            }
+                        }
                     }
-                    HStack {
-                        Button {
-                            withAnimation {
-                                chatsEditPressed.toggle()
-                            }
-                        } label: {
-                            if !chatsEditPressed {
-                                Text("Edit")
-                                    .font(.title3)
-                                    .padding()
-                            }
-                            else {
-                                Text("Done")
-                                    .font(.title3)
-                                    .bold()
-                                    .padding()
-                            }
+                    .onChange(of: newChatSelected) { chatSelected in
+                        if chatSelected {
+                            enterChat = true
                         }
-                        Spacer()
-                        Button {
-                            // TODO
-                        } label: {
-                            Image(systemName: "square.and.pencil")
-                                .scaleEffect(1.5)
-                                .padding()
-                        }
-                        .disabled(chatsEditPressed ? true : false)
                     }
                 }
+                .buttonStyle(PlainButtonStyle())
             case .SpecificChat:
                 ZStack {
                     HStack {
@@ -141,8 +163,7 @@ struct TopBarView: View {
                         Spacer()
                     }
                     Divider()
-                        .padding(.leading)
-                        .padding(.trailing)
+                        .padding(EdgeInsets.init(top: 0, leading: 10, bottom: 0, trailing: 10))
                 }
             }
         }
@@ -155,7 +176,7 @@ struct TopBarView: View {
 
 struct TopBarView_Previews: PreviewProvider {
     static var previews: some View {
-        TopBarView(topBarType: TopBarType.Friends, friendsEditPressed: .constant(false), chatsEditPressed: .constant(false))
+        TopBarView(topBarType: TopBarType.Friends, friendsEditPressed: .constant(false), chatsEditPressed: .constant(false), newChatSelected: .constant(false))
             .previewLayout(.sizeThatFits)
     }
 }

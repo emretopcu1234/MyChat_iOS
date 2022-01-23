@@ -19,7 +19,11 @@ struct MyChatApp: App {
 
 // TODO LIST:
 
-// Friends ve Chats kısmında edit butonuna basıldığında bottom bar değişecek (delete tuşu gelecek, gerçek appteki gibi)
+// textfield'lara focus yapabilmek için illa textfield'a basılmasın. parent'ına (beyaz background olan kısım) basılması da yeterli olsun.
+
+// ekrandaki herhangi bir yere basılınca textfield'ların focus'u kaybolsun. (textfield'ı olan view'lar için)
+
+// friend ekleme kısmında kayıtlı olmayan bir numara girilirse alerview çıkar.
 
 // ProfileTabView'da yer alan @StateObject var keyboardHeightHelper = KeyboardHeightHelper() ifadesi o view'dan silinip uygulamanın ilk açılacak ekranına eklenecek. uygulama ilk açıldığında login/enrollment page geleceği için orada mutlaka keyboard kullanılmak zorunda. daha sonra kişi login olup uygulamayı kapatıp yeniden açtığında login page gelmeyecek ama zaten keyboardheight ilk girişte userdefault dosyasına eklenmiş olduğu için sıkıntı olmayacak.
 
