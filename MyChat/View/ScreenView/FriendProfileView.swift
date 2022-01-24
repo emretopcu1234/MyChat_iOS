@@ -15,6 +15,7 @@ struct FriendProfileView: View {
                 .aspectRatio(1, contentMode: .fill)
                 .frame(width: 200, height: 200)
                 .foregroundColor(.gray)
+                .clipShape(Circle())
             Spacer()
                 .frame(height: 30)
             VStack(alignment: .leading, spacing: 0) {

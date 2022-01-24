@@ -11,10 +11,12 @@ struct WelcomePageView: View {
     
     @State private var showLoginView = false
     @State private var showRegisterView = false
-    @State var loginOrRegisterSuccessful: Bool?
+    @State var loginSuccessful: Bool?
+    @State var registerSuccessful: Bool?
+    
     
     var body: some View {
-        NavigationLink(destination: GeneralView(), tag: true, selection: $loginOrRegisterSuccessful) {
+        NavigationLink(destination: GeneralView(), tag: true, selection: $loginSuccessful) {
             VStack {
                 Text("Welcome to MyChat!")
                     .multilineTextAlignment(.center)
@@ -40,7 +42,7 @@ struct WelcomePageView: View {
                 }
                 .buttonStyle(PlainButtonStyle())
                 .sheet(isPresented: $showLoginView) {
-                    LoginView(loginSuccessful: $loginOrRegisterSuccessful)
+                    LoginView(loginSuccessful: $loginSuccessful)
                 }
                 Spacer()
                     .frame(height: 15)
@@ -59,7 +61,7 @@ struct WelcomePageView: View {
                 }
                 .buttonStyle(PlainButtonStyle())
                 .sheet(isPresented: $showRegisterView) {
-                    RegisterView(registerSuccessful: $loginOrRegisterSuccessful)
+                    RegisterView(registerSuccessful: $registerSuccessful)
                 }
                 Spacer()
                     .frame(minHeight: 100)
@@ -70,10 +72,18 @@ struct WelcomePageView: View {
             .navigationBarTitle("", displayMode: .inline)
             .navigationBarHidden(true)
             .onTapGesture {
-                loginOrRegisterSuccessful = false
+                loginSuccessful = false
             }
             .onAppear {
-                UINavigationBar.setAnimationsEnabled(true)
+                UINavigationBar.setAnimationsEnabled(false)
+            }
+            .onChange(of: registerSuccessful) { successful in
+                if successful! {
+                    UINavigationBar.setAnimationsEnabled(true)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        showLoginView = true
+                    }
+                }
             }
         }
         .buttonStyle(PlainButtonStyle())

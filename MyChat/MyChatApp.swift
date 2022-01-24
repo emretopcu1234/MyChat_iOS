@@ -19,13 +19,11 @@ struct MyChatApp: App {
 
 // TODO LIST:
 
-// login ve register view'lara devam et.
+// login ve register view'larda login/register butonuna basıldıktan sonra hata olustugu durumda cikacak alert'ları hallet.
 
 // edit kısımlarından sonra bottombar'daki delete butonunun enable / disable olma durumunu hallet. (aciliyeti yok, yardımcı class'lar olusturulacak, ona gore bir tasarım dusun)
 
-// add photo'ya basınca galeri acılacak.
-
-// friendstabview onappear metodunda animation false yapılıyor, ancak eger welcomepage'den gelindiyse animation true olmalı, daha sonrasında tablar arası gecislerde false olmalı. bunun icin de contentview'da bir state tanımlanabilir direkt olarak friendstabview'a mı giriyor, yoksa welcomepage'den mi geliyor anlasılması icin (cunku eger daha onceden girip oturumu da acık tuttuysa direkt friendstabview (ya da chats ya da profile) acılacak)
+// friendstabview onappear metodunda animation false yapılıyor, ancak eger welcomepage'den gelindiyse animation true olmalı, daha sonrasında tablar arası gecislerde false olmalı. bunun icin friendstabview'a bir tane degisken tanımlanıp onappear'da o degiskene gore anımation true ya da false'a cekilebilir.
 
 // ProfileTabView'da yer alan @StateObject var keyboardHeightHelper = KeyboardHeightHelper() ifadesi o view'dan silinip uygulamanın ilk açılacak ekranına eklenecek. uygulama ilk açıldığında login/enrollment page geleceği için orada mutlaka keyboard kullanılmak zorunda. daha sonra kişi login olup uygulamayı kapatıp yeniden açtığında login page gelmeyecek ama zaten keyboardheight ilk girişte userdefault dosyasına eklenmiş olduğu için sıkıntı olmayacak.
 

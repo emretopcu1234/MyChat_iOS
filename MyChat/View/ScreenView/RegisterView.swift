@@ -154,16 +154,6 @@ struct RegisterView: View {
             isNameFocused = false
             isEmailFocused = false
         }
-        
-//        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-////            .alert(isPresented: $alert) {
-////                Alert(title: Text("Error"), message: Text("There is an existing user with this mobile:"), dismissButton: .default(Text("OK")))
-////            }
-//            .onTapGesture {
-////                alert = true
-//                presentationMode.wrappedValue.dismiss()
-//                registerSuccessful = true
-//            }
     }
 }
 
