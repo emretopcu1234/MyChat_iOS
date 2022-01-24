@@ -15,9 +15,7 @@ struct GeneralView: View {
     }
     
     var body: some View {
-//        NavigationView {
-//            FriendsTabView()
-//        }
+        
         FriendsTabView()
         .navigationBarTitle("", displayMode: .inline)
         .navigationBarHidden(true)

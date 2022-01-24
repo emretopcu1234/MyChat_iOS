@@ -32,7 +32,7 @@ struct WelcomePageView: View {
                     Text("LOGIN")
                         .font(.system(size: 30))
                         .bold()
-                        .padding()
+                        .padding(10)
                         .foregroundColor(.white)
                         .frame(width: 250)
                         .background(Color("Blue"))
@@ -42,6 +42,8 @@ struct WelcomePageView: View {
                 .sheet(isPresented: $showLoginView) {
                     LoginView(loginSuccessful: $loginOrRegisterSuccessful)
                 }
+                Spacer()
+                    .frame(height: 15)
                 Button {
                     UINavigationBar.setAnimationsEnabled(true)
                     showRegisterView = true
@@ -49,7 +51,7 @@ struct WelcomePageView: View {
                     Text("REGISTER")
                         .font(.system(size: 30))
                         .bold()
-                        .padding()
+                        .padding(10)
                         .foregroundColor(.white)
                         .frame(width: 250)
                         .background(Color("Blue"))
@@ -60,12 +62,16 @@ struct WelcomePageView: View {
                     RegisterView(registerSuccessful: $loginOrRegisterSuccessful)
                 }
                 Spacer()
+                    .frame(minHeight: 100)
             }
             .frame(width: UIScreen.self.main.bounds.width, height: UIScreen.self.main.bounds.height)
-            .padding(EdgeInsets.init(top: 250, leading: 10, bottom: 100, trailing: 10))
+            .padding(EdgeInsets.init(top: 350, leading: 10, bottom: 0, trailing: 10))
             .background(Color("DarkWhite"))
             .navigationBarTitle("", displayMode: .inline)
             .navigationBarHidden(true)
+            .onTapGesture {
+                loginOrRegisterSuccessful = false
+            }
             .onAppear {
                 UINavigationBar.setAnimationsEnabled(true)
             }

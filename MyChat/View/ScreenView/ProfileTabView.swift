@@ -11,9 +11,9 @@ struct ProfileTabView: View {
     
     @StateObject var keyboardHeightHelper = KeyboardHeightHelper() // delete this line, and add it to the first view (related to the login or enrollment process) that includes textfield (in order to get the height of keyboard)
     
-    @State private var textFieldMobile: String = ""
-    @State private var textFieldName: String = ""
-    @State private var textFieldEmail: String = ""
+    @State private var textFieldMobile: String = "905555555555"
+    @State private var textFieldName: String = "Michael Clooney"
+    @State private var textFieldEmail: String = "mclooney@mychat.com"
     @State private var showMobileAlert = false
     @State private var showLogoutConfirmation = false
     
@@ -54,7 +54,7 @@ struct ProfileTabView: View {
                     Text("Mobile")
                         .font(.title3)
                         .padding(.leading)
-                    TextField("905555555555", text: $textFieldMobile)
+                    TextField("", text: $textFieldMobile)
                         .padding(.leading)
                         .keyboardType(.numberPad)
                         .focused($isMobileFocused)
@@ -73,7 +73,7 @@ struct ProfileTabView: View {
                     Text("Name")
                         .font(.title3)
                         .padding(.leading)
-                    TextField("Michael Clooney", text: $textFieldName)
+                    TextField("", text: $textFieldName)
                         .padding(.leading)
                         .focused($isNameFocused)
                 }
@@ -88,7 +88,7 @@ struct ProfileTabView: View {
                     Text("E-mail")
                         .font(.title3)
                         .padding(.leading)
-                    TextField("mclooney@mychat.com", text: $textFieldEmail)
+                    TextField("", text: $textFieldEmail)
                         .padding(.leading)
                         .focused($isEmailFocused)
                     
