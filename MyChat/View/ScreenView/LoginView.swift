@@ -11,7 +11,9 @@ struct LoginView: View {
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
-    @State private var alert = false
+    @StateObject var keyboardHeightHelper = KeyboardHeightHelper()
+    
+    @State private var showAlert = false
     @State private var textFieldMobile: String = ""
     @State private var textFieldPassword: String = ""
     @State private var passwordToggleActive = false
@@ -87,6 +89,7 @@ struct LoginView: View {
                 UINavigationBar.setAnimationsEnabled(true)
                 presentationMode.wrappedValue.dismiss()
                 loginSuccessful = true
+//                showAlert = true
             } label: {
                 Text("LOGIN")
                     .font(.system(size: 30))
@@ -98,6 +101,9 @@ struct LoginView: View {
                     .clipShape(RoundedRectangle(cornerRadius: CGFloat(15)))
             }
             .buttonStyle(PlainButtonStyle())
+            .alert(isPresented: $showAlert) {
+                Alert(title: Text("Error"), message: Text("There is an existing user with this mobile"), dismissButton: .default(Text("OK")))
+            }
             Spacer()
         }
         .frame(width: UIScreen.self.main.bounds.width, height: UIScreen.self.main.bounds.height)

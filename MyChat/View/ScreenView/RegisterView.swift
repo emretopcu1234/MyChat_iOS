@@ -11,7 +11,7 @@ struct RegisterView: View {
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
-    @State private var alert = false
+    @State private var showAlert = false
     @State private var textFieldMobile: String = ""
     @State private var textFieldPassword: String = ""
     @State private var textFieldPasswordAgain: String = ""
@@ -123,6 +123,7 @@ struct RegisterView: View {
                 UINavigationBar.setAnimationsEnabled(true)
                 presentationMode.wrappedValue.dismiss()
                 registerSuccessful = true
+//                showAlert = true
             } label: {
                 Text("REGISTER")
                     .font(.system(size: 30))
@@ -134,6 +135,9 @@ struct RegisterView: View {
                     .clipShape(RoundedRectangle(cornerRadius: CGFloat(15)))
             }
             .buttonStyle(PlainButtonStyle())
+            .alert(isPresented: $showAlert) {
+                Alert(title: Text("Error"), message: Text("There is an existing user with this mobile"), dismissButton: .default(Text("OK")))
+            }
             Spacer()
         }
         .frame(width: UIScreen.self.main.bounds.width, height: UIScreen.self.main.bounds.height)

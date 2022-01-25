@@ -12,6 +12,7 @@ enum SpecificChatRowType {
     case Receiver
     case NewDate
     case UnreadMessages
+    case UnknownPerson
 }
 
 struct SpecificChatRowView: View {
@@ -138,10 +139,32 @@ struct SpecificChatRowView: View {
                         .font(.system(size: 13))
                         .padding(5)
                         .foregroundColor(.gray)
-                        .clipShape(RoundedRectangle(cornerRadius: CGFloat(10)))
                         .frame(width: UIScreen.self.main.bounds.width)
                         .background(Color("DarkWhite"))
                 }
+            case .UnknownPerson:
+                VStack {
+                    Text("This person does not exist in your friend list.")
+                        .font(.system(size: 17))
+                        .multilineTextAlignment(.center)
+                        .padding()
+                        .frame(width: UIScreen.self.main.bounds.width)
+                    Divider()
+                        .offset(y: -5)
+                    HStack {
+                        Spacer()
+                        Button {
+                            // TODO
+                        } label: {
+                            Text("Add to friends")
+                                .font(.system(size: 20))
+                                .padding(10)
+                        }
+                        Spacer()
+                    }
+                    .offset(y: -5)
+                }
+                .background(Color("DarkWhite"))
             }
         }
     }
@@ -149,6 +172,6 @@ struct SpecificChatRowView: View {
 
 struct SpecificChatRowView_Previews: PreviewProvider {
     static var previews: some View {
-        SpecificChatRowView(specificChatRowType: SpecificChatRowType.Sender)
+        SpecificChatRowView(specificChatRowType: SpecificChatRowType.UnknownPerson)
     }
 }

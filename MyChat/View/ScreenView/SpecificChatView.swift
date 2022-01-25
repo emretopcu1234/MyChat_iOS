@@ -32,7 +32,7 @@ struct SpecificChatView: View {
                             SpecificChatRowView(specificChatRowType: SpecificChatRowType.UnreadMessages)
                             SpecificChatRowView(specificChatRowType: SpecificChatRowType.Sender)
                             SpecificChatRowView(specificChatRowType: SpecificChatRowType.Receiver)
-                            
+                            SpecificChatRowView(specificChatRowType: SpecificChatRowType.UnknownPerson)
                         }
                     }
                     .padding(EdgeInsets.init(top: 25, leading: 0, bottom: 15, trailing: 0))
@@ -81,6 +81,7 @@ struct SpecificChatView: View {
                         .frame(height: 20)
                         .offset(y: keyboardActive ? -keyboardHeight + 120 : -10)
                     }
+                    .disabled(true)
                 }
             }
         }

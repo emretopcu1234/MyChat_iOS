@@ -17,11 +17,17 @@ struct FriendsTabView: View {
         VStack(spacing: 0) {
             TopBarView(topBarType: TopBarType.Friends, friendsEditPressed: $editPressed, chatsEditPressed: .constant(false), newChatSelected: .constant(false))
                 .frame(height: 60)
+//            ScrollViewReader { scrollIndex in
             ScrollView(showsIndicators: false) {
-                ForEach(0 ..< 15) { index in
+                ForEach(0 ..< 35) { index in
                     FriendsRowView(anyFriendDragging: $anyFriendDragging, anyDragCancelled: $anyDragCancelled, editPressed: $editPressed)
+                        .id(index)
                 }
             }
+//                .onAppear {
+//                    scrollIndex.scrollTo(12)
+//                }
+//            }
             BottomBarView(bottomBarType: editPressed ? BottomBarType.Delete : BottomBarType.Friends)
         }
         .padding(.top, CGFloat(UIApplication.shared.windows.first?.safeAreaInsets.top ?? 0))

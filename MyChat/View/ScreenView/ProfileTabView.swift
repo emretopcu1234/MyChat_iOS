@@ -9,8 +9,6 @@ import SwiftUI
 
 struct ProfileTabView: View {
     
-    @StateObject var keyboardHeightHelper = KeyboardHeightHelper() // delete this line, and add it to the first view (related to the login or enrollment process) that includes textfield (in order to get the height of keyboard)
-    
     @State var showImagePicker: Bool = false
     @State var image: Image? = nil
     @State private var textFieldMobile: String = "905555555555"
