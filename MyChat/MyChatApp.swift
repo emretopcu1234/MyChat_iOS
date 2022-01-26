@@ -10,9 +10,11 @@ import SwiftUI
 @main
 struct MyChatApp: App {
     
+    let contentViewModel = ContentViewModel()
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(contentViewModel: contentViewModel)
         }
     }
 }

@@ -7,7 +7,9 @@
 
 import SwiftUI
 
-struct ChatsTabView: View {
+struct ChatsView: View {
+    
+    @EnvironmentObject var chatsViewModel: ChatsViewModel
     
     @State var anyDragCancelled = true
     @State var anyChatDragging = false
@@ -37,6 +39,6 @@ struct ChatsTabView: View {
 
 struct ChatsTabView_Previews: PreviewProvider {
     static var previews: some View {
-        ChatsTabView()
+        ChatsView()
     }
 }

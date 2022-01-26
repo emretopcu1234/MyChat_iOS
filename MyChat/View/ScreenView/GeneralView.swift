@@ -9,16 +9,16 @@ import SwiftUI
 
 struct GeneralView: View {
     
-    init(){
-        UITabBar.appearance().backgroundColor = UIColor(named: "DarkWhite")
-        UINavigationBar.setAnimationsEnabled(false)
-    }
-    
+    @EnvironmentObject var generalViewModel: GeneralViewModel
+        
     var body: some View {
         
-        FriendsTabView()
+        FriendsView()
         .navigationBarTitle("", displayMode: .inline)
         .navigationBarHidden(true)
+        .onAppear {
+            UINavigationBar.setAnimationsEnabled(true)
+        }
     }
 }
 

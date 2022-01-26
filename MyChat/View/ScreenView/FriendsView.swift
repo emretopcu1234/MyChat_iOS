@@ -7,7 +7,9 @@
 
 import SwiftUI
 
-struct FriendsTabView: View {
+struct FriendsView: View {
+    
+    @EnvironmentObject var friendsViewModel: FriendsViewModel
     
     @State var anyDragCancelled = true
     @State var anyFriendDragging = false
@@ -42,7 +44,7 @@ struct FriendsTabView: View {
 
 struct FriendsTabView_Previews: PreviewProvider {
     static var previews: some View {
-        FriendsTabView()
+        FriendsView()
     }
 }
 

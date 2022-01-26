@@ -22,7 +22,7 @@ struct BottomBarView: View {
         
         HStack(alignment: .center) {
             if bottomBarType != BottomBarType.Delete {
-                NavigationLink(destination: FriendsTabView()) {
+                NavigationLink(destination: FriendsView()) {
                     VStack(spacing: 5) {
                         Image(systemName: "person.3.fill")
                             .scaleEffect(1.3)
@@ -34,7 +34,7 @@ struct BottomBarView: View {
                 }
                 .disabled(bottomBarType == BottomBarType.Friends)
                 Spacer()
-                NavigationLink(destination: ChatsTabView()) {
+                NavigationLink(destination: ChatsView()) {
                     VStack(spacing: 5) {
                         Image(systemName: "message.fill")
                             .scaleEffect(1.3)
@@ -46,7 +46,7 @@ struct BottomBarView: View {
                 }
                 .disabled(bottomBarType == BottomBarType.Chats)
                 Spacer()
-                NavigationLink(destination: ProfileTabView()) {
+                NavigationLink(destination: ProfileView()) {
                     VStack(spacing: 5) {
                         Image(systemName: "person.fill")
                             .scaleEffect(1.3)

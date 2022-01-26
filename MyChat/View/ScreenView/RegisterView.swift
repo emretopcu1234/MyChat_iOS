@@ -9,6 +9,8 @@ import SwiftUI
 
 struct RegisterView: View {
     
+    @EnvironmentObject var registerViewModel: RegisterViewModel
+    
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     @State private var showAlert = false

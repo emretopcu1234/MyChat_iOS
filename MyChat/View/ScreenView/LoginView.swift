@@ -9,6 +9,8 @@ import SwiftUI
 
 struct LoginView: View {
     
+    @EnvironmentObject var loginViewModel: LoginViewModel
+    
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     @StateObject var keyboardHeightHelper = KeyboardHeightHelper()

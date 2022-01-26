@@ -7,7 +7,9 @@
 
 import SwiftUI
 
-struct ProfileTabView: View {
+struct ProfileView: View {
+    
+    @EnvironmentObject var profileViewModel: ProfileViewModel
     
     @State var showImagePicker: Bool = false
     @State var image: Image? = nil
@@ -190,7 +192,7 @@ struct ProfileTabView: View {
 struct ProfileTabView_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
-            ProfileTabView()
+            ProfileView()
         }
     }
 }
