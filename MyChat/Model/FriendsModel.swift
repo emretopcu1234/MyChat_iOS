@@ -11,8 +11,6 @@ class FriendsModel {
     
     static let shared = FriendsModel()
     
-    // degiskenleri private yapmaya gerek yok, init'i private yapmak yeterli.
-    
     private init(){
         
     }

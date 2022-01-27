@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Firebase
 
 struct RegisterView: View {
     
@@ -63,7 +64,7 @@ struct RegisterView: View {
                 Text("Password")
                     .font(.title3)
                     .padding(.leading)
-                TextField("Enter password", text: $textFieldPassword)
+                SecureField("Enter password", text: $textFieldPassword)
                     .padding(.leading)
                     .focused($isPasswordFocused)
             }
@@ -78,7 +79,7 @@ struct RegisterView: View {
                 Text("Password")
                     .font(.title3)
                     .padding(.leading)
-                TextField("Enter password again", text: $textFieldPasswordAgain)
+                SecureField("Enter password again", text: $textFieldPasswordAgain)
                     .padding(.leading)
                     .focused($isPasswordAgainFocused)
             }

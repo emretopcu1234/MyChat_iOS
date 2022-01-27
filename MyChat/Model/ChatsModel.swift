@@ -10,9 +10,7 @@ import Foundation
 class ChatsModel {
     
     static let shared = ChatsModel()
-    
-    // degiskenleri private yapmaya gerek yok, init'i private yapmak yeterli.
-    
+
     private init(){
         
     }

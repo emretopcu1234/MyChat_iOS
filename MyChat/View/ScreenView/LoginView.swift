@@ -20,7 +20,7 @@ struct LoginView: View {
     @State private var textFieldPassword: String = ""
     @State private var passwordToggleActive = false
     @State private var keepLoggedInToggleActive = false
-    
+    @State private var alertText: String = ""
     
     @Binding var loginSuccessful: Bool?
     
@@ -62,7 +62,7 @@ struct LoginView: View {
                 Text("Password")
                     .font(.title3)
                     .padding(.leading)
-                TextField("Enter password", text: $textFieldPassword)
+                SecureField("Enter password", text: $textFieldPassword)
                     .padding(.leading)
                     .focused($isPasswordFocused)
             }
@@ -88,10 +88,7 @@ struct LoginView: View {
             Spacer()
                 .frame(height: 30)
             Button {
-                UINavigationBar.setAnimationsEnabled(true)
-                presentationMode.wrappedValue.dismiss()
-                loginSuccessful = true
-//                showAlert = true
+                loginViewModel.login(mobile: textFieldMobile, password: textFieldPassword, isPasswordSaved: passwordToggleActive, isKeptLoggedIn: keepLoggedInToggleActive)
             } label: {
                 Text("LOGIN")
                     .font(.system(size: 30))
@@ -104,7 +101,7 @@ struct LoginView: View {
             }
             .buttonStyle(PlainButtonStyle())
             .alert(isPresented: $showAlert) {
-                Alert(title: Text("Error"), message: Text("There is an existing user with this mobile"), dismissButton: .default(Text("OK")))
+                Alert(title: Text("Error"), message: Text(alertText), dismissButton: .default(Text("OK")))
             }
             Spacer()
         }
@@ -122,6 +119,27 @@ struct LoginView: View {
         .onTapGesture {
             isMobileFocused = false
             isPasswordFocused = false
+        }
+        .onChange(of: loginViewModel.loginResult) { loginResult in
+            if let result = loginResult {
+                if result == .Successful {
+                    UINavigationBar.setAnimationsEnabled(true)
+                    presentationMode.wrappedValue.dismiss()
+                    loginSuccessful = true
+                }
+                else if result == .InvalidUser {
+                    alertText = "There does not exist any user with this mobile."
+                    showAlert = true
+                }
+                else if result == .WrongPassword {
+                    alertText = "Mismatch on mobile and password."
+                    showAlert = true
+                }
+                else {
+                    alertText = "Login unsuccessful with unknown error."
+                    showAlert = true
+                }
+            }
         }
     }
 }
