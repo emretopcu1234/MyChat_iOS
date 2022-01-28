@@ -15,21 +15,37 @@ enum LoginState {
 }
 
 class LoginViewModel: ObservableObject, LoginProtocol {
-
-    @Published var loginResult: LoginState?
     
-    private let loginModel = LoginModel.shared
+    @Published var loginResult: LoginState?
+    var mobile: String
+    var password: String
+    var isPasswordSaved: Bool
+    var isKeptLoggedIn: Bool
+    
+    let loginModel = LoginModel.shared
+    let userDefaultsModel = UserDefaultsModel.shared
+    
     
     init(){
+        mobile = userDefaultsModel.mobile
+        password = userDefaultsModel.password
+        isPasswordSaved = userDefaultsModel.isPasswordSaved
+        isKeptLoggedIn = userDefaultsModel.isKeptLoggedIn
         loginModel.loginProtocol = self
     }
     
-    func login(mobile: String, password: String, isPasswordSaved: Bool, isKeptLoggedIn: Bool){
-        loginResult = nil
-        loginModel.login(mobile: mobile, password: password, isPasswordSaved: isPasswordSaved, isKeptLoggedIn: isKeptLoggedIn)
-        
+    func getUserDefaults(){
+        mobile = userDefaultsModel.mobile
+        password = userDefaultsModel.password
+        isPasswordSaved = userDefaultsModel.isPasswordSaved
+        isKeptLoggedIn = userDefaultsModel.isKeptLoggedIn
     }
     
+    func login(loginData: LoginType){
+        loginResult = nil
+        loginModel.login(loginData: loginData)
+        
+    }
     
     // MARK: PROTOCOL METHODS
     

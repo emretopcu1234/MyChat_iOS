@@ -21,6 +21,9 @@
 		2907C490279DF521006E33A2 /* WelcomePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2907C48F279DF521006E33A2 /* WelcomePageView.swift */; };
 		2907C492279DFF45006E33A2 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2907C491279DFF45006E33A2 /* LoginView.swift */; };
 		2907C494279E01AE006E33A2 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2907C493279E01AE006E33A2 /* RegisterView.swift */; };
+		29145CD327A476D800B1D08B /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29145CD227A476D800B1D08B /* ProfileModel.swift */; };
+		29145CD627A48C9B00B1D08B /* LoginType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29145CD527A48C9B00B1D08B /* LoginType.swift */; };
+		29145CD827A48CA400B1D08B /* UserType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29145CD727A48CA400B1D08B /* UserType.swift */; };
 		2919B90127A20CD7002F925C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2919B90027A20CD7002F925C /* GoogleService-Info.plist */; };
 		2928AEE8278F556600A45FC6 /* FriendsRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2928AEE7278F556600A45FC6 /* FriendsRowView.swift */; };
 		2934EB91279CB776007DE589 /* CreateFriendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2934EB90279CB776007DE589 /* CreateFriendView.swift */; };
@@ -75,6 +78,9 @@
 		2907C48F279DF521006E33A2 /* WelcomePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomePageView.swift; sourceTree = "<group>"; };
 		2907C491279DFF45006E33A2 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		2907C493279E01AE006E33A2 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
+		29145CD227A476D800B1D08B /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
+		29145CD527A48C9B00B1D08B /* LoginType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginType.swift; sourceTree = "<group>"; };
+		29145CD727A48CA400B1D08B /* UserType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserType.swift; sourceTree = "<group>"; };
 		2919B90027A20CD7002F925C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2928AEE7278F556600A45FC6 /* FriendsRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsRowView.swift; sourceTree = "<group>"; };
 		2934EB90279CB776007DE589 /* CreateFriendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateFriendView.swift; sourceTree = "<group>"; };
@@ -127,6 +133,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		29145CD427A48C6F00B1D08B /* DataTypes */ = {
+			isa = PBXGroup;
+			children = (
+				29145CD527A48C9B00B1D08B /* LoginType.swift */,
+				29145CD727A48CA400B1D08B /* UserType.swift */,
+			);
+			path = DataTypes;
+			sourceTree = "<group>";
+		};
 		29C3733A278E300B00E34242 = {
 			isa = PBXGroup;
 			children = (
@@ -225,7 +240,9 @@
 				2900999827A1B0E80012F975 /* LoginModel.swift */,
 				29CA412827A3369500D5200D /* RegisterModel.swift */,
 				2900999A27A1B0F50012F975 /* FriendsModel.swift */,
+				29145CD227A476D800B1D08B /* ProfileModel.swift */,
 				2900999E27A1B85D0012F975 /* ChatsModel.swift */,
+				29145CD427A48C6F00B1D08B /* DataTypes */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -239,9 +256,9 @@
 				290099A427A1F77C0012F975 /* ProfileViewModel.swift */,
 				290099A827A1F7930012F975 /* ChatsViewModel.swift */,
 				290099A627A1F7890012F975 /* SpecificChatViewModel.swift */,
+				29CA412C27A351AA00D5200D /* LoginViewModel.swift */,
 				290099AC27A1F7BD0012F975 /* RegisterViewModel.swift */,
 				29CA412527A3330900D5200D /* ViewModelProtocol */,
-				29CA412C27A351AA00D5200D /* LoginViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -358,6 +375,7 @@
 				2900999B27A1B0F50012F975 /* FriendsModel.swift in Sources */,
 				290099A127A1F4960012F975 /* GeneralViewModel.swift in Sources */,
 				2900999F27A1B85D0012F975 /* ChatsModel.swift in Sources */,
+				29145CD627A48C9B00B1D08B /* LoginType.swift in Sources */,
 				290099A927A1F7930012F975 /* ChatsViewModel.swift in Sources */,
 				29CA412727A3368500D5200D /* LoginProtocol.swift in Sources */,
 				295FB6452790B3EF007AA467 /* ChatsRowView.swift in Sources */,
@@ -365,7 +383,9 @@
 				29C3735F278E318D00E34242 /* SpecificChatView.swift in Sources */,
 				2900999727A1A4820012F975 /* ContentViewModel.swift in Sources */,
 				2900999D27A1B0FF0012F975 /* UserDefaultsModel.swift in Sources */,
+				29145CD327A476D800B1D08B /* ProfileModel.swift in Sources */,
 				2900999927A1B0E80012F975 /* LoginModel.swift in Sources */,
+				29145CD827A48CA400B1D08B /* UserType.swift in Sources */,
 				290099A727A1F7890012F975 /* SpecificChatViewModel.swift in Sources */,
 				2934EB91279CB776007DE589 /* CreateFriendView.swift in Sources */,
 				294803802794C5DB00C8D9F5 /* KeyboardAction.swift in Sources */,

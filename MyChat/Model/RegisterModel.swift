@@ -6,3 +6,15 @@
 //
 
 import Foundation
+import Firebase
+
+class RegisterModel {
+    
+    static let shared = RegisterModel()
+    
+    private init(){
+    }
+    
+//    func register(mobile: String, password: String, isPasswordSaved: Bool, isKeptLoggedIn: Bool){
+    
+}

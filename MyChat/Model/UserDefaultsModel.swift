@@ -11,9 +11,9 @@ class UserDefaultsModel {
     
     static let shared = UserDefaultsModel()
     
-    var mobile: Int {
+    var mobile: String {
         get {
-            return UserDefaults.standard.integer(forKey: "mobile")
+            return UserDefaults.standard.string(forKey: "mobile") ?? ""
         }
         set (newValue) {
             UserDefaults.standard.set(newValue, forKey: "mobile")

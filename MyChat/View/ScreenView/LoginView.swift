@@ -26,7 +26,7 @@ struct LoginView: View {
     
     @FocusState private var isMobileFocused: Bool
     @FocusState private var isPasswordFocused: Bool
-    
+        
     var body: some View {
         
         VStack {
@@ -88,7 +88,8 @@ struct LoginView: View {
             Spacer()
                 .frame(height: 30)
             Button {
-                loginViewModel.login(mobile: textFieldMobile, password: textFieldPassword, isPasswordSaved: passwordToggleActive, isKeptLoggedIn: keepLoggedInToggleActive)
+                let loginData = LoginType(mobile: textFieldMobile, password: textFieldPassword, isPasswordSaved: passwordToggleActive, isKeptLoggedIn: keepLoggedInToggleActive)
+                loginViewModel.login(loginData: loginData)
             } label: {
                 Text("LOGIN")
                     .font(.system(size: 30))
@@ -111,6 +112,11 @@ struct LoginView: View {
         .background(Color("DarkWhite"))
         .adaptsToKeyboard()
         .onAppear {
+            loginViewModel.getUserDefaults()
+            textFieldMobile = loginViewModel.mobile
+            textFieldPassword = loginViewModel.password
+            passwordToggleActive = loginViewModel.isPasswordSaved
+            keepLoggedInToggleActive = loginViewModel.isKeptLoggedIn
             UINavigationBar.setAnimationsEnabled(true)
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 isMobileFocused = true
