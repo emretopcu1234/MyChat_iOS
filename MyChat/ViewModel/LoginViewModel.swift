@@ -44,11 +44,9 @@ class LoginViewModel: ObservableObject, LoginProtocol {
     func login(loginData: LoginType){
         loginResult = nil
         loginModel.login(loginData: loginData)
-        
     }
     
     // MARK: PROTOCOL METHODS
-    
     func loginSuccessful() {
         loginResult = .Successful
     }

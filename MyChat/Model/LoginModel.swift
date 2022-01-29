@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import Firebase
+import FirebaseAuth
 
 class LoginModel {
     
@@ -32,9 +32,11 @@ class LoginModel {
                         loginProtocol?.loginUnsuccessfulWithUnknownReason()
                     }
                 }
+                else {
+                    loginProtocol?.loginUnsuccessfulWithUnknownReason()
+                }
             }
             else {
-                loginProtocol?.loginSuccessful()
                 userDefaultsModel.mobile = loginData.mobile
                 userDefaultsModel.isPasswordSaved = loginData.isPasswordSaved
                 userDefaultsModel.isKeptLoggedIn = loginData.isKeptLoggedIn
@@ -44,6 +46,7 @@ class LoginModel {
                 else {
                     userDefaultsModel.password = ""
                 }
+                loginProtocol?.loginSuccessful()
             }
         }
     }

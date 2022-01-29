@@ -20,6 +20,7 @@ struct RegisterView: View {
     @State private var textFieldPasswordAgain: String = ""
     @State private var textFieldName: String = ""
     @State private var textFieldEmail: String = ""
+    @State private var alertText: String = ""
     
     @Binding var registerSuccessful: Bool?
     
@@ -123,10 +124,26 @@ struct RegisterView: View {
             Spacer()
                 .frame(height: 20)
             Button {
-                UINavigationBar.setAnimationsEnabled(true)
-                presentationMode.wrappedValue.dismiss()
-                registerSuccessful = true
-//                showAlert = true
+                if textFieldMobile.count < 6 {
+                    alertText = "Mobile is not valid."
+                    showAlert = true
+                }
+                else if textFieldPassword.count < 6 {
+                    alertText = "Password should be at least 6 digits."
+                    showAlert = true
+                }
+                else if textFieldPassword != textFieldPasswordAgain {
+                    alertText = "Please reenter your password correctly."
+                    showAlert = true
+                }
+                else if textFieldName.count == 0 || textFieldEmail.count == 0 {
+                    alertText = "Please fill all fields."
+                    showAlert = true
+                }
+                else {
+                    let registerData = UserType(mobile: textFieldMobile, password: textFieldPassword, name: textFieldName, email: textFieldEmail, picture: nil)
+                    registerViewModel.register(registerData: registerData)
+                }
             } label: {
                 Text("REGISTER")
                     .font(.system(size: 30))
@@ -139,7 +156,7 @@ struct RegisterView: View {
             }
             .buttonStyle(PlainButtonStyle())
             .alert(isPresented: $showAlert) {
-                Alert(title: Text("Error"), message: Text("There is an existing user with this mobile"), dismissButton: .default(Text("OK")))
+                Alert(title: Text("Error"), message: Text(alertText), dismissButton: .default(Text("OK")))
             }
             Spacer()
         }
@@ -160,6 +177,23 @@ struct RegisterView: View {
             isPasswordAgainFocused = false
             isNameFocused = false
             isEmailFocused = false
+        }
+        .onChange(of: registerViewModel.registerResult) { registerResult in
+            if let result = registerResult {
+                if result == .Successful {
+                    UINavigationBar.setAnimationsEnabled(true)
+                    presentationMode.wrappedValue.dismiss()
+                    registerSuccessful = true
+                }
+                else if result == .UnavailableMobile {
+                    alertText = "There exists another user with this mobile."
+                    showAlert = true
+                }
+                else {
+                    alertText = "Register unsuccessful with unknown error."
+                    showAlert = true
+                }
+            }
         }
     }
 }
