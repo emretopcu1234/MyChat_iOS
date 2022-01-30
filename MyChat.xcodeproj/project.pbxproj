@@ -61,6 +61,8 @@
 		29CA412D27A351AA00D5200D /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29CA412C27A351AA00D5200D /* LoginViewModel.swift */; };
 		29F1EF5B2798B36C009A6C8D /* FriendProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F1EF5A2798B36C009A6C8D /* FriendProfileView.swift */; };
 		29F718042797626E000DEA71 /* BottomBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F718032797626E000DEA71 /* BottomBarView.swift */; };
+		29FF15FA27A6A75B00B62311 /* DocUserType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FF15F927A6A75B00B62311 /* DocUserType.swift */; };
+		29FF15FC27A6FFC000B62311 /* ProfileProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FF15FB27A6FFC000B62311 /* ProfileProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -109,6 +111,8 @@
 		29CA412C27A351AA00D5200D /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		29F1EF5A2798B36C009A6C8D /* FriendProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendProfileView.swift; sourceTree = "<group>"; };
 		29F718032797626E000DEA71 /* BottomBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomBarView.swift; sourceTree = "<group>"; };
+		29FF15F927A6A75B00B62311 /* DocUserType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocUserType.swift; sourceTree = "<group>"; };
+		29FF15FB27A6FFC000B62311 /* ProfileProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,13 +137,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		29145CD427A48C6F00B1D08B /* DataTypes */ = {
+		29145CD427A48C6F00B1D08B /* CommonDataType */ = {
 			isa = PBXGroup;
 			children = (
 				29145CD527A48C9B00B1D08B /* LoginType.swift */,
 				29145CD727A48CA400B1D08B /* UserType.swift */,
 			);
-			path = DataTypes;
+			path = CommonDataType;
 			sourceTree = "<group>";
 		};
 		29C3733A278E300B00E34242 = {
@@ -166,6 +170,7 @@
 				29C3734C278E300B00E34242 /* Preview Content */,
 				29C37346278E300B00E34242 /* MyChatApp.swift */,
 				29C3734A278E300B00E34242 /* Assets.xcassets */,
+				29145CD427A48C6F00B1D08B /* CommonDataType */,
 				29C37362278E3A7B00E34242 /* Model */,
 				29C37354278E302200E34242 /* View */,
 				29C37363278E3A8100E34242 /* ViewModel */,
@@ -242,7 +247,7 @@
 				2900999A27A1B0F50012F975 /* FriendsModel.swift */,
 				29145CD227A476D800B1D08B /* ProfileModel.swift */,
 				2900999E27A1B85D0012F975 /* ChatsModel.swift */,
-				29145CD427A48C6F00B1D08B /* DataTypes */,
+				29FF15F827A67B8F00B62311 /* ModelDataType */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -268,8 +273,17 @@
 			children = (
 				29CA412627A3368500D5200D /* LoginProtocol.swift */,
 				29CA412A27A336A700D5200D /* RegisterProtocol.swift */,
+				29FF15FB27A6FFC000B62311 /* ProfileProtocol.swift */,
 			);
 			path = ViewModelProtocol;
+			sourceTree = "<group>";
+		};
+		29FF15F827A67B8F00B62311 /* ModelDataType */ = {
+			isa = PBXGroup;
+			children = (
+				29FF15F927A6A75B00B62311 /* DocUserType.swift */,
+			);
+			path = ModelDataType;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -364,6 +378,7 @@
 				29C37359278E313A00E34242 /* FriendsView.swift in Sources */,
 				2907C494279E01AE006E33A2 /* RegisterView.swift in Sources */,
 				29BCB107279CC54800369F76 /* CreateChatView.swift in Sources */,
+				29FF15FC27A6FFC000B62311 /* ProfileProtocol.swift in Sources */,
 				29C3735D278E315300E34242 /* ProfileView.swift in Sources */,
 				2957C368279F615800364681 /* PhotoLibrary.swift in Sources */,
 				29CA412927A3369500D5200D /* RegisterModel.swift in Sources */,
@@ -382,6 +397,7 @@
 				29CA412B27A336A700D5200D /* RegisterProtocol.swift in Sources */,
 				29C3735F278E318D00E34242 /* SpecificChatView.swift in Sources */,
 				2900999727A1A4820012F975 /* ContentViewModel.swift in Sources */,
+				29FF15FA27A6A75B00B62311 /* DocUserType.swift in Sources */,
 				2900999D27A1B0FF0012F975 /* UserDefaultsModel.swift in Sources */,
 				29145CD327A476D800B1D08B /* ProfileModel.swift in Sources */,
 				2900999927A1B0E80012F975 /* LoginModel.swift in Sources */,

@@ -23,21 +23,24 @@ class RegisterViewModel: ObservableObject, RegisterProtocol {
         registerModel.registerProtocol = self
     }
     
-    func register(registerData: UserType){
+    func disappeared(){
         registerResult = nil
+    }
+    
+    func register(registerData: UserType){
         registerModel.register(registerData: registerData)
     }
     
     // MARK: PROTOCOL METHODS
-    func registerSuccessful() {
+    func onRegisterSuccessful() {
         registerResult = .Successful
     }
     
-    func registerUnsuccessfulWithUnavailableMobile() {
+    func onRegisterUnsuccessfulWithUnavailableMobile() {
         registerResult = .UnavailableMobile
     }
     
-    func registerUnsuccessfulWithUnknownReason() {
+    func onRegisterUnsuccessfulWithUnknownReason() {
         registerResult = .UnknownError
     }
 }

@@ -27,7 +27,6 @@ struct FriendProfileView: View {
                 }
                 Text("905555555555")
                     .padding(.leading)
-                    .keyboardType(.numberPad)
             }
             .frame(maxWidth: UIScreen.main.bounds.width - 50)
             .padding(EdgeInsets.init(top: 10, leading: 0, bottom: 10, trailing: 0))

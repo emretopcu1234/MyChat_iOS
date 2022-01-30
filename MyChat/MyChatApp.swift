@@ -24,7 +24,20 @@ struct MyChatApp: App {
     }
 }
 
+/*
+https://firebase.google.com/docs/firestore/manage-data/add-data?hl=en#swift_3
+https://peterfriese.dev/posts/firestore-codable-the-comprehensive-guide/
+https://www.youtube.com/watch?v=zfJtgq609EE&list=PLimqJDzPI-H_qHFPAnZWGCpcc886D0eyd&index=9        image yuklemek icin
+https://stackoverflow.com/questions/63401193/how-do-i-connect-firebase-storage-with-cloud-firestore-so-my-images-are-associat
+*/
+
+// https://stackoverflow.com/questions/39398282/retrieving-image-from-firebase-storage-using-swift
+
+// UNUTMA: viewmodel'lerin statelerini nil'e (ya da defaultu neyse ona) cekme isini onAppear yerine onDisappear'da yap. cunku onAppear'dan once bazen onReceive, onChange vb handle edilme riski var.
+
 // TODO LIST:
+
+// profileview'da hem picture kısmını hallet, hem de eger name ya da email ya da picture degismesi durumunu hallet (zaten view dosyasında todo yerleri belli)
 
 // logout olunca userdefaulttaki keeploggedin kısmı false yapılacak.
 
@@ -36,4 +49,6 @@ struct MyChatApp: App {
 
 // ContentView'da simdilik direkt friendstab aciliyor. ileride kullanıcı en son hangi tabdan cikis yaptiysa o tabdan devam edecek sekilde guncelle.
 
-// uygulamadan cikilinca signout yap (keeploggedin secili olsa bile, cunku uygulamaya her girildiginde manuel ya da otomatik signin yapiliyor)
+// uygulamaya girilince timestamp = 1 yap. (online oldugunun anlasilması icin)
+
+// uygulamadan cikilinca once timestamp degerini guncelle, sonra da signout yap (keeploggedin secili olsa bile, cunku uygulamaya her girildiginde manuel ya da otomatik signin yapiliyor)

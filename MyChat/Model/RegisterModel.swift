@@ -7,15 +7,21 @@
 
 import Foundation
 import FirebaseAuth
+import FirebaseFirestore
 
 class RegisterModel {
     
     static let shared = RegisterModel()
     private let emailDomain = "@mychatapp.com"
     var registerProtocol: RegisterProtocol?
-    let userDefaultsModel = UserDefaultsModel.shared
+    let userDefaultsModel: UserDefaultsModel
+    let dbRef: Firestore
+    let usersRef: CollectionReference
     
     private init(){
+        userDefaultsModel = UserDefaultsModel.shared
+        dbRef = Firestore.firestore()
+        usersRef = dbRef.collection("users")
     }
     
     func register(registerData: UserType){
@@ -23,33 +29,39 @@ class RegisterModel {
             if let err = error {
                 if let errCode = AuthErrorCode(rawValue: err._code) {
                     if errCode == .emailAlreadyInUse {
-                        registerProtocol?.registerUnsuccessfulWithUnavailableMobile()
+                        registerProtocol?.onRegisterUnsuccessfulWithUnavailableMobile()
                     }
                     else {
-                        registerProtocol?.registerUnsuccessfulWithUnknownReason()
+                        registerProtocol?.onRegisterUnsuccessfulWithUnknownReason()
                     }
                 }
                 else {
-                    registerProtocol?.registerUnsuccessfulWithUnknownReason()
+                    registerProtocol?.onRegisterUnsuccessfulWithUnknownReason()
                 }
             }
             else {
-                userDefaultsModel.mobile = registerData.mobile
-                userDefaultsModel.isPasswordSaved = false
-                userDefaultsModel.isKeptLoggedIn = false
-                userDefaultsModel.password = ""
-                registerProtocol?.registerSuccessful()
+                let user = DocUserType(mobile: registerData.mobile, name: registerData.name, email: registerData.email, lastSeen: 0, pictureUrl: nil, friends: nil)
                 do {
-                    try Auth.auth().signOut()   // just because user made registration, does not mean s/he logged in.
-                } catch {
-                    // one more chance to signout
-                    do {
-                        try Auth.auth().signOut()
-                    } catch {
-                        // nothing to do anymore
+                    try usersRef.document().setData(from: user) { error in
+                        if error != nil {
+                            registerProtocol?.onRegisterUnsuccessfulWithUnknownReason()
+                        }
+                        else {
+                            userDefaultsModel.mobile = registerData.mobile
+                            userDefaultsModel.isPasswordSaved = false
+                            userDefaultsModel.isKeptLoggedIn = false
+                            userDefaultsModel.password = ""
+                            registerProtocol?.onRegisterSuccessful()
+                            do {
+                                try Auth.auth().signOut()
+                            }
+                            catch {}
+                        }
                     }
                 }
-                // TODO yeni user yaratılacak.
+                catch _ {
+                    registerProtocol?.onRegisterUnsuccessfulWithUnknownReason()
+                }
             }
         }
     }

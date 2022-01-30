@@ -34,11 +34,15 @@ class LoginViewModel: ObservableObject, LoginProtocol {
         loginModel.loginProtocol = self
     }
     
-    func getUserDefaults(){
+    func appeared(){
         mobile = userDefaultsModel.mobile
         password = userDefaultsModel.password
         isPasswordSaved = userDefaultsModel.isPasswordSaved
         isKeptLoggedIn = userDefaultsModel.isKeptLoggedIn
+    }
+    
+    func disappeared(){
+        loginResult = nil
     }
     
     func login(loginData: LoginType){
@@ -47,19 +51,19 @@ class LoginViewModel: ObservableObject, LoginProtocol {
     }
     
     // MARK: PROTOCOL METHODS
-    func loginSuccessful() {
+    func onLoginSuccessful() {
         loginResult = .Successful
     }
     
-    func loginUnsuccessfulWithInvalidUser() {
+    func onLoginUnsuccessfulWithInvalidUser() {
         loginResult = .InvalidUser
     }
     
-    func loginUnsuccessfulWithWrongPassword() {
+    func onLoginUnsuccessfulWithWrongPassword() {
         loginResult = .WrongPassword
     }
     
-    func loginUnsuccessfulWithUnknownReason() {
+    func onLoginUnsuccessfulWithUnknownReason() {
         loginResult = .UnknownError
     }
 }

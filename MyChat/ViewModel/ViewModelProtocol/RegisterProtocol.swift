@@ -9,8 +9,8 @@ import Foundation
 
 protocol RegisterProtocol{
     
-    func registerSuccessful()
-    func registerUnsuccessfulWithUnavailableMobile()
-    func registerUnsuccessfulWithUnknownReason()
+    func onRegisterSuccessful()
+    func onRegisterUnsuccessfulWithUnavailableMobile()
+    func onRegisterUnsuccessfulWithUnknownReason()
     
 }

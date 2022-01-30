@@ -9,9 +9,9 @@ import Foundation
 
 protocol LoginProtocol {
     
-    func loginSuccessful()
-    func loginUnsuccessfulWithInvalidUser()
-    func loginUnsuccessfulWithWrongPassword()
-    func loginUnsuccessfulWithUnknownReason()
+    func onLoginSuccessful()
+    func onLoginUnsuccessfulWithInvalidUser()
+    func onLoginUnsuccessfulWithWrongPassword()
+    func onLoginUnsuccessfulWithUnknownReason()
     
 }

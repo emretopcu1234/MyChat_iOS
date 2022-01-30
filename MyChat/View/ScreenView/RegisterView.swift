@@ -141,7 +141,7 @@ struct RegisterView: View {
                     showAlert = true
                 }
                 else {
-                    let registerData = UserType(mobile: textFieldMobile, password: textFieldPassword, name: textFieldName, email: textFieldEmail, picture: nil)
+                    let registerData = UserType(mobile: textFieldMobile, password: textFieldPassword, name: textFieldName, email: textFieldEmail, pictureUrl: nil)
                     registerViewModel.register(registerData: registerData)
                 }
             } label: {
@@ -166,11 +166,15 @@ struct RegisterView: View {
         .background(Color("DarkWhite"))
         .adaptsToKeyboard()
         .onAppear {
+            registerSuccessful = false
             UINavigationBar.setAnimationsEnabled(true)
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 isMobileFocused = true
             }
         }
+        .onDisappear(perform: {
+            registerViewModel.disappeared()
+        })
         .onTapGesture {
             isMobileFocused = false
             isPasswordFocused = false
@@ -178,7 +182,7 @@ struct RegisterView: View {
             isNameFocused = false
             isEmailFocused = false
         }
-        .onChange(of: registerViewModel.registerResult) { registerResult in
+        .onReceive(registerViewModel.$registerResult, perform: { registerResult in
             if let result = registerResult {
                 if result == .Successful {
                     UINavigationBar.setAnimationsEnabled(true)
@@ -194,7 +198,7 @@ struct RegisterView: View {
                     showAlert = true
                 }
             }
-        }
+        })
     }
 }
 

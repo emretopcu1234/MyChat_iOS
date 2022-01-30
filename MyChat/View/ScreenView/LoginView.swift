@@ -112,7 +112,8 @@ struct LoginView: View {
         .background(Color("DarkWhite"))
         .adaptsToKeyboard()
         .onAppear {
-            loginViewModel.getUserDefaults()
+            loginSuccessful = false
+            loginViewModel.appeared()
             textFieldMobile = loginViewModel.mobile
             textFieldPassword = loginViewModel.password
             passwordToggleActive = loginViewModel.isPasswordSaved
@@ -122,11 +123,14 @@ struct LoginView: View {
                 isMobileFocused = true
             }
         }
+        .onDisappear(perform: {
+            loginViewModel.disappeared()
+        })
         .onTapGesture {
             isMobileFocused = false
             isPasswordFocused = false
         }
-        .onChange(of: loginViewModel.loginResult) { loginResult in
+        .onReceive(loginViewModel.$loginResult, perform: { loginResult in
             if let result = loginResult {
                 if result == .Successful {
                     UINavigationBar.setAnimationsEnabled(true)
@@ -146,7 +150,7 @@ struct LoginView: View {
                     showAlert = true
                 }
             }
-        }
+        })
     }
 }
 
