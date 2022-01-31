@@ -12,7 +12,8 @@ struct ProfileView: View {
     @EnvironmentObject var profileViewModel: ProfileViewModel
     
     @State var showImagePicker: Bool = false
-    @State var image: Image? = nil
+    @State private var image = UIImage()
+    @State private var imageUrl = URL(string: "")
     @State private var textFieldName: String = ""
     @State private var textFieldEmail: String = ""
     @State private var showMobileAlert = false
@@ -34,7 +35,7 @@ struct ProfileView: View {
                     .frame(width: UIScreen.self.main.bounds.height > 900 ? 200 : 150, height: UIScreen.self.main.bounds.height > 900 ? 200 : 150)
                     .foregroundColor(.gray)
                     .clipShape(Circle())
-                image?
+                Image(uiImage: image)
                     .resizable()
                     .aspectRatio(1, contentMode: .fill)
                     .frame(width: UIScreen.self.main.bounds.height > 900 ? 200 : 150, height: UIScreen.self.main.bounds.height > 900 ? 200 : 150)
@@ -51,7 +52,7 @@ struct ProfileView: View {
                         .scaleEffect(1.5)
                         .padding(.trailing, 5)
                         .foregroundColor(.blue)
-                    Text(image == nil ? "Add Photo" : "Change Photo")
+                    Text(imageUrl == URL(string: "") ? "Add Photo" : "Change Photo")
                         .font(.title3)
                         .foregroundColor(.blue)
                 }
@@ -146,25 +147,38 @@ struct ProfileView: View {
         .onAppear {
             UINavigationBar.setAnimationsEnabled(false)
             profileViewModel.appeared()
-            // TODO verileri burada depola (picture, name, email)
         }
         .onDisappear {
             profileViewModel.disappeared()
-            // TODO appear'da depolanan veriler degistiyse model'e gönder ki degisiklikler database'e kaydedilsin.
+            if imageUrl != URL(string: profileViewModel.pictureUrl ?? "") || textFieldName != profileViewModel.name || textFieldEmail != profileViewModel.email {
+                if let url = imageUrl {
+                    let user = UserType(mobile: profileViewModel.mobile, password: "", name: textFieldName, email: textFieldEmail, pictureUrl: url.absoluteString)
+                    profileViewModel.updateData(user: user)
+                }
+                else {
+                    let user = UserType(mobile: profileViewModel.mobile, password: "", name: textFieldName, email: textFieldEmail, pictureUrl: nil)
+                    profileViewModel.updateData(user: user)
+                }
+            }
         }
         .onTapGesture {
             isNameFocused = false
             isEmailFocused = false
         }
         .sheet(isPresented: $showImagePicker) {
-            ImagePicker(sourceType: .photoLibrary) { pickedImage in
-                image = Image(uiImage: pickedImage)
-            }
+            ImagePicker(selectedImage: $image, imageUrl: $imageUrl)
         }
         .onReceive(profileViewModel.$dataReceived, perform: { dataReceived in
             if let received = dataReceived {
                 if received {
-//                    image = profileViewModel.image
+                    imageUrl = URL(string: profileViewModel.pictureUrl ?? "")
+                    if imageUrl != URL(string: "") {
+                        let data = try? Data(contentsOf: imageUrl!)
+                        image = UIImage(data: data!)!
+                    }
+                    else {
+                        image = UIImage()
+                    }
                     textFieldName = profileViewModel.name
                     textFieldEmail = profileViewModel.email
                 }

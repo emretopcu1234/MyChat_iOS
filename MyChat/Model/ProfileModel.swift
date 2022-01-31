@@ -15,7 +15,7 @@ class ProfileModel {
     let userDefaultsModel: UserDefaultsModel
     let dbRef: Firestore
     let usersRef: CollectionReference
-    var user: UserType?
+    private var user: UserType?
     
     private init(){
         userDefaultsModel = UserDefaultsModel.shared
@@ -50,5 +50,59 @@ class ProfileModel {
         else {
             profileProtocol?.onDataReceived(user: user!)
         }
+    }
+    
+    func setData(user: UserType){
+        usersRef.whereField("mobile", isEqualTo: userDefaultsModel.mobile).getDocuments { [self] querySnapshot, error in
+            guard error == nil else {
+                return
+            }
+            for document in querySnapshot!.documents {
+                let result = Result {
+                    try document.data(as: DocUserType.self)
+                }
+                switch result {
+                case .success(_):
+                    if let url = user.pictureUrl {
+                        usersRef.document(document.documentID).updateData([
+                            "name": user.name,
+                            "email": user.email,
+                            "pictureUrl": url
+                        ]) { error in
+                            if error == nil {
+                                self.user?.name = user.name
+                                self.user?.email = user.email
+                                self.user?.pictureUrl = url
+                                self.profileProtocol?.onDataReceived(user: self.user!)
+                            }
+                        }
+                    }
+                    else {
+                        usersRef.document(document.documentID).updateData([
+                            "name": user.name,
+                            "email": user.email,
+                            "pictureUrl": ""
+                        ]) { error in
+                            if error == nil {
+                                self.user?.name = user.name
+                                self.user?.email = user.email
+                                self.user?.pictureUrl = nil
+                                self.profileProtocol?.onDataReceived(user: self.user!)
+                            }
+                        }
+                    }
+                case .failure(_):
+                    break
+                }
+                break // since just one document will be returned
+            }
+        }
+        
+        
+        
+        
+        
+        
+        
     }
 }

@@ -35,6 +35,10 @@ class ProfileViewModel: ObservableObject, ProfileProtocol {
         dataReceived = nil
     }
     
+    func updateData(user: UserType){
+        profileModel.setData(user: user)
+    }
+    
     // MARK: PROTOCOL METHODS
     
     func onDataReceived(user: UserType) {
