@@ -27,12 +27,12 @@ class ProfileViewModel: ObservableObject, ProfileDelegate {
         profileModel.profileDelegate = self
     }
     
-    func appeared(){
-        profileModel.getData()
-    }
-    
     func disappeared(){
         dataReceived = nil
+    }
+    
+    func getInitialData(){
+        profileModel.getData()
     }
     
     func updateData(user: UserType){
@@ -44,7 +44,6 @@ class ProfileViewModel: ObservableObject, ProfileDelegate {
     }
     
     // MARK: PROTOCOL METHODS
-    
     func onDataReceived(user: UserType) {
         name = user.name
         email = user.email

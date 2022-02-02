@@ -24,18 +24,11 @@ struct MyChatApp: App {
     }
 }
 
-/*
-https://firebase.google.com/docs/firestore/manage-data/add-data?hl=en#swift_3
-https://peterfriese.dev/posts/firestore-codable-the-comprehensive-guide/
-https://www.youtube.com/watch?v=zfJtgq609EE&list=PLimqJDzPI-H_qHFPAnZWGCpcc886D0eyd&index=9        image yuklemek icin
-https://stackoverflow.com/questions/63401193/how-do-i-connect-firebase-storage-with-cloud-firestore-so-my-images-are-associat
-*/
-
-// https://stackoverflow.com/questions/39398282/retrieving-image-from-firebase-storage-using-swift
-
 // UNUTMA: viewmodel'lerin statelerini nil'e (ya da defaultu neyse ona) cekme isini onAppear yerine onDisappear'da yap. cunku onAppear'dan once bazen onReceive, onChange vb handle edilme riski var.
 
 // TODO LIST:
+
+// friendsmodel'den verileri cekme isiyle devam et.
 
 // specific bir chat'e girildiginde en alta scroll edilecek. ama eger okunmamıs bir mesaj varsa, örneğin okunmamış 20 mesaj var, bu durumda okunmamış mesaj yazan yere (yani size - 20 gibi bir şey) scroll edilmesi lazım. o durumda da direkt olarak size - 20 degil de size - 17, size - 18 (tabi en az 2-3 mesaj varsa, yoksa out of bound exception olur) gibi bir şey yapılmalı ki, okunmamış mesaj yazısı en altta değil, ekranın biraz üstüne doğru kaysın, altında da okunmamış mesajların 2-3 tanesi görünsün, devamı aşağı kaydırılırsa gelir zaten.
 

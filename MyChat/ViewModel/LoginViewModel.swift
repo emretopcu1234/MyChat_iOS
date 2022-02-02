@@ -34,15 +34,15 @@ class LoginViewModel: ObservableObject, LoginDelegate {
         loginModel.loginDelegate = self
     }
     
-    func appeared(){
+    func disappeared(){
+        loginResult = nil
+    }
+    
+    func updateData(){
         mobile = userDefaultsModel.mobile
         password = userDefaultsModel.password
         isPasswordSaved = userDefaultsModel.isPasswordSaved
         isKeptLoggedIn = userDefaultsModel.isKeptLoggedIn
-    }
-    
-    func disappeared(){
-        loginResult = nil
     }
     
     func login(loginData: LoginType){

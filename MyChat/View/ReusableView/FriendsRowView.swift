@@ -9,6 +9,10 @@ import SwiftUI
 
 struct FriendsRowView: View {
     
+    var friend: FriendRowType
+    
+    @State private var image = UIImage()
+    @State private var imageUrl = URL(string: "")
     @State private var showFriendProfile = false
     @State private var offsetDelete = CGSize.zero
     @State private var friendSelected = false
@@ -39,15 +43,22 @@ struct FriendsRowView: View {
                     }
                 } label: {
                     HStack {
-                        Image(systemName: "person.circle")
-                            .resizable()
-                            .aspectRatio(1, contentMode: .fill)
-                            .frame(width: 50, height: 50)
+                        ZStack {
+                            Image(systemName: "person.circle")
+                                .resizable()
+                                .aspectRatio(1, contentMode: .fill)
+                                .frame(width: 50, height: 50)
+                            Image(uiImage: image)
+                                .resizable()
+                                .aspectRatio(1, contentMode: .fill)
+                                .frame(width: 50, height: 50)
+                                .clipShape(Circle())
+                        }
                         VStack {
-                            Text("Michael Clooney")
+                            Text(friend.name)
                                 .font(.title2)
                                 .frame(maxWidth: .infinity, alignment: .leading)
-                            Text("last seen yesterday at 11:38")
+                            Text(friend.lastSeen)
                                 .font(.system(size: 15))
                                 .foregroundColor(Color("Gray"))
                                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -151,6 +162,13 @@ struct FriendsRowView: View {
         }
         .padding(.bottom, -7)
         .background(friendSelected ? Color("LightBlue") : .white)
+        .onAppear(perform: {
+            imageUrl = URL(string: friend.pictureUrl ?? "")
+            if imageUrl != URL(string: "") {
+                let data = try? Data(contentsOf: imageUrl!)
+                image = UIImage(data: data!)!
+            }
+        })
         .onChange(of: editPressed) { pressed in
             withAnimation {
                 offsetDelete.width = 0
@@ -178,6 +196,6 @@ struct FriendsRowView: View {
 
 struct FriendsRowView_Previews: PreviewProvider {
     static var previews: some View {
-        FriendsRowView(anyFriendDragging: .constant(false), anyDragCancelled: .constant(true), editPressed: .constant(false))
+        FriendsRowView(friend: FriendRowType(name: "", lastSeen: "", pictureUrl: nil), anyFriendDragging: .constant(false), anyDragCancelled: .constant(true), editPressed: .constant(false))
     }
 }

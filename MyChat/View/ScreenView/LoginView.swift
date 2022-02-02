@@ -113,7 +113,7 @@ struct LoginView: View {
         .adaptsToKeyboard()
         .onAppear {
             loginSuccessful = false
-            loginViewModel.appeared()
+            loginViewModel.updateData()
             textFieldMobile = loginViewModel.mobile
             textFieldPassword = loginViewModel.password
             passwordToggleActive = loginViewModel.isPasswordSaved

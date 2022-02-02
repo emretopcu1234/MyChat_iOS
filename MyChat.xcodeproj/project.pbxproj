@@ -24,6 +24,8 @@
 		29145CD327A476D800B1D08B /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29145CD227A476D800B1D08B /* ProfileModel.swift */; };
 		29145CD627A48C9B00B1D08B /* LoginType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29145CD527A48C9B00B1D08B /* LoginType.swift */; };
 		29145CD827A48CA400B1D08B /* UserType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29145CD727A48CA400B1D08B /* UserType.swift */; };
+		2915946B27AB39FC003109B6 /* FriendsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2915946A27AB39FC003109B6 /* FriendsDelegate.swift */; };
+		2915946D27AB416B003109B6 /* FriendRowType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2915946C27AB416B003109B6 /* FriendRowType.swift */; };
 		2919B90127A20CD7002F925C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2919B90027A20CD7002F925C /* GoogleService-Info.plist */; };
 		2928AEE8278F556600A45FC6 /* FriendsRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2928AEE7278F556600A45FC6 /* FriendsRowView.swift */; };
 		2934EB91279CB776007DE589 /* CreateFriendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2934EB90279CB776007DE589 /* CreateFriendView.swift */; };
@@ -89,6 +91,8 @@
 		29145CD227A476D800B1D08B /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		29145CD527A48C9B00B1D08B /* LoginType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginType.swift; sourceTree = "<group>"; };
 		29145CD727A48CA400B1D08B /* UserType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserType.swift; sourceTree = "<group>"; };
+		2915946A27AB39FC003109B6 /* FriendsDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsDelegate.swift; sourceTree = "<group>"; };
+		2915946C27AB416B003109B6 /* FriendRowType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRowType.swift; sourceTree = "<group>"; };
 		2919B90027A20CD7002F925C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2928AEE7278F556600A45FC6 /* FriendsRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsRowView.swift; sourceTree = "<group>"; };
 		2934EB90279CB776007DE589 /* CreateFriendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateFriendView.swift; sourceTree = "<group>"; };
@@ -154,6 +158,7 @@
 			children = (
 				29145CD527A48C9B00B1D08B /* LoginType.swift */,
 				29145CD727A48CA400B1D08B /* UserType.swift */,
+				2915946C27AB416B003109B6 /* FriendRowType.swift */,
 			);
 			path = CommonDataType;
 			sourceTree = "<group>";
@@ -288,6 +293,7 @@
 				29CA412627A3368500D5200D /* LoginDelegate.swift */,
 				29CA412A27A336A700D5200D /* RegisterDelegate.swift */,
 				29FF15FB27A6FFC000B62311 /* ProfileDelegate.swift */,
+				2915946A27AB39FC003109B6 /* FriendsDelegate.swift */,
 			);
 			path = ViewModelDelegate;
 			sourceTree = "<group>";
@@ -421,6 +427,7 @@
 				2900999D27A1B0FF0012F975 /* UserDefaultsModel.swift in Sources */,
 				29145CD327A476D800B1D08B /* ProfileModel.swift in Sources */,
 				2900999927A1B0E80012F975 /* LoginModel.swift in Sources */,
+				2915946D27AB416B003109B6 /* FriendRowType.swift in Sources */,
 				29145CD827A48CA400B1D08B /* UserType.swift in Sources */,
 				290099A727A1F7890012F975 /* SpecificChatViewModel.swift in Sources */,
 				2934EB91279CB776007DE589 /* CreateFriendView.swift in Sources */,
@@ -428,6 +435,7 @@
 				29C37365278E3ADA00E34242 /* TopBarView.swift in Sources */,
 				295FB6472790BBE7007AA467 /* ContentView.swift in Sources */,
 				29CA412D27A351AA00D5200D /* LoginViewModel.swift in Sources */,
+				2915946B27AB39FC003109B6 /* FriendsDelegate.swift in Sources */,
 				29BCB109279CC63500369F76 /* CreateChatRowView.swift in Sources */,
 				290099A527A1F77C0012F975 /* ProfileViewModel.swift in Sources */,
 				2928AEE8278F556600A45FC6 /* FriendsRowView.swift in Sources */,

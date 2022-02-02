@@ -15,7 +15,7 @@ public struct DocUserType: Codable {
     var name: String
     var email: String
     var lastSeen: TimeInterval
-    var pictureUrl: String?
-    var friends: [String]?
+    var pictureUrl: String
+    var friends: [String]
     
 }
