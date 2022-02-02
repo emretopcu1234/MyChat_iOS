@@ -12,7 +12,7 @@ class ContentModel {
     
     static let shared = ContentModel()
     private let emailDomain = "@mychatapp.com"
-    var contentDelegate: ContentProtocol?
+    var contentDelegate: ContentDelegate?
     let userDefaultsModel: UserDefaultsModel
     
     private init(){

@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol LoginProtocol {
+protocol LoginDelegate {
     
     func onLoginSuccessful()
     func onLoginUnsuccessfulWithInvalidUser()

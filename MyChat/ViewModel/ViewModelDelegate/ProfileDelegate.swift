@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol ProfileProtocol {
+protocol ProfileDelegate {
     
     func onDataReceived(user: UserType)
     

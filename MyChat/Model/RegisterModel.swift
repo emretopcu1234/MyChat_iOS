@@ -13,7 +13,7 @@ class RegisterModel {
     
     static let shared = RegisterModel()
     private let emailDomain = "@mychatapp.com"
-    var registerDelegate: RegisterProtocol?
+    var registerDelegate: RegisterDelegate?
     let userDefaultsModel: UserDefaultsModel
     let dbRef: Firestore
     let usersRef: CollectionReference

@@ -13,7 +13,7 @@ enum RegisterState {
     case UnknownError
 }
 
-class RegisterViewModel: ObservableObject, RegisterProtocol {
+class RegisterViewModel: ObservableObject, RegisterDelegate {
     
     @Published var registerResult: RegisterState?
     

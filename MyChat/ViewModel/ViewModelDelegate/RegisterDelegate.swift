@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol RegisterProtocol{
+protocol RegisterDelegate {
     
     func onRegisterSuccessful()
     func onRegisterUnsuccessfulWithUnavailableMobile()

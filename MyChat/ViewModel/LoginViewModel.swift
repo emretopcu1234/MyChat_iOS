@@ -14,7 +14,7 @@ enum LoginState {
     case UnknownError
 }
 
-class LoginViewModel: ObservableObject, LoginProtocol {
+class LoginViewModel: ObservableObject, LoginDelegate {
     
     @Published var loginResult: LoginState?
     var mobile: String

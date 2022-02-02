@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol ContentProtocol {
+protocol ContentDelegate {
     
     func onLoginSuccessful()
 }

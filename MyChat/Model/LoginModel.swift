@@ -12,7 +12,7 @@ class LoginModel {
     
     static let shared = LoginModel()
     private let emailDomain = "@mychatapp.com"
-    var loginDelegate: LoginProtocol?
+    var loginDelegate: LoginDelegate?
     let userDefaultsModel: UserDefaultsModel
     
     private init(){

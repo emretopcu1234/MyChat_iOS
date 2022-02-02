@@ -13,7 +13,7 @@ import FirebaseStorage
 class ProfileModel {
     
     static let shared = ProfileModel()
-    var profileDelegate: ProfileProtocol?
+    var profileDelegate: ProfileDelegate?
     let userDefaultsModel: UserDefaultsModel
     let dbRef: Firestore
     let usersRef: CollectionReference

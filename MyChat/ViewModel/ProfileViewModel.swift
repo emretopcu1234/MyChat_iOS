@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-class ProfileViewModel: ObservableObject, ProfileProtocol {
+class ProfileViewModel: ObservableObject, ProfileDelegate {
     
     @Published var dataReceived: Bool?
     var mobile: String

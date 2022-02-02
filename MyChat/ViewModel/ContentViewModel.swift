@@ -7,7 +7,7 @@
 
 import Foundation
 
-class ContentViewModel: ObservableObject, ContentProtocol {
+class ContentViewModel: ObservableObject, ContentDelegate {
     
     @Published var loginResult: LoginState?
     
