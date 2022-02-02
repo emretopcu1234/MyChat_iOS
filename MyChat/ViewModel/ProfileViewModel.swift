@@ -24,7 +24,7 @@ class ProfileViewModel: ObservableObject, ProfileProtocol {
         name = ""
         email = ""
         pictureUrl = nil
-        profileModel.profileProtocol = self
+        profileModel.profileDelegate = self
     }
     
     func appeared(){

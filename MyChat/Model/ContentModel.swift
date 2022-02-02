@@ -12,7 +12,7 @@ class ContentModel {
     
     static let shared = ContentModel()
     private let emailDomain = "@mychatapp.com"
-    var contentProtocol: ContentProtocol?
+    var contentDelegate: ContentProtocol?
     let userDefaultsModel: UserDefaultsModel
     
     private init(){
@@ -22,7 +22,7 @@ class ContentModel {
     func login(){
         Auth.auth().signIn(withEmail: userDefaultsModel.mobile + emailDomain, password: userDefaultsModel.password) { [self] (result, error) in
             if error == nil {
-                contentProtocol?.onLoginSuccessful()
+                contentDelegate?.onLoginSuccessful()
             }
             else {
                 login()

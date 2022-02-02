@@ -13,7 +13,7 @@ class RegisterModel {
     
     static let shared = RegisterModel()
     private let emailDomain = "@mychatapp.com"
-    var registerProtocol: RegisterProtocol?
+    var registerDelegate: RegisterProtocol?
     let userDefaultsModel: UserDefaultsModel
     let dbRef: Firestore
     let usersRef: CollectionReference
@@ -29,14 +29,14 @@ class RegisterModel {
             if let err = error {
                 if let errCode = AuthErrorCode(rawValue: err._code) {
                     if errCode == .emailAlreadyInUse {
-                        registerProtocol?.onRegisterUnsuccessfulWithUnavailableMobile()
+                        registerDelegate?.onRegisterUnsuccessfulWithUnavailableMobile()
                     }
                     else {
-                        registerProtocol?.onRegisterUnsuccessfulWithUnknownReason()
+                        registerDelegate?.onRegisterUnsuccessfulWithUnknownReason()
                     }
                 }
                 else {
-                    registerProtocol?.onRegisterUnsuccessfulWithUnknownReason()
+                    registerDelegate?.onRegisterUnsuccessfulWithUnknownReason()
                 }
             }
             else {
@@ -44,14 +44,14 @@ class RegisterModel {
                 do {
                     try usersRef.document().setData(from: user) { error in
                         if error != nil {
-                            registerProtocol?.onRegisterUnsuccessfulWithUnknownReason()
+                            registerDelegate?.onRegisterUnsuccessfulWithUnknownReason()
                         }
                         else {
                             userDefaultsModel.mobile = registerData.mobile
                             userDefaultsModel.isPasswordSaved = false
                             userDefaultsModel.isKeptLoggedIn = false
                             userDefaultsModel.password = ""
-                            registerProtocol?.onRegisterSuccessful()
+                            registerDelegate?.onRegisterSuccessful()
                             do {
                                 try Auth.auth().signOut()
                             }
@@ -60,7 +60,7 @@ class RegisterModel {
                     }
                 }
                 catch _ {
-                    registerProtocol?.onRegisterUnsuccessfulWithUnknownReason()
+                    registerDelegate?.onRegisterUnsuccessfulWithUnknownReason()
                 }
             }
         }

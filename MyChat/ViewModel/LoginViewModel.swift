@@ -31,7 +31,7 @@ class LoginViewModel: ObservableObject, LoginProtocol {
         password = userDefaultsModel.password
         isPasswordSaved = userDefaultsModel.isPasswordSaved
         isKeptLoggedIn = userDefaultsModel.isKeptLoggedIn
-        loginModel.loginProtocol = self
+        loginModel.loginDelegate = self
     }
     
     func appeared(){

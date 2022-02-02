@@ -12,7 +12,7 @@ class LoginModel {
     
     static let shared = LoginModel()
     private let emailDomain = "@mychatapp.com"
-    var loginProtocol: LoginProtocol?
+    var loginDelegate: LoginProtocol?
     let userDefaultsModel: UserDefaultsModel
     
     private init(){
@@ -24,17 +24,17 @@ class LoginModel {
             if let err = error {
                 if let errCode = AuthErrorCode(rawValue: err._code) {
                     if errCode == .userNotFound {
-                        loginProtocol?.onLoginUnsuccessfulWithInvalidUser()
+                        loginDelegate?.onLoginUnsuccessfulWithInvalidUser()
                     }
                     else if errCode == .wrongPassword {
-                        loginProtocol?.onLoginUnsuccessfulWithWrongPassword()
+                        loginDelegate?.onLoginUnsuccessfulWithWrongPassword()
                     }
                     else {
-                        loginProtocol?.onLoginUnsuccessfulWithUnknownReason()
+                        loginDelegate?.onLoginUnsuccessfulWithUnknownReason()
                     }
                 }
                 else {
-                    loginProtocol?.onLoginUnsuccessfulWithUnknownReason()
+                    loginDelegate?.onLoginUnsuccessfulWithUnknownReason()
                 }
             }
             else {
@@ -47,7 +47,7 @@ class LoginModel {
                 else {
                     userDefaultsModel.password = ""
                 }
-                loginProtocol?.onLoginSuccessful()
+                loginDelegate?.onLoginSuccessful()
             }
         }
     }

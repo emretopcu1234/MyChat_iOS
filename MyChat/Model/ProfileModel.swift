@@ -13,7 +13,7 @@ import FirebaseStorage
 class ProfileModel {
     
     static let shared = ProfileModel()
-    var profileProtocol: ProfileProtocol?
+    var profileDelegate: ProfileProtocol?
     let userDefaultsModel: UserDefaultsModel
     let dbRef: Firestore
     let usersRef: CollectionReference
@@ -42,7 +42,7 @@ class ProfileModel {
                     case .success(let receivedUser):
                         if let receivedUser = receivedUser {
                             user = UserType(mobile: userDefaultsModel.mobile, password: "", name: receivedUser.name, email: receivedUser.email, pictureUrl: receivedUser.pictureUrl == "" ? nil : receivedUser.pictureUrl)
-                            profileProtocol?.onDataReceived(user: user!)
+                            profileDelegate?.onDataReceived(user: user!)
                         }
                     case .failure(_):
                         break
@@ -52,7 +52,7 @@ class ProfileModel {
             }
         }
         else {
-            profileProtocol?.onDataReceived(user: user!)
+            profileDelegate?.onDataReceived(user: user!)
         }
     }
     
@@ -134,7 +134,7 @@ class ProfileModel {
                                 self.user?.name = user.name
                                 self.user?.email = user.email
                                 self.user?.pictureUrl = url
-                                self.profileProtocol?.onDataReceived(user: self.user!)
+                                self.profileDelegate?.onDataReceived(user: self.user!)
                             }
                         }
                     }
@@ -148,7 +148,7 @@ class ProfileModel {
                                 self.user?.name = user.name
                                 self.user?.email = user.email
                                 self.user?.pictureUrl = nil
-                                self.profileProtocol?.onDataReceived(user: self.user!)
+                                self.profileDelegate?.onDataReceived(user: self.user!)
                             }
                         }
                     }

@@ -17,7 +17,7 @@ class ContentViewModel: ObservableObject, ContentProtocol {
     
     init(){
         loginActive = !UserDefaultsModel.shared.isKeptLoggedIn
-        contentModel.contentProtocol = self
+        contentModel.contentDelegate = self
     }
     
     func login(){

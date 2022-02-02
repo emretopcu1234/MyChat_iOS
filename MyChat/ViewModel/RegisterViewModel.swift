@@ -20,7 +20,7 @@ class RegisterViewModel: ObservableObject, RegisterProtocol {
     let registerModel = RegisterModel.shared
     
     init(){
-        registerModel.registerProtocol = self
+        registerModel.registerDelegate = self
     }
     
     func disappeared(){
