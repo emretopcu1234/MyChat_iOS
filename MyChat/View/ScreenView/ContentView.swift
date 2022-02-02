@@ -18,6 +18,7 @@ struct ContentView: View {
     @StateObject var loginViewModel = LoginViewModel()
     @StateObject var registerViewModel = RegisterViewModel()
     
+    @State private var isLoggedIn: Bool?
     
     var body: some View {
         NavigationView {
@@ -25,7 +26,14 @@ struct ContentView: View {
                 WelcomePageView()
             }
             else {
-                GeneralView()
+                if let isLoggedIn = isLoggedIn {
+                    if isLoggedIn {
+                        GeneralView()
+                    }
+                    else {
+                        EmptyView()
+                    }
+                }
             }
         }
         .environmentObject(generalViewModel)
@@ -35,6 +43,23 @@ struct ContentView: View {
         .environmentObject(specificChatViewModel)
         .environmentObject(loginViewModel)
         .environmentObject(registerViewModel)
+        .onAppear {
+            if !contentViewModel.loginActive {
+                if let isLoggedIn = isLoggedIn {
+                    if !isLoggedIn {
+                        contentViewModel.login()
+                    }
+                }
+                else {
+                    contentViewModel.login()
+                }
+            }
+        }
+        .onReceive(contentViewModel.$loginResult) { result in
+            if result == LoginState.Successful {
+                isLoggedIn = true
+            }
+        }
     }
 }
 

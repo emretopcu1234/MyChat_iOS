@@ -16,7 +16,8 @@ struct ProfileView: View {
     @State private var imageUrl = URL(string: "")
     @State private var textFieldName: String = ""
     @State private var textFieldEmail: String = ""
-    @State private var showMobileAlert = false
+    @State private var showAlert = false
+    @State private var alertText: String = ""
     @State private var showLogoutConfirmation = false
     @State private var isLoggedOut: Bool?
     
@@ -110,6 +111,9 @@ struct ProfileView: View {
                     isEmailFocused = true
                 }
             }
+            .alert(isPresented: $showAlert) {
+                Alert(title: Text("Error"), message: Text(alertText), dismissButton: .default(Text("OK")))
+            }
             Spacer()
             NavigationLink(destination: WelcomePageView(), tag: true, selection: $isLoggedOut) {
                 Button {
@@ -128,6 +132,7 @@ struct ProfileView: View {
                 }
                 .confirmationDialog("", isPresented: $showLogoutConfirmation) {
                     Button("Logout", role: .destructive) {
+                        profileViewModel.logout()
                         isLoggedOut = true
                     }
                     Button("Cancel", role: .cancel) { }
@@ -145,8 +150,19 @@ struct ProfileView: View {
         .navigationBarTitle("", displayMode: .inline)
         .navigationBarHidden(true)
         .onAppear {
+            // initially get old data (in order not to show blank page to user)
+            imageUrl = URL(string: profileViewModel.pictureUrl ?? "")
+            if imageUrl != URL(string: "") {
+                let data = try? Data(contentsOf: imageUrl!)
+                image = UIImage(data: data!)!
+            }
+            textFieldName = profileViewModel.name
+            textFieldEmail = profileViewModel.email
+            
             UINavigationBar.setAnimationsEnabled(false)
-            profileViewModel.appeared()
+            if profileViewModel.name == "" {
+                profileViewModel.appeared() // this method calls just at the first appearance of this view (in order to initialize view model and model)
+            }
         }
         .onDisappear {
             profileViewModel.disappeared()
@@ -165,6 +181,20 @@ struct ProfileView: View {
             isNameFocused = false
             isEmailFocused = false
         }
+        .onChange(of: isNameFocused, perform: { focused in
+            if !focused && textFieldName == "" {
+                alertText = "Please indicate your name."
+                showAlert = true
+                isNameFocused = true
+            }
+        })
+        .onChange(of: isEmailFocused, perform: { focused in
+            if !focused && textFieldEmail == "" {
+                alertText = "Please indicate your e-mail."
+                showAlert = true
+                isEmailFocused = true
+            }
+        })
         .sheet(isPresented: $showImagePicker) {
             ImagePicker(selectedImage: $image, imageUrl: $imageUrl)
         }

@@ -39,6 +39,10 @@ class ProfileViewModel: ObservableObject, ProfileProtocol {
         profileModel.setData(user: user)
     }
     
+    func logout(){
+        profileModel.logout()
+    }
+    
     // MARK: PROTOCOL METHODS
     
     func onDataReceived(user: UserType) {
