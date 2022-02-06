@@ -9,14 +9,14 @@ import Foundation
 
 class FriendsViewModel: ObservableObject, FriendsDelegate {
     
-    @Published var friends: [FriendRowType]
+    @Published var friends: [FriendType]
     
     
     let friendsModel = FriendsModel.shared
     let userDefaultsModel = UserDefaultsModel.shared
     
     init(){
-        friends = [FriendRowType]()
+        friends = [FriendType]()
         friendsModel.friendsDelegate = self
     }
         
@@ -27,7 +27,7 @@ class FriendsViewModel: ObservableObject, FriendsDelegate {
     
     
     // MARK: PROTOCOL METHODS
-    func onFriendsDataReceived(friends: [FriendRowType]) {
+    func onFriendsDataReceived(friends: [FriendType]) {
         self.friends = friends
     }
     

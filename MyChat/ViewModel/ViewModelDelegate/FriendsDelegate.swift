@@ -9,5 +9,5 @@ import Foundation
 
 protocol FriendsDelegate {
     
-    func onFriendsDataReceived(friends: [FriendRowType])
+    func onFriendsDataReceived(friends: [FriendType])
 }

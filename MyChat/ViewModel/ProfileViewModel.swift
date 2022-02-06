@@ -20,7 +20,7 @@ class ProfileViewModel: ObservableObject, ProfileDelegate {
     let userDefaultsModel = UserDefaultsModel.shared
     
     init(){
-        mobile = userDefaultsModel.mobile
+        mobile = ""
         name = ""
         email = ""
         pictureUrl = nil
@@ -31,8 +31,10 @@ class ProfileViewModel: ObservableObject, ProfileDelegate {
         dataReceived = nil
     }
     
-    func getInitialData(){
-        profileModel.getData()
+    func getData(){
+        if mobile != userDefaultsModel.mobile {
+            profileModel.getData()
+        }
     }
     
     func updateData(user: UserType){
@@ -40,11 +42,16 @@ class ProfileViewModel: ObservableObject, ProfileDelegate {
     }
     
     func logout(){
+        mobile = ""
+        name = ""
+        email = ""
+        pictureUrl = nil
         profileModel.logout()
     }
     
     // MARK: PROTOCOL METHODS
     func onDataReceived(user: UserType) {
+        mobile = userDefaultsModel.mobile
         name = user.name
         email = user.email
         pictureUrl = user.pictureUrl

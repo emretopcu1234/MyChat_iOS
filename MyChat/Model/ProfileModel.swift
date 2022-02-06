@@ -162,6 +162,7 @@ class ProfileModel {
     
     func logout(){
         do {
+            user = nil
             userDefaultsModel.isKeptLoggedIn = false
             try Auth.auth().signOut()
         }

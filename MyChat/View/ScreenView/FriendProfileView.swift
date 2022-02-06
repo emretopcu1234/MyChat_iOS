@@ -8,14 +8,27 @@
 import SwiftUI
 
 struct FriendProfileView: View {
+    
+    var friend: FriendType
+    
+    @State private var image = UIImage()
+    @State private var imageUrl = URL(string: "")
+    
     var body: some View {
         VStack(spacing: 10) {
-            Image(systemName: "person.circle")
-                .resizable()
-                .aspectRatio(1, contentMode: .fill)
-                .frame(width: 200, height: 200)
-                .foregroundColor(.gray)
-                .clipShape(Circle())
+            ZStack {
+                Image(systemName: "person.circle")
+                    .resizable()
+                    .aspectRatio(1, contentMode: .fill)
+                    .frame(width: 200, height: 200)
+                    .foregroundColor(.gray)
+                Image(uiImage: image)
+                    .resizable()
+                    .aspectRatio(1, contentMode: .fill)
+                    .frame(width: 200, height: 200)
+                    .foregroundColor(.gray)
+                    .clipShape(Circle())
+            }
             Spacer()
                 .frame(height: 30)
             VStack(alignment: .leading, spacing: 0) {
@@ -25,7 +38,8 @@ struct FriendProfileView: View {
                         .padding(.leading)
                     Spacer()
                 }
-                Text("905555555555")
+                Text(friend.mobile)
+                    .foregroundColor(Color("Gray"))
                     .padding(.leading)
             }
             .frame(maxWidth: UIScreen.main.bounds.width - 50)
@@ -39,7 +53,8 @@ struct FriendProfileView: View {
                         .padding(.leading)
                     Spacer()
                 }
-                Text("Michael Clooney")
+                Text(friend.name)
+                    .foregroundColor(Color("Gray"))
                     .padding(.leading)
             }
             .frame(maxWidth: UIScreen.main.bounds.width - 50)
@@ -53,7 +68,8 @@ struct FriendProfileView: View {
                         .padding(.leading)
                     Spacer()
                 }
-                Text("mclooney@mychat.com")
+                Text(friend.email)
+                    .foregroundColor(Color("Gray"))
                     .padding(.leading)
                 
             }
@@ -66,14 +82,19 @@ struct FriendProfileView: View {
         .frame(width: UIScreen.self.main.bounds.width, height: UIScreen.self.main.bounds.height)
         .padding(.top, 200)
         .background(Color("DarkWhite"))
-        .onAppear {
+        .onAppear(perform: {
             UINavigationBar.setAnimationsEnabled(true)
-        }
+            imageUrl = URL(string: friend.pictureUrl ?? "")
+            if imageUrl != URL(string: "") {
+                let data = try? Data(contentsOf: imageUrl!)
+                image = UIImage(data: data!)!
+            }
+        })
     }
 }
 
 struct FriendProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        FriendProfileView()
+        FriendProfileView(friend: FriendType(mobile: "", name: "", email: "", lastSeen: "", pictureUrl: nil))
     }
 }

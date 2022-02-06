@@ -9,7 +9,7 @@ import SwiftUI
 
 struct FriendsRowView: View {
     
-    var friend: FriendRowType
+    var friend: FriendType
     
     @State private var image = UIImage()
     @State private var imageUrl = URL(string: "")
@@ -55,12 +55,12 @@ struct FriendsRowView: View {
                                 .clipShape(Circle())
                         }
                         VStack {
-                            Text(friend.name)
+                            Text(friend.name == "" ? friend.mobile : friend.name)
                                 .font(.title2)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                             Text(friend.lastSeen)
                                 .font(.system(size: 15))
-                                .foregroundColor(Color("Gray"))
+                                .foregroundColor(friend.lastSeen == "online" ? .blue : Color("Gray"))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                         }
                     }
@@ -68,7 +68,7 @@ struct FriendsRowView: View {
                 .padding(EdgeInsets.init(top: 0, leading: 10, bottom: 0, trailing: 10))
                 .buttonStyle(PlainButtonStyle())
                 .sheet(isPresented: $showFriendProfile) {
-                    FriendProfileView()
+                    FriendProfileView(friend: friend)
                 }
             }
             .padding(.bottom, 5)
@@ -196,6 +196,6 @@ struct FriendsRowView: View {
 
 struct FriendsRowView_Previews: PreviewProvider {
     static var previews: some View {
-        FriendsRowView(friend: FriendRowType(name: "", lastSeen: "", pictureUrl: nil), anyFriendDragging: .constant(false), anyDragCancelled: .constant(true), editPressed: .constant(false))
+        FriendsRowView(friend: FriendType(mobile: "", name: "", email: "", lastSeen: "", pictureUrl: nil), anyFriendDragging: .constant(false), anyDragCancelled: .constant(true), editPressed: .constant(false))
     }
 }

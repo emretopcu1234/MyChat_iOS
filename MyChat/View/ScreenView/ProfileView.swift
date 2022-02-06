@@ -160,9 +160,7 @@ struct ProfileView: View {
             textFieldEmail = profileViewModel.email
             
             UINavigationBar.setAnimationsEnabled(false)
-            if profileViewModel.name == "" {
-                profileViewModel.getInitialData() // this method calls just at the first appearance of this view (in order to initialize view model and model)
-            }
+            profileViewModel.getData()
         }
         .onDisappear {
             profileViewModel.disappeared()

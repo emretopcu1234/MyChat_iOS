@@ -28,7 +28,7 @@ struct MyChatApp: App {
 
 // TODO LIST:
 
-// friendsmodel'den verileri cekme isiyle devam et.
+// friends ekleme, cikarma islerini hallet. once view'da bazı yardımcı classlar olusturmak gerekecek gibi (coklu silmede row'a tıklandıgında listeye atma, liste bossa delete'in disable, doluysa enable olması vb)
 
 // specific bir chat'e girildiginde en alta scroll edilecek. ama eger okunmamıs bir mesaj varsa, örneğin okunmamış 20 mesaj var, bu durumda okunmamış mesaj yazan yere (yani size - 20 gibi bir şey) scroll edilmesi lazım. o durumda da direkt olarak size - 20 degil de size - 17, size - 18 (tabi en az 2-3 mesaj varsa, yoksa out of bound exception olur) gibi bir şey yapılmalı ki, okunmamış mesaj yazısı en altta değil, ekranın biraz üstüne doğru kaysın, altında da okunmamış mesajların 2-3 tanesi görünsün, devamı aşağı kaydırılırsa gelir zaten.
 
@@ -38,6 +38,6 @@ struct MyChatApp: App {
 
 // ContentView'da simdilik direkt friendstab aciliyor. ileride kullanıcı en son hangi tabdan cikis yaptiysa o tabdan devam edecek sekilde guncelle.
 
-// uygulamaya girilince timestamp = 1 yap. (online oldugunun anlasilması icin)
+// uygulamaya girilince timestamp = 2147483647 yap. (online oldugunun anlasilması icin)
 
 // uygulamadan cikilinca once timestamp degerini guncelle, sonra da signout yap (keeploggedin secili olsa bile, cunku uygulamaya her girildiginde manuel ya da otomatik signin yapiliyor)

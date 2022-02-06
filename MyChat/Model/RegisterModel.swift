@@ -40,7 +40,7 @@ class RegisterModel {
                 }
             }
             else {
-                let user = DocUserType(mobile: registerData.mobile, name: registerData.name, email: registerData.email, lastSeen: 0, pictureUrl: "", friends: [String]())
+                let user = DocUserType(mobile: registerData.mobile, name: registerData.name, email: registerData.email, lastSeen: 0, pictureUrl: "", friends: ["222222","444444"])
                 do {
                     try usersRef.document().setData(from: user) { error in
                         if error != nil {
