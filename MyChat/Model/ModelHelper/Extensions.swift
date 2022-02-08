@@ -1,5 +1,5 @@
 //
-//  TimestampConverter.swift
+//  Extensions.swift
 //  MyChat
 //
 //  Created by Emre Topçu on 6.02.2022.

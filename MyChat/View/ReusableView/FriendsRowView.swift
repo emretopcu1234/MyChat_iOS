@@ -9,6 +9,7 @@ import SwiftUI
 
 struct FriendsRowView: View {
     
+    let friendOperations = FriendSelection.shared
     var friend: FriendType
     
     @State private var image = UIImage()
@@ -21,6 +22,8 @@ struct FriendsRowView: View {
     @Binding var anyFriendDragging: Bool
     @Binding var anyDragCancelled: Bool
     @Binding var editPressed: Bool
+    @Binding var deletion: String
+    @Binding var multipleDeletePressed: Bool
     
     var body: some View {
         ZStack {
@@ -29,6 +32,12 @@ struct FriendsRowView: View {
                 Button {
                     if editPressed {
                         friendSelected.toggle()
+                        if friendSelected {
+                            friendOperations.addSelection(selectedFriend: friend.mobile)
+                        }
+                        else {
+                            friendOperations.removeSelection(removedFriend: friend.mobile)
+                        }
                     }
                     else {
                         if anyDragCancelled {
@@ -103,6 +112,12 @@ struct FriendsRowView: View {
             .onTapGesture {
                 if editPressed{
                     friendSelected.toggle()
+                    if friendSelected {
+                        friendOperations.addSelection(selectedFriend: friend.mobile)
+                    }
+                    else {
+                        friendOperations.removeSelection(removedFriend: friend.mobile)
+                    }
                 }
                 else {
                     withAnimation {
@@ -126,7 +141,8 @@ struct FriendsRowView: View {
             }
             
             Button {
-                // TODO
+                UINavigationBar.setAnimationsEnabled(true)
+                showDeleteConfirmation = true
             } label: {
                 HStack {
                     Spacer()
@@ -135,20 +151,16 @@ struct FriendsRowView: View {
                         Text("Delete")
                             .font(.system(size: 15))
                             .foregroundColor(.white)
-                            .onTapGesture {
-                                UINavigationBar.setAnimationsEnabled(true)
-                                showDeleteConfirmation = true
-                            }
                             .confirmationDialog("", isPresented: $showDeleteConfirmation) {
                                 Button("Delete", role: .destructive) {
-                                    // TODO
                                     anyDragCancelled = true
+                                    deletion = friend.mobile
                                 }
                                 Button("Cancel", role: .cancel) {
                                     anyDragCancelled = true
                                 }
                             } message: {
-                                Text("Are you sure you want to delete the chat with Michael Clooney?")
+                                Text(friend.name == "" ? "Are you sure you want to delete the user with mobile \(friend.mobile)?" : "Are you sure you want to delete \(friend.name)?")
                             }
                         Spacer()
                     }
@@ -191,11 +203,14 @@ struct FriendsRowView: View {
                 }
             }
         }
+        .onChange(of: multipleDeletePressed) { newValue in
+            friendSelected = false
+        }
     }
 }
 
 struct FriendsRowView_Previews: PreviewProvider {
     static var previews: some View {
-        FriendsRowView(friend: FriendType(mobile: "", name: "", email: "", lastSeen: "", pictureUrl: nil), anyFriendDragging: .constant(false), anyDragCancelled: .constant(true), editPressed: .constant(false))
+        FriendsRowView(friend: FriendType(mobile: "", name: "", email: "", lastSeen: "", pictureUrl: nil), anyFriendDragging: .constant(false), anyDragCancelled: .constant(true), editPressed: .constant(false), deletion: .constant(""), multipleDeletePressed: .constant(false))
     }
 }

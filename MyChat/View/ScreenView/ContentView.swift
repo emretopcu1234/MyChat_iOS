@@ -17,6 +17,7 @@ struct ContentView: View {
     @StateObject var specificChatViewModel = SpecificChatViewModel()
     @StateObject var loginViewModel = LoginViewModel()
     @StateObject var registerViewModel = RegisterViewModel()
+    @StateObject var friendSelection = FriendSelection.shared
     
     @State private var isLoggedIn: Bool?
     
@@ -30,9 +31,9 @@ struct ContentView: View {
                     if isLoggedIn {
                         GeneralView()
                     }
-                    else {
-                        EmptyView()
-                    }
+//                    else {
+//                        EmptyView()
+//                    }
                 }
             }
         }
@@ -43,6 +44,7 @@ struct ContentView: View {
         .environmentObject(specificChatViewModel)
         .environmentObject(loginViewModel)
         .environmentObject(registerViewModel)
+        .environmentObject(friendSelection)
         .onAppear {
             if !contentViewModel.loginActive {
                 if let isLoggedIn = isLoggedIn {

@@ -142,7 +142,7 @@ struct ProfileView: View {
             }
             Divider()
                 .padding(EdgeInsets.init(top: 0, leading: 10, bottom: 10, trailing: 10))
-            BottomBarView(bottomBarType: BottomBarType.Profile)
+            BottomBarView(bottomBarType: BottomBarType.Profile, deletePressed: .constant(false))
         }
         .background(Color("DarkWhite"))
         .padding(.top, CGFloat(UIApplication.shared.windows.first?.safeAreaInsets.top ?? 0))

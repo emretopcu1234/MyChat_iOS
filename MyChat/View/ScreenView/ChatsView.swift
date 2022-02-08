@@ -25,7 +25,7 @@ struct ChatsView: View {
                     ChatsRowView(anyChatDragging: $anyChatDragging, anyDragCancelled: $anyDragCancelled, editPressed: $editPressed)
                 }
             }
-            BottomBarView(bottomBarType: editPressed ? BottomBarType.Delete : BottomBarType.Chats)
+            BottomBarView(bottomBarType: editPressed ? BottomBarType.DeleteChat : BottomBarType.Chats, deletePressed: .constant(false))
         }
         .padding(.top, CGFloat(UIApplication.shared.windows.first?.safeAreaInsets.top ?? 0))
         .ignoresSafeArea(edges: .top)

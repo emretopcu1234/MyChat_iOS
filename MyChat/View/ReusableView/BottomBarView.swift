@@ -11,17 +11,22 @@ enum BottomBarType {
     case Friends
     case Chats
     case Profile
-    case Delete
+    case DeleteFriend
+    case DeleteChat
 }
 
 struct BottomBarView: View {
     
     var bottomBarType: BottomBarType
     
+    @EnvironmentObject var friendSelection: FriendSelection
+    @State private var showDeleteConfirmation = false
+    @Binding var deletePressed: Bool
+    
     var body: some View {
         
         HStack(alignment: .center) {
-            if bottomBarType != BottomBarType.Delete {
+            if bottomBarType == BottomBarType.Friends || bottomBarType == BottomBarType.Chats || bottomBarType == BottomBarType.Profile {
                 NavigationLink(destination: FriendsView()) {
                     VStack(spacing: 5) {
                         Image(systemName: "person.3.fill")
@@ -58,15 +63,28 @@ struct BottomBarView: View {
                 }
                 .disabled(bottomBarType == BottomBarType.Profile)
             }
-            else {
+            else if bottomBarType == .DeleteFriend {
                 Spacer()
                 Button {
-                    // TODO
+                    UINavigationBar.setAnimationsEnabled(true)
+                    showDeleteConfirmation = true
                 } label: {
                     Text("Delete")
                         .font(.title3)
-                        .disabled(true)
+                        .disabled(friendSelection.selectedFriends.isEmpty ? true : false)
+                        .confirmationDialog("", isPresented: $showDeleteConfirmation) {
+                            Button("Delete", role: .destructive) {
+                                deletePressed = true
+                            }
+                            Button("Cancel", role: .cancel) {
+                            }
+                        } message: {
+                            Text("Are you sure you want to delete selected friends?")
+                        }
                 }
+            }
+            else {
+                
             }
         }
         .frame(height: 55)
@@ -78,6 +96,6 @@ struct BottomBarView: View {
 
 struct BottomBarView_Previews: PreviewProvider {
     static var previews: some View {
-        BottomBarView(bottomBarType: BottomBarType.Delete)
+        BottomBarView(bottomBarType: BottomBarType.DeleteFriend, deletePressed: .constant(false))
     }
 }

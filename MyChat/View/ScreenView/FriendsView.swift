@@ -11,10 +11,14 @@ struct FriendsView: View {
     
     @EnvironmentObject var friendsViewModel: FriendsViewModel
     
-    
     @State var anyDragCancelled = true
     @State var anyFriendDragging = false
     @State var editPressed = false
+    @State var multipleDeletePressed = false
+    @State var singleDeletion: String = ""
+    
+    let friendSelection = FriendSelection.shared
+    var selectedFriends = [String]()
     
     var body: some View {
         VStack(spacing: 0) {
@@ -23,7 +27,7 @@ struct FriendsView: View {
 //            ScrollViewReader { scrollIndex in
             ScrollView(showsIndicators: false) {
                 ForEach(Array($friendsViewModel.friends.enumerated()), id: \.offset) { index, element in
-                    FriendsRowView(friend: friendsViewModel.friends[index], anyFriendDragging: $anyFriendDragging, anyDragCancelled: $anyDragCancelled, editPressed: $editPressed)
+                    FriendsRowView(friend: friendsViewModel.friends[index], anyFriendDragging: $anyFriendDragging, anyDragCancelled: $anyDragCancelled, editPressed: $editPressed, deletion: $singleDeletion, multipleDeletePressed: $multipleDeletePressed)
                         .id(index)
                 }
             }
@@ -31,7 +35,7 @@ struct FriendsView: View {
 //                    scrollIndex.scrollTo(12)
 //                }
 //            }
-            BottomBarView(bottomBarType: editPressed ? BottomBarType.Delete : BottomBarType.Friends)
+            BottomBarView(bottomBarType: editPressed ? BottomBarType.DeleteFriend : BottomBarType.Friends, deletePressed: $multipleDeletePressed)
         }
         .padding(.top, CGFloat(UIApplication.shared.windows.first?.safeAreaInsets.top ?? 0))
         .ignoresSafeArea(edges: .top)
@@ -41,6 +45,24 @@ struct FriendsView: View {
             UINavigationBar.setAnimationsEnabled(false)
             friendsViewModel.getData()
         }
+        .onChange(of: editPressed) { _ in
+            friendSelection.clearSelection()
+        }
+        .onChange(of: singleDeletion) { deletion in
+            if deletion.count > 0 {
+                friendsViewModel.deleteFriend(mobile: deletion)
+            }
+        }
+        .onChange(of: multipleDeletePressed) { pressed in
+            if pressed {
+                friendsViewModel.deleteFriends(mobile: friendSelection.selectedFriends)
+                friendSelection.clearSelection()
+                multipleDeletePressed = false
+                withAnimation {
+                    editPressed = false
+                }
+            }
+        }
     }
 }
 
@@ -49,33 +71,3 @@ struct FriendsTabView_Previews: PreviewProvider {
         FriendsView()
     }
 }
-
-
-
-
-
-
-
-// FriendOperations class'ı bu dosyada tanımlanabilir. Eger baska bir view'da da (bu view'un child'ları haric) ihtiyac duyulursa o zaman view paketinin icinde baska bir yerde tanımlanabilir. Duzenli gorunmesi acisindan 2.secenek daha mantıklı duruyor.
-
-
-//class FriendOperations {
-//
-//    var friends: [Friend] = [Friend(name: "emre", status: "last seen ok"), Friend(name: "seren", status: "last seen nok")]
-//    var friendsToBeDeleted = [Friend]()
-//
-//
-//    func insertDeleteList(friend: Friend){
-//        // örnegin friendsrowview'lardaki herhangi bir row secildiginde ilgili row bu metodu cagıracak ve böylece friendsToBeDeleted listesi guncellenmis olacak.
-//        friendsToBeDeleted.append(friend)
-//        print(friendsToBeDeleted[0].name)
-//    }
-//
-//    func deleteFriends(){
-//        // örneğin delete tusuna basıldıgında bu metod cagırılacak.
-//        // viewModelFriends.deleteFrinds(friendsToBeDeleted)
-//        // not: delete tusu bottomrowview'da yer alıyor. o view'a friendoperations referansını göndermek yerine state binding yontemi kullanılarak delete tusuna basıldıgından haberdar olunması daha mantıklı bir yol. (vstack'e onChange(of: ..., perform...) eklenerek)
-//    }
-//
-//}
-//

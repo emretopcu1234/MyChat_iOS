@@ -72,9 +72,6 @@ struct WelcomePageView: View {
         .background(Color("DarkWhite"))
         .navigationBarTitle("", displayMode: .inline)
         .navigationBarHidden(true)
-        .onTapGesture {
-            loginSuccessful = false
-        }
         .onAppear {
             UINavigationBar.setAnimationsEnabled(false)
         }

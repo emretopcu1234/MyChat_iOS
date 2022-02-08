@@ -17,16 +17,18 @@ class FriendsModel {
     let dbRef: Firestore
     let usersRef: CollectionReference
     let storageRef: StorageReference
+    private var userDocumentID: String
     private var friends: [String]
-    private var crossFriends: [FriendType]
+    private var friendsInfo: [FriendType]
     
     private init(){
         userDefaultsModel = UserDefaultsModel.shared
         dbRef = Firestore.firestore()
         usersRef = dbRef.collection("users")
         storageRef = Storage.storage().reference()
+        userDocumentID = ""
         friends = [String]()
-        crossFriends = [FriendType]()
+        friendsInfo = [FriendType]()
     }
     
     func getFriendsData(){
@@ -35,6 +37,7 @@ class FriendsModel {
                 return
             }
             for document in querySnapshot!.documents {
+                userDocumentID = document.documentID
                 let result = Result {
                     try document.data(as: DocUserType.self)
                 }
@@ -46,7 +49,7 @@ class FriendsModel {
                             guard error2 == nil else {
                                 return
                             }
-                            crossFriends = [FriendType]()
+                            friendsInfo = [FriendType]()
                             for document in querySnapshot2!.documents {
                                 let result2 = Result {
                                     try document.data(as: DocUserType.self)
@@ -55,7 +58,7 @@ class FriendsModel {
                                 case .success(let candidateCrossFriend):
                                     if let candidateCrossFriend = candidateCrossFriend {
                                         if friends.contains(candidateCrossFriend.mobile) {
-                                            crossFriends.append(FriendType(mobile: candidateCrossFriend.mobile, name: candidateCrossFriend.name, email: candidateCrossFriend.email, lastSeen: candidateCrossFriend.lastSeen.stringFormattedLastSeen(), pictureUrl: candidateCrossFriend.pictureUrl))
+                                            friendsInfo.append(FriendType(mobile: candidateCrossFriend.mobile, name: candidateCrossFriend.name, email: candidateCrossFriend.email, lastSeen: candidateCrossFriend.lastSeen.stringFormattedLastSeen(), pictureUrl: candidateCrossFriend.pictureUrl))
                                         }
                                     }
                                 case .failure(_):
@@ -65,17 +68,17 @@ class FriendsModel {
                             var isFriend: Bool
                             for friend in friends {
                                 isFriend = false
-                                for crossFriend in crossFriends {
-                                    if crossFriend.mobile == friend {
+                                for friendInfo in friendsInfo {
+                                    if friendInfo.mobile == friend {
                                         isFriend = true
                                         break
                                     }
                                 }
                                 if !isFriend {
-                                    crossFriends.append(FriendType(mobile: friend, name: "", email: "", lastSeen: "", pictureUrl: nil))
+                                    friendsInfo.append(FriendType(mobile: friend, name: "", email: "", lastSeen: "", pictureUrl: nil))
                                 }
                             }
-                            friendsDelegate?.onFriendsDataReceived(friends: crossFriends)
+                            friendsDelegate?.onFriendsDataReceived(friends: friendsInfo)
                         }
                     }
                 case .failure(_):
@@ -85,15 +88,33 @@ class FriendsModel {
             }
         }
     }
+    
+    func deleteFriend(mobile: String){
+        usersRef.document(userDocumentID).updateData([
+            "friends": FieldValue.arrayRemove([mobile])
+        ]) { [self] error in
+            if error == nil {
+                if let index = friends.firstIndex(of: mobile) {
+                    friends.remove(at: index)
+                }
+                for index in 0..<friendsInfo.count {
+                    if friendsInfo[index].mobile == mobile {
+                        friendsInfo.remove(at: index)
+                        break
+                    }
+                }
+                friendsDelegate?.onFriendsDataReceived(friends: friendsInfo)
+            }
+        }
+    }
+    
+    func deleteFriends(mobile: [String]){
+        print(mobile)
+        var friendss = [FriendType]()
+        friendss.append(FriendType(mobile: "0000000000", name: "wrwrwqr", email: "", lastSeen: "", pictureUrl: nil))
+        friendss.append(FriendType(mobile: "1111111111", name: "sefesgweg", email: "", lastSeen: "", pictureUrl: nil))
+        friendsDelegate?.onFriendsDataReceived(friends: friendss)
+    }
 }
 
 
-
-
-
-//        var friends = [FriendRowType]()
-//        friends.append(FriendRowType(name: "emre topcu", lastSeen: "last seen yesterday at 11:35", pictureUrl: "https://firebasestorage.googleapis.com:443/v0/b/mychat-d8d6d.appspot.com/o/555555?alt=media&token=fc143ece-62b0-457b-a27b-5f000968d4fc"))
-//        friends.append(FriendRowType(name: "emre topcu2", lastSeen: "last seen yesterday at 11:36", pictureUrl: "https://firebasestorage.googleapis.com:443/v0/b/mychat-d8d6d.appspot.com/o/555555?alt=media&token=fc143ece-62b0-457b-a27b-5f000968d4fc"))
-//        friends.append(FriendRowType(name: "emre topcu3", lastSeen: "last seen yesterday at 11:37", pictureUrl: nil))
-//        friends.append(FriendRowType(name: "emre topcu4", lastSeen: "last seen yesterday at 11:38", pictureUrl: "https://firebasestorage.googleapis.com:443/v0/b/mychat-d8d6d.appspot.com/o/555555?alt=media&token=fc143ece-62b0-457b-a27b-5f000968d4fc"))
-//        friendsDelegate?.onFriendsDataReceived(friends: friends)

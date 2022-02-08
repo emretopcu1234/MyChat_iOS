@@ -11,7 +11,6 @@ class FriendsViewModel: ObservableObject, FriendsDelegate {
     
     @Published var friends: [FriendType]
     
-    
     let friendsModel = FriendsModel.shared
     let userDefaultsModel = UserDefaultsModel.shared
     
@@ -24,6 +23,13 @@ class FriendsViewModel: ObservableObject, FriendsDelegate {
         friendsModel.getFriendsData()
     }
     
+    func deleteFriend(mobile: String){
+        friendsModel.deleteFriend(mobile: mobile)
+    }
+    
+    func deleteFriends(mobile: [String]){
+        friendsModel.deleteFriends(mobile: mobile)
+    }
     
     
     // MARK: PROTOCOL METHODS
