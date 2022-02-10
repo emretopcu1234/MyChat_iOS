@@ -1,5 +1,5 @@
 //
-//  FriendsTabView.swift
+//  FriendsView.swift
 //  MyChat
 //
 //  Created by Emre Topçu on 12.01.2022.
@@ -16,18 +16,20 @@ struct FriendsView: View {
     @State var editPressed = false
     @State var multipleDeletePressed = false
     @State var singleDeletion: String = ""
+    @State var friendCreationMobile: String = ""
+    @State var friendCreationResult: CreateFriendState? = nil
     
     let friendSelection = FriendSelection.shared
     var selectedFriends = [String]()
     
     var body: some View {
         VStack(spacing: 0) {
-            TopBarView(topBarType: TopBarType.Friends, friendsEditPressed: $editPressed, chatsEditPressed: .constant(false), newChatSelected: .constant(false))
+            TopBarView(topBarType: TopBarType.Friends, friendsEditPressed: $editPressed, chatsEditPressed: .constant(false), newChatSelected: .constant(false), friendCreationMobile: $friendCreationMobile, friendCreationResult: $friendCreationResult)
                 .frame(height: 60)
 //            ScrollViewReader { scrollIndex in
             ScrollView(showsIndicators: false) {
                 ForEach(Array($friendsViewModel.friends.enumerated()), id: \.offset) { index, element in
-                    FriendsRowView(friend: friendsViewModel.friends[index], anyFriendDragging: $anyFriendDragging, anyDragCancelled: $anyDragCancelled, editPressed: $editPressed, deletion: $singleDeletion, multipleDeletePressed: $multipleDeletePressed)
+                    FriendsRowView(friend: $friendsViewModel.friends[index], anyFriendDragging: $anyFriendDragging, anyDragCancelled: $anyDragCancelled, editPressed: $editPressed, deletion: $singleDeletion, multipleDeletePressed: $multipleDeletePressed)
                         .id(index)
                 }
             }
@@ -35,7 +37,7 @@ struct FriendsView: View {
 //                    scrollIndex.scrollTo(12)
 //                }
 //            }
-            BottomBarView(bottomBarType: editPressed ? BottomBarType.DeleteFriend : BottomBarType.Friends, deletePressed: $multipleDeletePressed)
+            BottomBarView(bottomBarType: editPressed ? BottomBarType.DeleteFriend : BottomBarType.Friends, deleteFriendPressed: $multipleDeletePressed, deleteChatPressed: .constant(false))
         }
         .padding(.top, CGFloat(UIApplication.shared.windows.first?.safeAreaInsets.top ?? 0))
         .ignoresSafeArea(edges: .top)
@@ -62,6 +64,14 @@ struct FriendsView: View {
                     editPressed = false
                 }
             }
+        }
+        .onChange(of: friendCreationMobile) { mobile in
+            if mobile.count > 0 {
+                friendsViewModel.createFriend(mobile: mobile)
+            }
+        }
+        .onReceive(friendsViewModel.$createFriendState) { state in
+            friendCreationResult = state
         }
     }
 }

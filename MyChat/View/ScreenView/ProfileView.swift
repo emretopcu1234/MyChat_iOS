@@ -1,5 +1,5 @@
 //
-//  ProfileTabView.swift
+//  ProfileView.swift
 //  MyChat
 //
 //  Created by Emre Topçu on 12.01.2022.
@@ -27,15 +27,17 @@ struct ProfileView: View {
     var body: some View {
         
         VStack(spacing: 10) {
-            TopBarView(topBarType: TopBarType.Profile, friendsEditPressed: .constant(false),  chatsEditPressed: .constant(false), newChatSelected: .constant(false))
+            TopBarView(topBarType: TopBarType.Profile, friendsEditPressed: .constant(false),  chatsEditPressed: .constant(false), newChatSelected: .constant(false), friendCreationMobile: .constant(""), friendCreationResult: .constant(nil))
                 .frame(height: 60)
-            ZStack {
+            if imageUrl == URL(string: ""){
                 Image(systemName: "person.circle")
                     .resizable()
                     .aspectRatio(1, contentMode: .fill)
                     .frame(width: UIScreen.self.main.bounds.height > 900 ? 200 : 150, height: UIScreen.self.main.bounds.height > 900 ? 200 : 150)
                     .foregroundColor(.gray)
                     .clipShape(Circle())
+            }
+            else {
                 Image(uiImage: image)
                     .resizable()
                     .aspectRatio(1, contentMode: .fill)
@@ -142,7 +144,7 @@ struct ProfileView: View {
             }
             Divider()
                 .padding(EdgeInsets.init(top: 0, leading: 10, bottom: 10, trailing: 10))
-            BottomBarView(bottomBarType: BottomBarType.Profile, deletePressed: .constant(false))
+            BottomBarView(bottomBarType: BottomBarType.Profile, deleteFriendPressed: .constant(false), deleteChatPressed: .constant(false))
         }
         .background(Color("DarkWhite"))
         .padding(.top, CGFloat(UIApplication.shared.windows.first?.safeAreaInsets.top ?? 0))

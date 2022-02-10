@@ -25,7 +25,7 @@ class ContentViewModel: ObservableObject, ContentDelegate {
         contentModel.login()
     }
     
-    // MARK: PROTOCOL METHODS
+    // MARK: DELEGATE METHODS
     func onLoginSuccessful() {
         loginResult = LoginState.Successful
     }

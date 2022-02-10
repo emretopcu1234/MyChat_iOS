@@ -1,5 +1,5 @@
 //
-//  ChatsTabView.swift
+//  ChatsView.swift
 //  MyChat
 //
 //  Created by Emre Topçu on 12.01.2022.
@@ -14,18 +14,19 @@ struct ChatsView: View {
     @State var anyDragCancelled = true
     @State var anyChatDragging = false
     @State var editPressed = false
+    @State var multipleDeletePressed = false
     @State var newChatSelected = false
     
     var body: some View {
         VStack(spacing: 0) {
-            TopBarView(topBarType: TopBarType.Chats, friendsEditPressed: .constant(false), chatsEditPressed: $editPressed, newChatSelected: $newChatSelected)
+            TopBarView(topBarType: TopBarType.Chats, friendsEditPressed: .constant(false), chatsEditPressed: $editPressed, newChatSelected: $newChatSelected, friendCreationMobile: .constant(""), friendCreationResult: .constant(nil))
                 .frame(height: 60)
             ScrollView(showsIndicators: false) {
                 ForEach(0 ..< 15) { item in
                     ChatsRowView(anyChatDragging: $anyChatDragging, anyDragCancelled: $anyDragCancelled, editPressed: $editPressed)
                 }
             }
-            BottomBarView(bottomBarType: editPressed ? BottomBarType.DeleteChat : BottomBarType.Chats, deletePressed: .constant(false))
+            BottomBarView(bottomBarType: editPressed ? BottomBarType.DeleteChat : BottomBarType.Chats, deleteFriendPressed: .constant(false), deleteChatPressed: $multipleDeletePressed)
         }
         .padding(.top, CGFloat(UIApplication.shared.windows.first?.safeAreaInsets.top ?? 0))
         .ignoresSafeArea(edges: .top)

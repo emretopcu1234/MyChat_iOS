@@ -12,6 +12,11 @@ struct CreateFriendView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     @State private var textFieldMobile: String = ""
+    @State private var showAlert = false
+    @State private var alertText: String = ""
+    
+    @Binding var mobile: String
+    @Binding var result: CreateFriendState?
     
     @FocusState private var isMobileFocused: Bool
     
@@ -31,12 +36,15 @@ struct CreateFriendView: View {
                     .bold()
                 Spacer()
                 Button {
-                    // TODO
+                    mobile = textFieldMobile
                 } label: {
                     Text("Create")
                         .font(.title3)
                         .padding(.trailing)
                         .disabled(textFieldMobile.count == 0 ? true : false)
+                }
+                .alert(isPresented: $showAlert) {
+                    Alert(title: Text("Error"), message: Text(alertText), dismissButton: .default(Text("OK")))
                 }
             }
             Spacer()
@@ -67,13 +75,28 @@ struct CreateFriendView: View {
                 isMobileFocused = true
             }
         }
+        .onChange(of: result) { result in
+            if let result = result {
+                if result == .Successful {
+                    presentationMode.wrappedValue.dismiss()
+                }
+                else if result == .UnsuccessfulWithInvalidMobile {
+                    alertText = "There does not exist any user with this mobile."
+                    showAlert = true
+                }
+                else {
+                    alertText = "Friend creation unsuccessful with unknown error."
+                    showAlert = true
+                }
+            }
+        }
     }
 }
 
 struct CreateFriendView_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
-            CreateFriendView()
+            CreateFriendView(mobile: .constant(""), result: .constant(nil))
         }
     }
 }

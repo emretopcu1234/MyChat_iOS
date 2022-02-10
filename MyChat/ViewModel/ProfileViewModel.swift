@@ -49,7 +49,7 @@ class ProfileViewModel: ObservableObject, ProfileDelegate {
         profileModel.logout()
     }
     
-    // MARK: PROTOCOL METHODS
+    // MARK: DELEGATE METHODS
     func onDataReceived(user: UserType) {
         mobile = userDefaultsModel.mobile
         name = user.name

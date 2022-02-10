@@ -50,7 +50,7 @@ class LoginViewModel: ObservableObject, LoginDelegate {
         loginModel.login(loginData: loginData)
     }
     
-    // MARK: PROTOCOL METHODS
+    // MARK: DELEGATE METHODS
     func onLoginSuccessful() {
         loginResult = .Successful
     }

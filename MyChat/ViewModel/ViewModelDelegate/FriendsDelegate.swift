@@ -10,4 +10,7 @@ import Foundation
 protocol FriendsDelegate {
     
     func onFriendsDataReceived(friends: [FriendType])
+    func onCreateFriendSuccessful(friends: [FriendType])
+    func onCreateFriendUnsuccessfulWithInvalidMobile()
+    func onCreateFriendUnsuccessfulWithUnknownReason()
 }

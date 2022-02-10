@@ -20,8 +20,11 @@ struct BottomBarView: View {
     var bottomBarType: BottomBarType
     
     @EnvironmentObject var friendSelection: FriendSelection
-    @State private var showDeleteConfirmation = false
-    @Binding var deletePressed: Bool
+    @EnvironmentObject var chatSelection: ChatSelection
+    @State private var showDeleteFriendConfirmation = false
+    @State private var showDeleteChatConfirmation = false
+    @Binding var deleteFriendPressed: Bool
+    @Binding var deleteChatPressed: Bool
     
     var body: some View {
         
@@ -67,14 +70,14 @@ struct BottomBarView: View {
                 Spacer()
                 Button {
                     UINavigationBar.setAnimationsEnabled(true)
-                    showDeleteConfirmation = true
+                    showDeleteFriendConfirmation = true
                 } label: {
                     Text("Delete")
                         .font(.title3)
                         .disabled(friendSelection.selectedFriends.isEmpty ? true : false)
-                        .confirmationDialog("", isPresented: $showDeleteConfirmation) {
+                        .confirmationDialog("", isPresented: $showDeleteFriendConfirmation) {
                             Button("Delete", role: .destructive) {
-                                deletePressed = true
+                                deleteFriendPressed = true
                             }
                             Button("Cancel", role: .cancel) {
                             }
@@ -84,7 +87,24 @@ struct BottomBarView: View {
                 }
             }
             else {
-                
+                Spacer()
+                Button {
+                    UINavigationBar.setAnimationsEnabled(true)
+                    showDeleteChatConfirmation = true
+                } label: {
+                    Text("Delete")
+                        .font(.title3)
+                        .disabled(chatSelection.selectedChats.isEmpty ? true : false)
+                        .confirmationDialog("", isPresented: $showDeleteChatConfirmation) {
+                            Button("Delete", role: .destructive) {
+                                deleteChatPressed = true
+                            }
+                            Button("Cancel", role: .cancel) {
+                            }
+                        } message: {
+                            Text("Are you sure you want to delete selected chats?")
+                        }
+                }
             }
         }
         .frame(height: 55)
@@ -96,6 +116,6 @@ struct BottomBarView: View {
 
 struct BottomBarView_Previews: PreviewProvider {
     static var previews: some View {
-        BottomBarView(bottomBarType: BottomBarType.DeleteFriend, deletePressed: .constant(false))
+        BottomBarView(bottomBarType: BottomBarType.DeleteFriend, deleteFriendPressed: .constant(false), deleteChatPressed: .constant(false))
     }
 }

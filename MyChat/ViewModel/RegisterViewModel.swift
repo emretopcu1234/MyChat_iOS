@@ -31,7 +31,7 @@ class RegisterViewModel: ObservableObject, RegisterDelegate {
         registerModel.register(registerData: registerData)
     }
     
-    // MARK: PROTOCOL METHODS
+    // MARK: DELEGATE METHODS
     func onRegisterSuccessful() {
         registerResult = .Successful
     }

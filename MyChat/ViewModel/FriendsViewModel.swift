@@ -7,9 +7,16 @@
 
 import Foundation
 
+enum CreateFriendState {
+    case Successful
+    case UnsuccessfulWithInvalidMobile
+    case UnsuccessfulWithUnknownReason
+}
+
 class FriendsViewModel: ObservableObject, FriendsDelegate {
     
     @Published var friends: [FriendType]
+    @Published var createFriendState: CreateFriendState?
     
     let friendsModel = FriendsModel.shared
     let userDefaultsModel = UserDefaultsModel.shared
@@ -17,6 +24,7 @@ class FriendsViewModel: ObservableObject, FriendsDelegate {
     init(){
         friends = [FriendType]()
         friendsModel.friendsDelegate = self
+        createFriendState = nil
     }
         
     func getData(){
@@ -31,10 +39,27 @@ class FriendsViewModel: ObservableObject, FriendsDelegate {
         friendsModel.deleteFriends(mobile: mobile)
     }
     
+    func createFriend(mobile: String){
+        createFriendState = nil
+        friendsModel.createFriend(mobile: mobile)
+    }
     
-    // MARK: PROTOCOL METHODS
+    // MARK: DELEGATE METHODS
     func onFriendsDataReceived(friends: [FriendType]) {
         self.friends = friends
+    }
+    
+    func onCreateFriendSuccessful(friends: [FriendType]) {
+        createFriendState = .Successful
+        self.friends = friends
+    }
+    
+    func onCreateFriendUnsuccessfulWithInvalidMobile() {
+        createFriendState = .UnsuccessfulWithInvalidMobile
+    }
+    
+    func onCreateFriendUnsuccessfulWithUnknownReason() {
+        createFriendState =  .UnsuccessfulWithUnknownReason
     }
     
 }

@@ -27,7 +27,9 @@ struct TopBarView: View {
     @Binding var friendsEditPressed: Bool
     @Binding var chatsEditPressed: Bool
     @Binding var newChatSelected: Bool
-        
+    @Binding var friendCreationMobile: String
+    @Binding var friendCreationResult: CreateFriendState?
+    
     var body: some View {
         
         HStack {
@@ -61,6 +63,7 @@ struct TopBarView: View {
                         Spacer()
                         Button {
                             UINavigationBar.setAnimationsEnabled(true)
+                            friendCreationMobile = ""
                             showCreateFriendView = true
                         } label: {
                             Image(systemName: "plus")
@@ -69,7 +72,7 @@ struct TopBarView: View {
                         }
                         .disabled(friendsEditPressed ? true : false)
                         .sheet(isPresented: $showCreateFriendView) {
-                            CreateFriendView()
+                            CreateFriendView(mobile: $friendCreationMobile, result: $friendCreationResult)
                         }
                     }
                 }
@@ -176,7 +179,7 @@ struct TopBarView: View {
 
 struct TopBarView_Previews: PreviewProvider {
     static var previews: some View {
-        TopBarView(topBarType: TopBarType.Friends, friendsEditPressed: .constant(false), chatsEditPressed: .constant(false), newChatSelected: .constant(false))
+        TopBarView(topBarType: TopBarType.Friends, friendsEditPressed: .constant(false), chatsEditPressed: .constant(false), newChatSelected: .constant(false), friendCreationMobile: .constant(""), friendCreationResult: .constant(nil))
             .previewLayout(.sizeThatFits)
     }
 }

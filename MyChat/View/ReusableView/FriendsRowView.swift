@@ -10,7 +10,6 @@ import SwiftUI
 struct FriendsRowView: View {
     
     let friendOperations = FriendSelection.shared
-    var friend: FriendType
     
     @State private var image = UIImage()
     @State private var imageUrl = URL(string: "")
@@ -19,6 +18,7 @@ struct FriendsRowView: View {
     @State private var friendSelected = false
     @State private var showDeleteConfirmation = false
     
+    @Binding var friend: FriendType
     @Binding var anyFriendDragging: Bool
     @Binding var anyDragCancelled: Bool
     @Binding var editPressed: Bool
@@ -52,11 +52,13 @@ struct FriendsRowView: View {
                     }
                 } label: {
                     HStack {
-                        ZStack {
+                        if imageUrl == URL(string: ""){
                             Image(systemName: "person.circle")
                                 .resizable()
                                 .aspectRatio(1, contentMode: .fill)
                                 .frame(width: 50, height: 50)
+                        }
+                        else {
                             Image(uiImage: image)
                                 .resizable()
                                 .aspectRatio(1, contentMode: .fill)
@@ -211,6 +213,6 @@ struct FriendsRowView: View {
 
 struct FriendsRowView_Previews: PreviewProvider {
     static var previews: some View {
-        FriendsRowView(friend: FriendType(mobile: "", name: "", email: "", lastSeen: "", pictureUrl: nil), anyFriendDragging: .constant(false), anyDragCancelled: .constant(true), editPressed: .constant(false), deletion: .constant(""), multipleDeletePressed: .constant(false))
+        FriendsRowView(friend: .constant(FriendType(mobile: "", name: "", email: "", lastSeen: "", pictureUrl: nil)), anyFriendDragging: .constant(false), anyDragCancelled: .constant(true), editPressed: .constant(false), deletion: .constant(""), multipleDeletePressed: .constant(false))
     }
 }

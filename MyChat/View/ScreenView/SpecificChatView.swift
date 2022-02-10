@@ -47,7 +47,7 @@ struct SpecificChatView: View {
                     }
                 }
                 VStack {
-                    TopBarView(topBarType: TopBarType.SpecificChat, friendsEditPressed: .constant(false), chatsEditPressed: .constant(false), newChatSelected: .constant(false))
+                    TopBarView(topBarType: TopBarType.SpecificChat, friendsEditPressed: .constant(false), chatsEditPressed: .constant(false), newChatSelected: .constant(false), friendCreationMobile: .constant(""), friendCreationResult: .constant(nil))
                         .frame(height: 60)
                     Spacer()
                     VStack {
