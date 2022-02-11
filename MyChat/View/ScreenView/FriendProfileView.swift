@@ -95,6 +95,6 @@ struct FriendProfileView: View {
 
 struct FriendProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        FriendProfileView(friend: FriendType(mobile: "", name: "", email: "", lastSeen: "", pictureUrl: nil))
+        FriendProfileView(friend: FriendType(mobile: "", name: "", email: "", lastSeen: 0, pictureUrl: nil))
     }
 }

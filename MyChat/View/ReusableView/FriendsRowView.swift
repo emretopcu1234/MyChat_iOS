@@ -69,9 +69,9 @@ struct FriendsRowView: View {
                             Text(friend.name == "" ? friend.mobile : friend.name)
                                 .font(.title2)
                                 .frame(maxWidth: .infinity, alignment: .leading)
-                            Text(friend.lastSeen)
+                            Text(friend.lastSeen.stringFormattedLastSeen())
                                 .font(.system(size: 15))
-                                .foregroundColor(friend.lastSeen == "online" ? .blue : Color("Gray"))
+                                .foregroundColor(friend.lastSeen.stringFormattedLastSeen() == "online" ? .blue : Color("Gray"))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                         }
                     }
@@ -213,6 +213,6 @@ struct FriendsRowView: View {
 
 struct FriendsRowView_Previews: PreviewProvider {
     static var previews: some View {
-        FriendsRowView(friend: .constant(FriendType(mobile: "", name: "", email: "", lastSeen: "", pictureUrl: nil)), anyFriendDragging: .constant(false), anyDragCancelled: .constant(true), editPressed: .constant(false), deletion: .constant(""), multipleDeletePressed: .constant(false))
+        FriendsRowView(friend: .constant(FriendType(mobile: "", name: "", email: "", lastSeen: 0, pictureUrl: nil)), anyFriendDragging: .constant(false), anyDragCancelled: .constant(true), editPressed: .constant(false), deletion: .constant(""), multipleDeletePressed: .constant(false))
     }
 }

@@ -1,8 +1,8 @@
 //
-//  Extensions.swift
+//  TimeIntervalExtension.swift
 //  MyChat
 //
-//  Created by Emre Topçu on 6.02.2022.
+//  Created by Emre Topçu on 11.02.2022.
 //
 
 import Foundation
@@ -11,6 +11,9 @@ extension TimeInterval {
     func stringFormattedLastSeen() -> String {
         if self == 2147483647 {
             return "online"
+        }
+        if self == 0 {
+            return ""
         }
         let date = Date.init(timeIntervalSince1970: self)
         if Calendar.current.isDateInToday(date) {

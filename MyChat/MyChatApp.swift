@@ -29,9 +29,7 @@ struct MyChatApp: App {
 
 // TODO LIST:
 
-// friend list'ten friend silindiginde eger son sıradaki silindiyse index out of range sıkıntısı oluyor, onu çöz. (viewmodel'da friends array'i guncelleniyor, ama view'da guncelleme olmuyor gibi gorunuyor)
-
-// specific bir chat'e girildiginde en alta scroll edilecek. ama eger okunmamıs bir mesaj varsa, örneğin okunmamış 20 mesaj var, bu durumda okunmamış mesaj yazan yere (yani size - 20 gibi bir şey) scroll edilmesi lazım. o durumda da direkt olarak size - 20 degil de size - 17, size - 18 (tabi en az 2-3 mesaj varsa, yoksa out of bound exception olur) gibi bir şey yapılmalı ki, okunmamış mesaj yazısı en altta değil, ekranın biraz üstüne doğru kaysın, altında da okunmamış mesajların 2-3 tanesi görünsün, devamı aşağı kaydırılırsa gelir zaten.
+// specific bir chat'e girildiginde en alta scroll edilecek (anchor: .bottom). ama eger okunmamıs bir mesaj varsa, örneğin okunmamış 20 mesaj var, bu durumda okunmamış mesaj yazan yere scroll edilmesi lazım (anchor: .center)
 
 // edit kısımlarından sonra bottombar'daki delete butonunun enable / disable olma durumunu hallet. (aciliyeti yok, yardımcı class'lar olusturulacak, ona gore bir tasarım dusun)
 

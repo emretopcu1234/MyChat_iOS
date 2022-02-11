@@ -58,7 +58,7 @@ class FriendsModel {
                                 case .success(let candidateCrossFriend):
                                     if let candidateCrossFriend = candidateCrossFriend {
                                         if friends.contains(candidateCrossFriend.mobile) {
-                                            friendsInfo.append(FriendType(mobile: candidateCrossFriend.mobile, name: candidateCrossFriend.name, email: candidateCrossFriend.email, lastSeen: candidateCrossFriend.lastSeen.stringFormattedLastSeen(), pictureUrl: candidateCrossFriend.pictureUrl))
+                                            friendsInfo.append(FriendType(mobile: candidateCrossFriend.mobile, name: candidateCrossFriend.name, email: candidateCrossFriend.email, lastSeen: candidateCrossFriend.lastSeen, pictureUrl: candidateCrossFriend.pictureUrl))
                                         }
                                     }
                                 case .failure(_):
@@ -75,7 +75,7 @@ class FriendsModel {
                                     }
                                 }
                                 if !isFriend {
-                                    friendsInfo.append(FriendType(mobile: friend, name: "", email: "", lastSeen: "", pictureUrl: nil))
+                                    friendsInfo.append(FriendType(mobile: friend, name: "", email: "", lastSeen: 0, pictureUrl: nil))
                                 }
                             }
                             friendsDelegate?.onFriendsDataReceived(friends: friendsInfo)
@@ -171,7 +171,7 @@ class FriendsModel {
                                 case .success(let candidateCrossFriend):
                                     if let candidateCrossFriend = candidateCrossFriend {
                                         if friends.contains(candidateCrossFriend.mobile) {
-                                            friendsInfo.append(FriendType(mobile: candidateCrossFriend.mobile, name: candidateCrossFriend.name, email: candidateCrossFriend.email, lastSeen: candidateCrossFriend.lastSeen.stringFormattedLastSeen(), pictureUrl: candidateCrossFriend.pictureUrl))
+                                            friendsInfo.append(FriendType(mobile: candidateCrossFriend.mobile, name: candidateCrossFriend.name, email: candidateCrossFriend.email, lastSeen: candidateCrossFriend.lastSeen, pictureUrl: candidateCrossFriend.pictureUrl))
                                         }
                                     }
                                 case .failure(_):
@@ -189,7 +189,7 @@ class FriendsModel {
                                     }
                                 }
                                 if !isFriend {
-                                    friendsInfo.append(FriendType(mobile: friend, name: "", email: "", lastSeen: "", pictureUrl: nil))
+                                    friendsInfo.append(FriendType(mobile: friend, name: "", email: "", lastSeen: 0, pictureUrl: nil))
                                 }
                             }
                             friendsDelegate?.onCreateFriendSuccessful(friends: friendsInfo)

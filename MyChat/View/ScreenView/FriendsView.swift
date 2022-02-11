@@ -27,16 +27,23 @@ struct FriendsView: View {
             TopBarView(topBarType: TopBarType.Friends, friendsEditPressed: $editPressed, chatsEditPressed: .constant(false), newChatSelected: .constant(false), friendCreationMobile: $friendCreationMobile, friendCreationResult: $friendCreationResult)
                 .frame(height: 60)
 //            ScrollViewReader { scrollIndex in
-            ScrollView(showsIndicators: false) {
-                ForEach(Array($friendsViewModel.friends.enumerated()), id: \.offset) { index, element in
-                    FriendsRowView(friend: $friendsViewModel.friends[index], anyFriendDragging: $anyFriendDragging, anyDragCancelled: $anyDragCancelled, editPressed: $editPressed, deletion: $singleDeletion, multipleDeletePressed: $multipleDeletePressed)
-                        .id(index)
-                }
-            }
+//                ScrollView(showsIndicators: false) {
+//                    ForEach($friendsViewModel.friends) { friend in
+//                        FriendsRowView(friend: friend, anyFriendDragging: $anyFriendDragging, anyDragCancelled: $anyDragCancelled, editPressed: $editPressed, deletion: $singleDeletion, multipleDeletePressed: $multipleDeletePressed)
+//                            .id(friend.id)
+//                    }
+//                }
 //                .onAppear {
-//                    scrollIndex.scrollTo(12)
+//                    scrollIndex.scrollTo("00000" as String?, anchor: .center)
 //                }
 //            }
+            // bunun icin ilgili struct'ın / class'ın identifiable olması gerekiyor, yani specificchatview'da kullanılacak struct identifiable olacak, id'si de init'in icerisinde tanımlanacak ve timestamp degerine esit olacak. (ama string'e falan cast edilebilir. böylece scrollto'nun icine ilgili timestamp degerinden cast edilmis string degeri girilerek istenilen row'a scroll edilebilecek)
+            
+            ScrollView(showsIndicators: false) {
+                ForEach($friendsViewModel.friends) { friend in
+                    FriendsRowView(friend: friend, anyFriendDragging: $anyFriendDragging, anyDragCancelled: $anyDragCancelled, editPressed: $editPressed, deletion: $singleDeletion, multipleDeletePressed: $multipleDeletePressed)
+                }
+            }
             BottomBarView(bottomBarType: editPressed ? BottomBarType.DeleteFriend : BottomBarType.Friends, deleteFriendPressed: $multipleDeletePressed, deleteChatPressed: .constant(false))
         }
         .padding(.top, CGFloat(UIApplication.shared.windows.first?.safeAreaInsets.top ?? 0))
