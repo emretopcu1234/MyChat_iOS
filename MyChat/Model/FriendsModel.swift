@@ -31,6 +31,10 @@ class FriendsModel {
         friendsInfo = [FriendType]()
     }
     
+    func getFriendsInfo() -> [FriendType] {
+        return friendsInfo
+    }
+    
     func getFriendsData(){
         usersRef.whereField("mobile", isEqualTo: userDefaultsModel.mobile).getDocuments { [self] querySnapshot, error in
             guard error == nil else {
@@ -45,16 +49,16 @@ class FriendsModel {
                 case .success(let receivedUser):
                     if let receivedUser = receivedUser {
                         friends = receivedUser.friends
-                        usersRef.order(by: "lastSeen", descending: true).whereField("friends", arrayContains: userDefaultsModel.mobile).getDocuments { querySnapshot2, error2 in
-                            guard error2 == nil else {
+                        usersRef.order(by: "lastSeen", descending: true).whereField("friends", arrayContains: userDefaultsModel.mobile).getDocuments { querySnapshot, error in
+                            guard error == nil else {
                                 return
                             }
                             friendsInfo = [FriendType]()
-                            for document in querySnapshot2!.documents {
-                                let result2 = Result {
+                            for document in querySnapshot!.documents {
+                                let result = Result {
                                     try document.data(as: DocUserType.self)
                                 }
-                                switch result2 {
+                                switch result {
                                 case .success(let candidateCrossFriend):
                                     if let candidateCrossFriend = candidateCrossFriend {
                                         if friends.contains(candidateCrossFriend.mobile) {

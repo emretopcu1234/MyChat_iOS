@@ -77,10 +77,10 @@ struct CreateFriendView: View {
         }
         .onChange(of: result) { result in
             if let result = result {
-                if result == .Successful {
+                if result == .successful {
                     presentationMode.wrappedValue.dismiss()
                 }
-                else if result == .UnsuccessfulWithInvalidMobile {
+                else if result == .unsuccessfulWithInvalidMobile {
                     alertText = "There does not exist any user with this mobile."
                     showAlert = true
                 }

@@ -32,4 +32,21 @@ extension TimeInterval {
             return "last seen \(dateFormatter.string(from: date))"
         }
     }
+    
+    func stringFormattedLastMessageTime() -> String {
+        let date = Date.init(timeIntervalSince1970: self)
+        if Calendar.current.isDateInToday(date) {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "hh:mm a"
+            return "\(dateFormatter.string(from: date))"
+        }
+        else if Calendar.current.isDateInYesterday(date) {
+            return "Yesterday"
+        }
+        else {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "dd.MM.yyyy"
+            return "\(dateFormatter.string(from: date))"
+        }
+    }
 }

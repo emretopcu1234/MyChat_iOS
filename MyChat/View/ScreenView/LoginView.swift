@@ -132,16 +132,16 @@ struct LoginView: View {
         }
         .onReceive(loginViewModel.$loginResult, perform: { loginResult in
             if let result = loginResult {
-                if result == .Successful {
+                if result == .successful {
                     UINavigationBar.setAnimationsEnabled(true)
                     presentationMode.wrappedValue.dismiss()
                     loginSuccessful = true
                 }
-                else if result == .InvalidUser {
+                else if result == .invalidUser {
                     alertText = "There does not exist any user with this mobile."
                     showAlert = true
                 }
-                else if result == .WrongPassword {
+                else if result == .wrongPassword {
                     alertText = "Mismatch on mobile and password."
                     showAlert = true
                 }

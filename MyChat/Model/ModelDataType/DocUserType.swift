@@ -9,7 +9,6 @@ import Foundation
 import FirebaseFirestoreSwift
 
 public struct DocUserType: Codable {
-    
     @DocumentID var id: String?
     var mobile: String
     var name: String
@@ -17,5 +16,4 @@ public struct DocUserType: Codable {
     var lastSeen: TimeInterval
     var pictureUrl: String
     var friends: [String]
-    
 }

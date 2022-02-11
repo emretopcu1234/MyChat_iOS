@@ -9,5 +9,5 @@ import Foundation
 
 protocol ChatsDelegate {
     
-    
+    func onChatsDataReceived(chats: [ChatType])
 }

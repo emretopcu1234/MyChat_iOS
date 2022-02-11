@@ -8,18 +8,19 @@
 import Foundation
 
 enum RegisterState {
-    case Successful
-    case UnavailableMobile
-    case UnknownError
+    case successful
+    case unavailableMobile
+    case unknownError
 }
 
 class RegisterViewModel: ObservableObject, RegisterDelegate {
     
     @Published var registerResult: RegisterState?
     
-    let registerModel = RegisterModel.shared
+    let registerModel: RegisterModel
     
     init(){
+        registerModel = RegisterModel.shared
         registerModel.registerDelegate = self
     }
     
@@ -33,14 +34,14 @@ class RegisterViewModel: ObservableObject, RegisterDelegate {
     
     // MARK: DELEGATE METHODS
     func onRegisterSuccessful() {
-        registerResult = .Successful
+        registerResult = .successful
     }
     
     func onRegisterUnsuccessfulWithUnavailableMobile() {
-        registerResult = .UnavailableMobile
+        registerResult = .unavailableMobile
     }
     
     func onRegisterUnsuccessfulWithUnknownReason() {
-        registerResult = .UnknownError
+        registerResult = .unknownError
     }
 }

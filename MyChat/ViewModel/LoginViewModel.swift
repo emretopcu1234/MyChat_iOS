@@ -8,10 +8,10 @@
 import Foundation
 
 enum LoginState {
-    case Successful
-    case InvalidUser
-    case WrongPassword
-    case UnknownError
+    case successful
+    case invalidUser
+    case wrongPassword
+    case unknownError
 }
 
 class LoginViewModel: ObservableObject, LoginDelegate {
@@ -22,11 +22,13 @@ class LoginViewModel: ObservableObject, LoginDelegate {
     var isPasswordSaved: Bool
     var isKeptLoggedIn: Bool
     
-    let loginModel = LoginModel.shared
-    let userDefaultsModel = UserDefaultsModel.shared
+    let loginModel: LoginModel
+    let userDefaultsModel: UserDefaultsModel
     
     
     init(){
+        loginModel = LoginModel.shared
+        userDefaultsModel = UserDefaultsModel.shared
         mobile = userDefaultsModel.mobile
         password = userDefaultsModel.password
         isPasswordSaved = userDefaultsModel.isPasswordSaved
@@ -52,18 +54,18 @@ class LoginViewModel: ObservableObject, LoginDelegate {
     
     // MARK: DELEGATE METHODS
     func onLoginSuccessful() {
-        loginResult = .Successful
+        loginResult = .successful
     }
     
     func onLoginUnsuccessfulWithInvalidUser() {
-        loginResult = .InvalidUser
+        loginResult = .invalidUser
     }
     
     func onLoginUnsuccessfulWithWrongPassword() {
-        loginResult = .WrongPassword
+        loginResult = .wrongPassword
     }
     
     func onLoginUnsuccessfulWithUnknownReason() {
-        loginResult = .UnknownError
+        loginResult = .unknownError
     }
 }

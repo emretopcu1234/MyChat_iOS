@@ -9,14 +9,21 @@ import SwiftUI
 
 struct ChatsRowView: View {
     
+    let chatOperations = ChatSelection.shared
+    
+    @State private var image = UIImage()
+    @State private var imageUrl = URL(string: "")
     @State private var enterChat: Bool?
     @State private var offsetDelete = CGSize.zero
     @State private var chatSelected = false
     @State private var showDeleteConfirmation = false
     
+    @Binding var chat: ChatType
     @Binding var anyChatDragging: Bool
     @Binding var anyDragCancelled: Bool
     @Binding var editPressed: Bool
+    @Binding var deletion: String
+    @Binding var multipleDeletePressed: Bool
     
     var body: some View {
         ZStack {
@@ -26,6 +33,12 @@ struct ChatsRowView: View {
                     Button {
                         if editPressed {
                             chatSelected.toggle()
+                            if chatSelected {
+                                chatOperations.addSelection(selectedChat: chat.id)
+                            }
+                            else {
+                                chatOperations.removeSelection(removedChat: chat.id)
+                            }
                         }
                         else {
                             if anyDragCancelled {
@@ -40,15 +53,24 @@ struct ChatsRowView: View {
                         }
                     } label: {
                         HStack {
-                            Image(systemName: "person.circle")
-                                .resizable()
-                                .aspectRatio(1, contentMode: .fill)
-                                .frame(width: 60, height: 60)
+                            if imageUrl == URL(string: ""){
+                                Image(systemName: "person.circle")
+                                    .resizable()
+                                    .aspectRatio(1, contentMode: .fill)
+                                    .frame(width: 60, height: 60)
+                            }
+                            else {
+                                Image(uiImage: image)
+                                    .resizable()
+                                    .aspectRatio(1, contentMode: .fill)
+                                    .frame(width: 60, height: 60)
+                                    .clipShape(Circle())
+                            }
                             VStack {
-                                Text("Michael Clooney")
+                                Text(chat.name == "" ? chat.mobile : chat.name)
                                     .font(.title2)
                                     .frame(maxWidth: .infinity, alignment: .leading)
-                                Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.")
+                                Text(chat.messages[chat.messages.count-1].message)
                                     .font(.system(size: 15))
                                     .foregroundColor(Color("Gray"))
                                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -56,7 +78,7 @@ struct ChatsRowView: View {
                             }
                             Spacer()
                             VStack(alignment: .trailing, spacing: 5) {
-                                Text("Yesterday")
+                                Text(chat.lastMessageTime.stringFormattedLastMessageTime())
                                     .font(.system(size: 15))
                                     .foregroundColor(Color("Gray"))
                                     .frame(width: 70, alignment: .trailing)
@@ -64,8 +86,8 @@ struct ChatsRowView: View {
                                 ZStack {
                                     Image(systemName: "circle.fill")
                                         .scaleEffect(1.5)
-                                        .foregroundColor(.blue)
-                                    Text("13")
+                                        .foregroundColor(chat.unreadMessageNumber > 0 ? .blue : .white)
+                                    Text(String(chat.unreadMessageNumber))
                                         .foregroundColor(.white)
                                 }
                                 .padding(EdgeInsets.init(top: 3, leading: 0, bottom: 0, trailing: 3))
@@ -108,6 +130,12 @@ struct ChatsRowView: View {
             .onTapGesture {
                 if editPressed{
                     chatSelected.toggle()
+                    if chatSelected {
+                        chatOperations.addSelection(selectedChat: chat.id)
+                    }
+                    else {
+                        chatOperations.removeSelection(removedChat: chat.id)
+                    }
                 }
                 else {
                     withAnimation {
@@ -131,7 +159,8 @@ struct ChatsRowView: View {
             }
             
             Button {
-                // TODO
+                UINavigationBar.setAnimationsEnabled(true)
+                showDeleteConfirmation = true
             } label: {
                 HStack {
                     Spacer()
@@ -140,20 +169,16 @@ struct ChatsRowView: View {
                         Text("Delete")
                             .font(.system(size: 15))
                             .foregroundColor(.white)
-                            .onTapGesture {
-                                UINavigationBar.setAnimationsEnabled(true)
-                                showDeleteConfirmation = true
-                            }
                             .confirmationDialog("", isPresented: $showDeleteConfirmation) {
                                 Button("Delete", role: .destructive) {
-                                    // TODO
                                     anyDragCancelled = true
+                                    deletion = chat.id
                                 }
                                 Button("Cancel", role: .cancel) {
                                     anyDragCancelled = true
                                 }
                             } message: {
-                                Text("Are you sure you want to delete the chat with Michael Clooney?")
+                                Text(chat.name == "" ? "Are you sure you want to delete the chat with the user with mobile \(chat.mobile)?" : "Are you sure you want to delete the chat with \(chat.name)?")
                             }
                         Spacer()
                     }
@@ -167,6 +192,13 @@ struct ChatsRowView: View {
         }
         .padding(.bottom, -5)
         .background(chatSelected ? Color("LightBlue") : .white)
+        .onAppear(perform: {
+            imageUrl = URL(string: chat.pictureUrl ?? "")
+            if imageUrl != URL(string: "") {
+                let data = try? Data(contentsOf: imageUrl!)
+                image = UIImage(data: data!)!
+            }
+        })
         .onChange(of: editPressed) { pressed in
             withAnimation {
                 offsetDelete.width = 0
@@ -189,11 +221,14 @@ struct ChatsRowView: View {
                 }
             }
         }
+        .onChange(of: multipleDeletePressed) { _ in
+            chatSelected = false
+        }
     }
 }
 
 struct ChatsRowView_Previews: PreviewProvider {
     static var previews: some View {
-        ChatsRowView(anyChatDragging: .constant(false), anyDragCancelled: .constant(true), editPressed: .constant(false))
+        ChatsRowView(chat: .constant(ChatType(id: "", mobile: "", name: "", pictureUrl: nil, lastSeen: 0, lastMessage: "", lastMessageTime: 0, unreadMessageNumber: 0, messages: [MessageType]())), anyChatDragging: .constant(false), anyDragCancelled: .constant(true), editPressed: .constant(false), deletion: .constant(""), multipleDeletePressed: .constant(false))
     }
 }

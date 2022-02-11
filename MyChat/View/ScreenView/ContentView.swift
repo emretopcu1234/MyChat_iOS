@@ -58,7 +58,7 @@ struct ContentView: View {
             }
         }
         .onReceive(contentViewModel.$loginResult) { result in
-            if result == LoginState.Successful {
+            if result == LoginState.successful {
                 isLoggedIn = true
             }
         }

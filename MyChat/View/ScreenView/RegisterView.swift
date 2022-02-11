@@ -184,12 +184,12 @@ struct RegisterView: View {
         }
         .onReceive(registerViewModel.$registerResult, perform: { registerResult in
             if let result = registerResult {
-                if result == .Successful {
+                if result == .successful {
                     UINavigationBar.setAnimationsEnabled(true)
                     presentationMode.wrappedValue.dismiss()
                     registerSuccessful = true
                 }
-                else if result == .UnavailableMobile {
+                else if result == .unavailableMobile {
                     alertText = "There exists another user with this mobile."
                     showAlert = true
                 }

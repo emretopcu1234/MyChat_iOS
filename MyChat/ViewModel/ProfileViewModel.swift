@@ -16,10 +16,12 @@ class ProfileViewModel: ObservableObject, ProfileDelegate {
     var email: String
     var pictureUrl: String?
     
-    let profileModel = ProfileModel.shared
-    let userDefaultsModel = UserDefaultsModel.shared
+    let profileModel: ProfileModel
+    let userDefaultsModel: UserDefaultsModel
     
     init(){
+        profileModel = ProfileModel.shared
+        userDefaultsModel = UserDefaultsModel.shared
         mobile = ""
         name = ""
         email = ""

@@ -29,6 +29,7 @@
 		2919B90127A20CD7002F925C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2919B90027A20CD7002F925C /* GoogleService-Info.plist */; };
 		2928AEE8278F556600A45FC6 /* FriendsRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2928AEE7278F556600A45FC6 /* FriendsRowView.swift */; };
 		2934EB91279CB776007DE589 /* CreateFriendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2934EB90279CB776007DE589 /* CreateFriendView.swift */; };
+		293521BD27B6C9C1000300CF /* DocChatType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293521BC27B6C9C1000300CF /* DocChatType.swift */; };
 		293BCFDC27B5CC4700EA3542 /* ChatsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293BCFDB27B5CC4700EA3542 /* ChatsDelegate.swift */; };
 		293BCFDE27B5CCAD00EA3542 /* ChatType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293BCFDD27B5CCAD00EA3542 /* ChatType.swift */; };
 		293BCFE027B5DE9A00EA3542 /* TimeIntervalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293BCFDF27B5DE9A00EA3542 /* TimeIntervalExtension.swift */; };
@@ -101,6 +102,7 @@
 		2919B90027A20CD7002F925C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2928AEE7278F556600A45FC6 /* FriendsRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsRowView.swift; sourceTree = "<group>"; };
 		2934EB90279CB776007DE589 /* CreateFriendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateFriendView.swift; sourceTree = "<group>"; };
+		293521BC27B6C9C1000300CF /* DocChatType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocChatType.swift; sourceTree = "<group>"; };
 		293BCFDB27B5CC4700EA3542 /* ChatsDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsDelegate.swift; sourceTree = "<group>"; };
 		293BCFDD27B5CCAD00EA3542 /* ChatType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatType.swift; sourceTree = "<group>"; };
 		293BCFDF27B5DE9A00EA3542 /* TimeIntervalExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeIntervalExtension.swift; sourceTree = "<group>"; };
@@ -317,6 +319,7 @@
 			isa = PBXGroup;
 			children = (
 				29FF15F927A6A75B00B62311 /* DocUserType.swift */,
+				293521BC27B6C9C1000300CF /* DocChatType.swift */,
 			);
 			path = ModelDataType;
 			sourceTree = "<group>";
@@ -412,6 +415,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				293521BD27B6C9C1000300CF /* DocChatType.swift in Sources */,
 				295FB6492790D9A2007AA467 /* SpecificChatRowView.swift in Sources */,
 				295FB64D2790E018007AA467 /* ChatBubbleShape.swift in Sources */,
 				29C37359278E313A00E34242 /* FriendsView.swift in Sources */,

@@ -205,7 +205,7 @@ struct FriendsRowView: View {
                 }
             }
         }
-        .onChange(of: multipleDeletePressed) { newValue in
+        .onChange(of: multipleDeletePressed) { _ in
             friendSelected = false
         }
     }

@@ -11,11 +11,12 @@ class ContentViewModel: ObservableObject, ContentDelegate {
     
     @Published var loginResult: LoginState?
     
-    let contentModel = ContentModel.shared
+    let contentModel: ContentModel
     
     var loginActive: Bool
     
     init(){
+        contentModel = ContentModel.shared
         loginActive = !UserDefaultsModel.shared.isKeptLoggedIn
         contentModel.contentDelegate = self
     }
@@ -27,6 +28,6 @@ class ContentViewModel: ObservableObject, ContentDelegate {
     
     // MARK: DELEGATE METHODS
     func onLoginSuccessful() {
-        loginResult = LoginState.Successful
+        loginResult = LoginState.successful
     }
 }

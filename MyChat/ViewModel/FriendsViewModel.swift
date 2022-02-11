@@ -8,9 +8,9 @@
 import Foundation
 
 enum CreateFriendState {
-    case Successful
-    case UnsuccessfulWithInvalidMobile
-    case UnsuccessfulWithUnknownReason
+    case successful
+    case unsuccessfulWithInvalidMobile
+    case unsuccessfulWithUnknownReason
 }
 
 class FriendsViewModel: ObservableObject, FriendsDelegate {
@@ -18,10 +18,12 @@ class FriendsViewModel: ObservableObject, FriendsDelegate {
     @Published var friends: [FriendType]
     @Published var createFriendState: CreateFriendState?
     
-    let friendsModel = FriendsModel.shared
-    let userDefaultsModel = UserDefaultsModel.shared
+    let friendsModel: FriendsModel
+    let userDefaultsModel: UserDefaultsModel
     
     init(){
+        friendsModel = FriendsModel.shared
+        userDefaultsModel = UserDefaultsModel.shared
         friends = [FriendType]()
         friendsModel.friendsDelegate = self
         createFriendState = nil
@@ -50,16 +52,16 @@ class FriendsViewModel: ObservableObject, FriendsDelegate {
     }
     
     func onCreateFriendSuccessful(friends: [FriendType]) {
-        createFriendState = .Successful
+        createFriendState = .successful
         self.friends = friends
     }
     
     func onCreateFriendUnsuccessfulWithInvalidMobile() {
-        createFriendState = .UnsuccessfulWithInvalidMobile
+        createFriendState = .unsuccessfulWithInvalidMobile
     }
     
     func onCreateFriendUnsuccessfulWithUnknownReason() {
-        createFriendState =  .UnsuccessfulWithUnknownReason
+        createFriendState =  .unsuccessfulWithUnknownReason
     }
     
 }
