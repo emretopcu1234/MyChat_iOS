@@ -75,6 +75,8 @@
 		29F1EF5B2798B36C009A6C8D /* FriendProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F1EF5A2798B36C009A6C8D /* FriendProfileView.swift */; };
 		29F718042797626E000DEA71 /* BottomBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F718032797626E000DEA71 /* BottomBarView.swift */; };
 		29F97FFA27B4727E00F94B84 /* ChatSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F97FF927B4727E00F94B84 /* ChatSelection.swift */; };
+		29FBAA8E27B9AFE700264E62 /* SpecificChatDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FBAA8D27B9AFE700264E62 /* SpecificChatDelegate.swift */; };
+		29FBAA9027B9B02100264E62 /* SpecificChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FBAA8F27B9B02100264E62 /* SpecificChatModel.swift */; };
 		29FF15FA27A6A75B00B62311 /* DocUserType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FF15F927A6A75B00B62311 /* DocUserType.swift */; };
 		29FF15FC27A6FFC000B62311 /* ProfileDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FF15FB27A6FFC000B62311 /* ProfileDelegate.swift */; };
 /* End PBXBuildFile section */
@@ -135,6 +137,8 @@
 		29F1EF5A2798B36C009A6C8D /* FriendProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendProfileView.swift; sourceTree = "<group>"; };
 		29F718032797626E000DEA71 /* BottomBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomBarView.swift; sourceTree = "<group>"; };
 		29F97FF927B4727E00F94B84 /* ChatSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatSelection.swift; sourceTree = "<group>"; };
+		29FBAA8D27B9AFE700264E62 /* SpecificChatDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecificChatDelegate.swift; sourceTree = "<group>"; };
+		29FBAA8F27B9B02100264E62 /* SpecificChatModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecificChatModel.swift; sourceTree = "<group>"; };
 		29FF15F927A6A75B00B62311 /* DocUserType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocUserType.swift; sourceTree = "<group>"; };
 		29FF15FB27A6FFC000B62311 /* ProfileDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -281,6 +285,7 @@
 				2900999A27A1B0F50012F975 /* FriendsModel.swift */,
 				29145CD227A476D800B1D08B /* ProfileModel.swift */,
 				2900999E27A1B85D0012F975 /* ChatsModel.swift */,
+				29FBAA8F27B9B02100264E62 /* SpecificChatModel.swift */,
 				29FF15F827A67B8F00B62311 /* ModelDataType */,
 			);
 			path = Model;
@@ -311,6 +316,7 @@
 				29FF15FB27A6FFC000B62311 /* ProfileDelegate.swift */,
 				2915946A27AB39FC003109B6 /* FriendsDelegate.swift */,
 				293BCFDB27B5CC4700EA3542 /* ChatsDelegate.swift */,
+				29FBAA8D27B9AFE700264E62 /* SpecificChatDelegate.swift */,
 			);
 			path = ViewModelDelegate;
 			sourceTree = "<group>";
@@ -446,6 +452,7 @@
 				29C3735F278E318D00E34242 /* SpecificChatView.swift in Sources */,
 				2900999727A1A4820012F975 /* ContentViewModel.swift in Sources */,
 				29FF15FA27A6A75B00B62311 /* DocUserType.swift in Sources */,
+				29FBAA9027B9B02100264E62 /* SpecificChatModel.swift in Sources */,
 				2900999D27A1B0FF0012F975 /* UserDefaultsModel.swift in Sources */,
 				29145CD327A476D800B1D08B /* ProfileModel.swift in Sources */,
 				2900999927A1B0E80012F975 /* LoginModel.swift in Sources */,
@@ -454,6 +461,7 @@
 				290099A727A1F7890012F975 /* SpecificChatViewModel.swift in Sources */,
 				2934EB91279CB776007DE589 /* CreateFriendView.swift in Sources */,
 				294803802794C5DB00C8D9F5 /* KeyboardAction.swift in Sources */,
+				29FBAA8E27B9AFE700264E62 /* SpecificChatDelegate.swift in Sources */,
 				29C37365278E3ADA00E34242 /* TopBarView.swift in Sources */,
 				295FB6472790BBE7007AA467 /* ContentView.swift in Sources */,
 				29CA412D27A351AA00D5200D /* LoginViewModel.swift in Sources */,

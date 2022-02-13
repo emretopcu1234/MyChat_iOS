@@ -17,6 +17,7 @@ struct ChatsView: View {
     @State var multipleDeletePressed = false
     @State var singleDeletion: String = ""
     @State var newChatSelected = false
+    @State var enteredChatMobile: String = ""
 //    @State var friendCreationMobile: String = ""
 //    @State var friendCreationResult: CreateFriendState? = nil
     

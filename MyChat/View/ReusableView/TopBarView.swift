@@ -23,6 +23,7 @@ struct TopBarView: View {
     @State private var showCreateFriendView = false
     @State private var showCreateChatView = false
     @State private var enterChat: Bool?
+    @State var enterChatMobile: String = ""
     
     @Binding var friendsEditPressed: Bool
     @Binding var chatsEditPressed: Bool
@@ -77,33 +78,33 @@ struct TopBarView: View {
                     }
                 }
             case .Chats:
-                NavigationLink(destination: SpecificChatView(), tag: true, selection: $enterChat) {
-                    ZStack {
-                        HStack {
-                            Spacer()
-                            Text("Chats")
-                                .font(.title2)
-                            Spacer()
-                        }
-                        HStack {
-                            Button {
-                                withAnimation {
-                                    chatsEditPressed.toggle()
-                                }
-                            } label: {
-                                if !chatsEditPressed {
-                                    Text("Edit")
-                                        .font(.title3)
-                                        .padding()
-                                }
-                                else {
-                                    Text("Done")
-                                        .font(.title3)
-                                        .bold()
-                                        .padding()
-                                }
+                ZStack {
+                    HStack {
+                        Spacer()
+                        Text("Chats")
+                            .font(.title2)
+                        Spacer()
+                    }
+                    HStack {
+                        Button {
+                            withAnimation {
+                                chatsEditPressed.toggle()
                             }
-                            Spacer()
+                        } label: {
+                            if !chatsEditPressed {
+                                Text("Edit")
+                                    .font(.title3)
+                                    .padding()
+                            }
+                            else {
+                                Text("Done")
+                                    .font(.title3)
+                                    .bold()
+                                    .padding()
+                            }
+                        }
+                        Spacer()
+                        NavigationLink(destination: SpecificChatView(mobile: enterChatMobile), tag: true, selection: $enterChat) {
                             Button {
                                 UINavigationBar.setAnimationsEnabled(true)
                                 showCreateChatView = true
@@ -114,17 +115,17 @@ struct TopBarView: View {
                             }
                             .disabled(chatsEditPressed ? true : false)
                             .sheet(isPresented: $showCreateChatView) {
-                                CreateChatView(newChatSelected: $newChatSelected)
+                                CreateChatView(newChatSelected: $newChatSelected, mobile: $enterChatMobile)
                             }
                         }
-                    }
-                    .onChange(of: newChatSelected) { chatSelected in
-                        if chatSelected {
-                            enterChat = true
-                        }
+                        .buttonStyle(PlainButtonStyle())
                     }
                 }
-                .buttonStyle(PlainButtonStyle())
+                .onChange(of: newChatSelected) { chatSelected in
+                    if chatSelected {
+                        enterChat = true
+                    }
+                }
             case .SpecificChat:
                 ZStack {
                     HStack {

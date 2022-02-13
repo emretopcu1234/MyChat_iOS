@@ -35,6 +35,15 @@ class FriendsModel {
         return friendsInfo
     }
     
+    func getFriendInfo(mobile: String) -> FriendType? {
+        for friend in friendsInfo {
+            if friend.mobile == mobile {
+                return friend
+            }
+        }
+        return nil
+    }
+    
     func getFriendsData(){
         usersRef.whereField("mobile", isEqualTo: userDefaultsModel.mobile).getDocuments { [self] querySnapshot, error in
             guard error == nil else {

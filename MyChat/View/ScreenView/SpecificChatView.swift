@@ -9,8 +9,11 @@ import SwiftUI
 
 struct SpecificChatView: View {
     
+    @EnvironmentObject var specificChatViewModel: SpecificChatViewModel
+    
     var keyboardHeight: CGFloat = UserDefaults.standard.object(forKey: "KeyboardHeight") as? CGFloat ?? 340
-
+    var mobile: String
+    
     @State var keyboardActive = false
     @State var textFieldMessage: String = ""
     
@@ -92,6 +95,7 @@ struct SpecificChatView: View {
         .adaptsToKeyboard()
         .onAppear {
             UINavigationBar.setAnimationsEnabled(true)
+            specificChatViewModel.getData(mobile: mobile)
         }
     }
 }
@@ -99,7 +103,7 @@ struct SpecificChatView: View {
 struct SpecificChatView_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
-            SpecificChatView()
+            SpecificChatView(mobile: "")
         }
     }
 }

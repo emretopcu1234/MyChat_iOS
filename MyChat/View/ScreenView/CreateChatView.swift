@@ -11,7 +11,10 @@ struct CreateChatView: View {
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
+    @EnvironmentObject var friendsViewModel: FriendsViewModel
+    
     @Binding var newChatSelected: Bool
+    @Binding var mobile: String
     
     var body: some View {
         VStack {
@@ -34,8 +37,8 @@ struct CreateChatView: View {
             }
             .frame(height: 40)
             ScrollView(showsIndicators: false) {
-                ForEach(0 ..< 15) { index in
-                    CreateChatRowView(newChatSelected: $newChatSelected)
+                ForEach($friendsViewModel.friends) { friend in
+                    CreateChatRowView(friend: friend, newChatSelected: $newChatSelected, mobile: $mobile)
                 }
             }
             .padding(.bottom, 100)
@@ -54,6 +57,6 @@ struct CreateChatView: View {
 
 struct CreateChatView_Previews: PreviewProvider {
     static var previews: some View {
-        CreateChatView(newChatSelected: .constant(false))
+        CreateChatView(newChatSelected: .constant(false), mobile: .constant(""))
     }
 }

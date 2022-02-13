@@ -29,13 +29,13 @@ struct MyChatApp: App {
 
 // TODO LIST:
 
+// specificchatview'dan devam et. viewmodel'daki published variable model'den gelen call ile update edildi. view'da o bilgiyi duzenle (tarih, okunmamıs, arkadas degil... eklenecekse ekle).
+
+// specificchatmodel'da bir chat'e mesaj eklenirken chatdocumentid'yi kontrol et, eger "" ise demek ki 2 kişi arasında ilk kez mesajlaşma olmuş, bu yuzden yeni bir document olustur ve id'ye aktar.
+
 // specific bir chat'e girildiginde en alta scroll edilecek (anchor: .bottom). ama eger okunmamıs bir mesaj varsa, örneğin okunmamış 20 mesaj var, bu durumda okunmamış mesaj yazan yere scroll edilmesi lazım (anchor: .center)
 
-// edit kısımlarından sonra bottombar'daki delete butonunun enable / disable olma durumunu hallet. (aciliyeti yok, yardımcı class'lar olusturulacak, ona gore bir tasarım dusun)
-
 // friendstabview onappear metodunda animation false yapılıyor, ancak eger welcomepage'den gelindiyse animation true olmalı, daha sonrasında tablar arası gecislerde false olmalı. bunun icin friendstabview'a bir tane degisken tanımlanıp onappear'da o degiskene gore anımation true ya da false'a cekilebilir.
-
-// ContentView'da simdilik direkt friendstab aciliyor. ileride kullanıcı en son hangi tabdan cikis yaptiysa o tabdan devam edecek sekilde guncelle.
 
 // uygulamaya girilince timestamp = 2147483647 yap. (online oldugunun anlasilması icin)
 

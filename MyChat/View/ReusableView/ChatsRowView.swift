@@ -29,7 +29,7 @@ struct ChatsRowView: View {
         ZStack {
             VStack {
                 Divider()
-                NavigationLink(destination: SpecificChatView(), tag: true, selection: $enterChat) {
+                NavigationLink(destination: SpecificChatView(mobile: chat.mobile), tag: true, selection: $enterChat) {
                     Button {
                         if editPressed {
                             chatSelected.toggle()
@@ -81,8 +81,7 @@ struct ChatsRowView: View {
                                 Text(chat.lastMessageTime.stringFormattedLastMessageTime())
                                     .font(.system(size: 15))
                                     .foregroundColor(Color("Gray"))
-                                    .frame(width: 70, alignment: .trailing)
-                                    .lineLimit(2)
+                                    .frame(width: 75, alignment: .trailing)
                                 ZStack {
                                     Image(systemName: "circle.fill")
                                         .scaleEffect(1.5)
