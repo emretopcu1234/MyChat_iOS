@@ -28,6 +28,7 @@ struct TopBarView: View {
     @Binding var friendsEditPressed: Bool
     @Binding var chatsEditPressed: Bool
     @Binding var newChatSelected: Bool
+    @Binding var chatInfo: ChatType
     @Binding var friendCreationMobile: String
     @Binding var friendCreationResult: CreateFriendState?
     
@@ -131,9 +132,9 @@ struct TopBarView: View {
                     HStack {
                         Spacer()
                         VStack {
-                            Text("Michael Clooney")
+                            Text(chatInfo.name == "" ? chatInfo.mobile : chatInfo.name)
                                 .font(.title2)
-                            Text("last seen yesterday at 11:38")
+                            Text(chatInfo.name == "" ? "" : chatInfo.lastSeen.stringFormattedLastSeen())
                                 .font(.system(size: 15))
                                 .foregroundColor(Color("Gray"))
                         }
@@ -180,7 +181,7 @@ struct TopBarView: View {
 
 struct TopBarView_Previews: PreviewProvider {
     static var previews: some View {
-        TopBarView(topBarType: TopBarType.Friends, friendsEditPressed: .constant(false), chatsEditPressed: .constant(false), newChatSelected: .constant(false), friendCreationMobile: .constant(""), friendCreationResult: .constant(nil))
+        TopBarView(topBarType: TopBarType.Friends, friendsEditPressed: .constant(false), chatsEditPressed: .constant(false), newChatSelected: .constant(false), chatInfo: .constant(ChatType(id: "", mobile: "", name: "", pictureUrl: nil, lastSeen: 0, lastMessage: "", lastMessageTime: 0, unreadMessageNumber: 0, messages: [MessageType]())), friendCreationMobile: .constant(""), friendCreationResult: .constant(nil))
             .previewLayout(.sizeThatFits)
     }
 }

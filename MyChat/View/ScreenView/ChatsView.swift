@@ -26,7 +26,7 @@ struct ChatsView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            TopBarView(topBarType: TopBarType.Chats, friendsEditPressed: .constant(false), chatsEditPressed: $editPressed, newChatSelected: $newChatSelected, friendCreationMobile: .constant(""), friendCreationResult: .constant(nil))
+            TopBarView(topBarType: TopBarType.Chats, friendsEditPressed: .constant(false), chatsEditPressed: $editPressed, newChatSelected: $newChatSelected, chatInfo: .constant(ChatType(id: "", mobile: "", name: "", pictureUrl: nil, lastSeen: 0, lastMessage: "", lastMessageTime: 0, unreadMessageNumber: 0, messages: [MessageType]())), friendCreationMobile: .constant(""), friendCreationResult: .constant(nil))
                 .frame(height: 60)
             ScrollView(showsIndicators: false) {
                 ForEach($chatsViewModel.chats) { chat in

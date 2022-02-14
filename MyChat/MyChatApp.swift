@@ -29,6 +29,8 @@ struct MyChatApp: App {
 
 // TODO LIST:
 
+// async image eklenecek. (topbarview'da specificchatview'dan eklemeye basla, oraya henuz normal image da eklenmedi, sadece default person.circle image'ı gorunuyor.)
+
 // specificchatview'dan devam et. viewmodel'daki published variable model'den gelen call ile update edildi. view'da o bilgiyi duzenle (tarih, okunmamıs, arkadas degil... eklenecekse ekle).
 
 // specificchatmodel'da bir chat'e mesaj eklenirken chatdocumentid'yi kontrol et, eger "" ise demek ki 2 kişi arasında ilk kez mesajlaşma olmuş, bu yuzden yeni bir document olustur ve id'ye aktar.

@@ -24,7 +24,7 @@ struct FriendsView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            TopBarView(topBarType: TopBarType.Friends, friendsEditPressed: $editPressed, chatsEditPressed: .constant(false), newChatSelected: .constant(false), friendCreationMobile: $friendCreationMobile, friendCreationResult: $friendCreationResult)
+            TopBarView(topBarType: TopBarType.Friends, friendsEditPressed: $editPressed, chatsEditPressed: .constant(false), newChatSelected: .constant(false), chatInfo: .constant(ChatType(id: "", mobile: "", name: "", pictureUrl: nil, lastSeen: 0, lastMessage: "", lastMessageTime: 0, unreadMessageNumber: 0, messages: [MessageType]())), friendCreationMobile: $friendCreationMobile, friendCreationResult: $friendCreationResult)
                 .frame(height: 60)
 //            ScrollViewReader { scrollIndex in
 //                ScrollView(showsIndicators: false) {

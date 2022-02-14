@@ -14,6 +14,7 @@ struct SpecificChatView: View {
     var keyboardHeight: CGFloat = UserDefaults.standard.object(forKey: "KeyboardHeight") as? CGFloat ?? 340
     var mobile: String
     
+    @State var rows = [SpecificChatRowType]()
     @State var keyboardActive = false
     @State var textFieldMessage: String = ""
     
@@ -30,12 +31,8 @@ struct SpecificChatView: View {
                         .opacity(0.8)
                         .offset(y: keyboardActive ? -keyboardHeight + 70 : -10)
                     ScrollView {
-                        ForEach(0 ..< 15) { item in
-                            SpecificChatRowView(specificChatRowType: SpecificChatRowType.NewDate)
-                            SpecificChatRowView(specificChatRowType: SpecificChatRowType.UnreadMessages)
-                            SpecificChatRowView(specificChatRowType: SpecificChatRowType.Sender)
-                            SpecificChatRowView(specificChatRowType: SpecificChatRowType.Receiver)
-                            SpecificChatRowView(specificChatRowType: SpecificChatRowType.UnknownPerson)
+                        ForEach($rows) { row in
+                            SpecificChatRowView(specificChatRowType: row)
                         }
                     }
                     .padding(EdgeInsets.init(top: 25, leading: 0, bottom: 15, trailing: 0))
@@ -50,7 +47,7 @@ struct SpecificChatView: View {
                     }
                 }
                 VStack {
-                    TopBarView(topBarType: TopBarType.SpecificChat, friendsEditPressed: .constant(false), chatsEditPressed: .constant(false), newChatSelected: .constant(false), friendCreationMobile: .constant(""), friendCreationResult: .constant(nil))
+                    TopBarView(topBarType: TopBarType.SpecificChat, friendsEditPressed: .constant(false), chatsEditPressed: .constant(false), newChatSelected: .constant(false), chatInfo: $specificChatViewModel.chat, friendCreationMobile: .constant(""), friendCreationResult: .constant(nil))
                         .frame(height: 60)
                     Spacer()
                     VStack {
@@ -96,6 +93,28 @@ struct SpecificChatView: View {
         .onAppear {
             UINavigationBar.setAnimationsEnabled(true)
             specificChatViewModel.getData(mobile: mobile)
+        }
+        .onReceive(specificChatViewModel.$chat) { chat in
+            rows = [SpecificChatRowType]()
+            if chat.messages.isEmpty {
+                return
+            }
+            var id = chat.messages[0].time.stringFormattedMessageDay()
+            rows.append(SpecificChatRowType(id: id, rowEnum: SpecificChatRowEnum.newDate, rowInfo1: id, rowInfo2: nil))
+            rows.append(SpecificChatRowType(id: chat.messages[0].time.stringFormattedDefault(), rowEnum: chat.messages[0].sender == mobile ? SpecificChatRowEnum.receiver : SpecificChatRowEnum.sender, rowInfo1: chat.messages[0].message, rowInfo2: chat.messages[0].time.stringFormattedMessageHour()))
+            for index in 1..<chat.messages.count {
+                if !Calendar.current.isDate(Date.init(timeIntervalSince1970: chat.messages[index].time), inSameDayAs: Date.init(timeIntervalSince1970: chat.messages[index-1].time)) {
+                    id = chat.messages[index].time.stringFormattedMessageDay()
+                    rows.append(SpecificChatRowType(id: id, rowEnum: SpecificChatRowEnum.newDate, rowInfo1: id, rowInfo2: nil))
+                }
+                rows.append(SpecificChatRowType(id: chat.messages[index].time.stringFormattedDefault(), rowEnum: chat.messages[index].sender == mobile ? SpecificChatRowEnum.receiver : SpecificChatRowEnum.sender, rowInfo1: chat.messages[index].message, rowInfo2: chat.messages[index].time.stringFormattedMessageHour()))
+            }
+            if chat.name == "" {
+                rows.append(SpecificChatRowType(id: "unknownPerson", rowEnum: SpecificChatRowEnum.unknownPerson, rowInfo1: nil, rowInfo2: nil))
+            }
+            else if chat.unreadMessageNumber != 0 && chat.messages.count != chat.unreadMessageNumber {
+                rows.insert(SpecificChatRowType(id: "unreadMessages", rowEnum: SpecificChatRowEnum.unreadMessages, rowInfo1: nil, rowInfo2: nil), at: rows.count-chat.unreadMessageNumber)
+            }
         }
     }
 }

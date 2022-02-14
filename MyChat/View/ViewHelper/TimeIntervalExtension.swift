@@ -49,4 +49,37 @@ extension TimeInterval {
             return "\(dateFormatter.string(from: date))"
         }
     }
+    
+    func stringFormattedMessageDay() -> String {
+        let date = Date.init(timeIntervalSince1970: self)
+        if Calendar.current.isDateInToday(date) {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "hh:mm a"
+            return "Today"
+        }
+        else if Calendar.current.isDateInYesterday(date) {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "hh:mm a"
+            return "Yesterday"
+        }
+        else {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "dd.MM.yyyy"
+            return "\(dateFormatter.string(from: date))"
+        }
+    }
+    
+    func stringFormattedMessageHour() -> String {
+        let date = Date.init(timeIntervalSince1970: self)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "hh:mm a"
+        return "\(dateFormatter.string(from: date))"
+    }
+    
+    func stringFormattedDefault() -> String {
+        let date = Date.init(timeIntervalSince1970: self)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd.MM.yyyy hh:mm:ss a"
+        return "\(dateFormatter.string(from: date))"
+    }
 }

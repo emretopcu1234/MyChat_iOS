@@ -72,6 +72,7 @@
 		29CA412927A3369500D5200D /* RegisterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29CA412827A3369500D5200D /* RegisterModel.swift */; };
 		29CA412B27A336A700D5200D /* RegisterDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29CA412A27A336A700D5200D /* RegisterDelegate.swift */; };
 		29CA412D27A351AA00D5200D /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29CA412C27A351AA00D5200D /* LoginViewModel.swift */; };
+		29E6BECF27BB020200A89216 /* SpecificChatRowType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E6BECE27BB020200A89216 /* SpecificChatRowType.swift */; };
 		29F1EF5B2798B36C009A6C8D /* FriendProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F1EF5A2798B36C009A6C8D /* FriendProfileView.swift */; };
 		29F718042797626E000DEA71 /* BottomBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F718032797626E000DEA71 /* BottomBarView.swift */; };
 		29F97FFA27B4727E00F94B84 /* ChatSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F97FF927B4727E00F94B84 /* ChatSelection.swift */; };
@@ -134,6 +135,7 @@
 		29CA412827A3369500D5200D /* RegisterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterModel.swift; sourceTree = "<group>"; };
 		29CA412A27A336A700D5200D /* RegisterDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterDelegate.swift; sourceTree = "<group>"; };
 		29CA412C27A351AA00D5200D /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		29E6BECE27BB020200A89216 /* SpecificChatRowType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecificChatRowType.swift; sourceTree = "<group>"; };
 		29F1EF5A2798B36C009A6C8D /* FriendProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendProfileView.swift; sourceTree = "<group>"; };
 		29F718032797626E000DEA71 /* BottomBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomBarView.swift; sourceTree = "<group>"; };
 		29F97FF927B4727E00F94B84 /* ChatSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatSelection.swift; sourceTree = "<group>"; };
@@ -267,6 +269,7 @@
 			children = (
 				2988149927B2E29300452821 /* FriendSelection.swift */,
 				29F97FF927B4727E00F94B84 /* ChatSelection.swift */,
+				29E6BECE27BB020200A89216 /* SpecificChatRowType.swift */,
 				295FB64C2790E018007AA467 /* ChatBubbleShape.swift */,
 				2948037F2794C5DB00C8D9F5 /* KeyboardAction.swift */,
 				2957C367279F615800364681 /* PhotoLibrary.swift */,
@@ -461,6 +464,7 @@
 				290099A727A1F7890012F975 /* SpecificChatViewModel.swift in Sources */,
 				2934EB91279CB776007DE589 /* CreateFriendView.swift in Sources */,
 				294803802794C5DB00C8D9F5 /* KeyboardAction.swift in Sources */,
+				29E6BECF27BB020200A89216 /* SpecificChatRowType.swift in Sources */,
 				29FBAA8E27B9AFE700264E62 /* SpecificChatDelegate.swift in Sources */,
 				29C37365278E3ADA00E34242 /* TopBarView.swift in Sources */,
 				295FB6472790BBE7007AA467 /* ContentView.swift in Sources */,
