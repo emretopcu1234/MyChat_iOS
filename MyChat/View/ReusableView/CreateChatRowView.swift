@@ -35,11 +35,18 @@ struct CreateChatRowView: View {
                                 .frame(width: 50, height: 50)
                         }
                         else {
-                            Image(uiImage: image)
-                                .resizable()
-                                .aspectRatio(1, contentMode: .fill)
-                                .frame(width: 50, height: 50)
-                                .clipShape(Circle())
+                            AsyncImage(url: imageUrl) { image in
+                                image
+                                    .resizable()
+                                    .aspectRatio(1, contentMode: .fill)
+                                    .frame(width: 50, height: 50)
+                                    .clipShape(Circle())
+                            } placeholder: {
+                                Image(systemName: "person.circle")
+                                    .resizable()
+                                    .aspectRatio(1, contentMode: .fill)
+                                    .frame(width: 50, height: 50)
+                            }
                         }
                         VStack {
                             Text(friend.name == "" ? friend.mobile : friend.name)
@@ -63,10 +70,6 @@ struct CreateChatRowView: View {
         .onAppear {
             UINavigationBar.setAnimationsEnabled(false)
             imageUrl = URL(string: friend.pictureUrl ?? "")
-            if imageUrl != URL(string: "") {
-                let data = try? Data(contentsOf: imageUrl!)
-                image = UIImage(data: data!)!
-            }
         }
     }
 }

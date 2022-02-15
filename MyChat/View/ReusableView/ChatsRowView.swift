@@ -60,11 +60,18 @@ struct ChatsRowView: View {
                                     .frame(width: 60, height: 60)
                             }
                             else {
-                                Image(uiImage: image)
-                                    .resizable()
-                                    .aspectRatio(1, contentMode: .fill)
-                                    .frame(width: 60, height: 60)
-                                    .clipShape(Circle())
+                                AsyncImage(url: imageUrl) { image in
+                                    image
+                                        .resizable()
+                                        .aspectRatio(1, contentMode: .fill)
+                                        .frame(width: 60, height: 60)
+                                        .clipShape(Circle())
+                                } placeholder: {
+                                    Image(systemName: "person.circle")
+                                        .resizable()
+                                        .aspectRatio(1, contentMode: .fill)
+                                        .frame(width: 60, height: 60)
+                                }
                             }
                             VStack {
                                 Text(chat.name == "" ? chat.mobile : chat.name)
@@ -193,10 +200,6 @@ struct ChatsRowView: View {
         .background(chatSelected ? Color("LightBlue") : .white)
         .onAppear(perform: {
             imageUrl = URL(string: chat.pictureUrl ?? "")
-            if imageUrl != URL(string: "") {
-                let data = try? Data(contentsOf: imageUrl!)
-                image = UIImage(data: data!)!
-            }
         })
         .onChange(of: editPressed) { pressed in
             withAnimation {

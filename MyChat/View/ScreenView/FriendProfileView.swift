@@ -16,18 +16,27 @@ struct FriendProfileView: View {
     
     var body: some View {
         VStack(spacing: 10) {
-            ZStack {
+            if imageUrl == URL(string: ""){
                 Image(systemName: "person.circle")
                     .resizable()
                     .aspectRatio(1, contentMode: .fill)
                     .frame(width: 200, height: 200)
                     .foregroundColor(.gray)
-                Image(uiImage: image)
-                    .resizable()
-                    .aspectRatio(1, contentMode: .fill)
-                    .frame(width: 200, height: 200)
-                    .foregroundColor(.gray)
-                    .clipShape(Circle())
+            }
+            else {
+                AsyncImage(url: imageUrl) { image in
+                    image
+                        .resizable()
+                        .aspectRatio(1, contentMode: .fill)
+                        .frame(width: 200, height: 200)
+                        .clipShape(Circle())
+                } placeholder: {
+                    Image(systemName: "person.circle")
+                        .resizable()
+                        .aspectRatio(1, contentMode: .fill)
+                        .frame(width: 200, height: 200)
+                        .foregroundColor(.gray)
+                }
             }
             Spacer()
                 .frame(height: 30)
@@ -85,10 +94,6 @@ struct FriendProfileView: View {
         .onAppear(perform: {
             UINavigationBar.setAnimationsEnabled(true)
             imageUrl = URL(string: friend.pictureUrl ?? "")
-            if imageUrl != URL(string: "") {
-                let data = try? Data(contentsOf: imageUrl!)
-                image = UIImage(data: data!)!
-            }
         })
     }
 }

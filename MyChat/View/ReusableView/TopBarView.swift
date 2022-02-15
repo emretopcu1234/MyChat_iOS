@@ -33,7 +33,6 @@ struct TopBarView: View {
     @Binding var friendCreationResult: CreateFriendState?
     
     var body: some View {
-        
         HStack {
             switch topBarType {
             case .Friends:
@@ -149,14 +148,35 @@ struct TopBarView: View {
                                 .padding()
                         }
                         Spacer()
-                        Image(systemName: "person.circle")
-                            .resizable()
-                            .aspectRatio(1, contentMode: .fill)
-                            .frame(width: 50, height: 50)
-                            .padding()
+                        if URL(string: chatInfo.pictureUrl ?? "") == URL(string: ""){
+                            Image(systemName: "person.circle")
+                                .resizable()
+                                .aspectRatio(1, contentMode: .fill)
+                                .frame(width: 50, height: 50)
+                                .padding()
+                                .onTapGesture {
+                                    // TODO
+                                }
+                        }
+                        else {
+                            AsyncImage(url: URL(string: chatInfo.pictureUrl!)) { image in
+                                image
+                                    .resizable()
+                                    .aspectRatio(1, contentMode: .fill)
+                                    .frame(width: 50, height: 50)
+                                    .clipShape(Circle())
+                                    .padding()
+                            } placeholder: {
+                                Image(systemName: "person.circle")
+                                    .resizable()
+                                    .aspectRatio(1, contentMode: .fill)
+                                    .frame(width: 50, height: 50)
+                                    .padding()
+                            }
                             .onTapGesture {
                                 // TODO
                             }
+                        }
                     }
                 }
             case .Profile:

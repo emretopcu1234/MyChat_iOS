@@ -25,8 +25,7 @@ struct ProfileView: View {
     @FocusState private var isEmailFocused: Bool
     
     var body: some View {
-        
-        VStack(spacing: 10) {
+        VStack(spacing: 0) {
             TopBarView(topBarType: TopBarType.Profile, friendsEditPressed: .constant(false),  chatsEditPressed: .constant(false), newChatSelected: .constant(false), chatInfo: .constant(ChatType(id: "", mobile: "", name: "", pictureUrl: nil, lastSeen: 0, lastMessage: "", lastMessageTime: 0, unreadMessageNumber: 0, messages: [MessageType]())), friendCreationMobile: .constant(""), friendCreationResult: .constant(nil))
                 .frame(height: 60)
             if imageUrl == URL(string: ""){
@@ -35,15 +34,24 @@ struct ProfileView: View {
                     .aspectRatio(1, contentMode: .fill)
                     .frame(width: UIScreen.self.main.bounds.height > 900 ? 200 : 150, height: UIScreen.self.main.bounds.height > 900 ? 200 : 150)
                     .foregroundColor(.gray)
-                    .clipShape(Circle())
             }
             else {
-                Image(uiImage: image)
-                    .resizable()
-                    .aspectRatio(1, contentMode: .fill)
-                    .frame(width: UIScreen.self.main.bounds.height > 900 ? 200 : 150, height: UIScreen.self.main.bounds.height > 900 ? 200 : 150)
-                    .clipShape(Circle())
+                AsyncImage(url: imageUrl) { image in
+                    image
+                        .resizable()
+                        .aspectRatio(1, contentMode: .fill)
+                        .frame(width: UIScreen.self.main.bounds.height > 900 ? 200 : 150, height: UIScreen.self.main.bounds.height > 900 ? 200 : 150)
+                        .clipShape(Circle())
+                } placeholder: {
+                    Image(systemName: "person.circle")
+                        .resizable()
+                        .aspectRatio(1, contentMode: .fill)
+                        .frame(width: UIScreen.self.main.bounds.height > 900 ? 200 : 150, height: UIScreen.self.main.bounds.height > 900 ? 200 : 150)
+                        .foregroundColor(.gray)
+                }
             }
+            Spacer()
+                .frame(height: 10)
             Button {
                 isNameFocused = false
                 isEmailFocused = false
@@ -81,6 +89,8 @@ struct ProfileView: View {
                 .background(.white)
                 .opacity(0.5)
                 .cornerRadius(15)
+                Spacer()
+                    .frame(height: 10)
                 VStack(alignment: .leading, spacing: 0) {
                     Text("Name")
                         .font(.title3)
@@ -96,6 +106,8 @@ struct ProfileView: View {
                 .onTapGesture {
                     isNameFocused = true
                 }
+                Spacer()
+                    .frame(height: 10)
                 VStack(alignment: .leading, spacing: 0) {
                     Text("E-mail")
                         .font(.title3)
@@ -142,8 +154,12 @@ struct ProfileView: View {
                     Text("Are you sure you want to logout?")
                 }
             }
-            Divider()
-                .padding(EdgeInsets.init(top: 0, leading: 10, bottom: 10, trailing: 10))
+            Group {
+                Spacer()
+                    .frame(height: 10)
+                Divider()
+                    .padding(EdgeInsets.init(top: 0, leading: 10, bottom: 10, trailing: 10))
+            }
             BottomBarView(bottomBarType: BottomBarType.Profile, deleteFriendPressed: .constant(false), deleteChatPressed: .constant(false))
         }
         .background(Color("DarkWhite"))
@@ -152,12 +168,7 @@ struct ProfileView: View {
         .navigationBarTitle("", displayMode: .inline)
         .navigationBarHidden(true)
         .onAppear {
-            // initially get old data (in order not to show blank page to user)
             imageUrl = URL(string: profileViewModel.pictureUrl ?? "")
-            if imageUrl != URL(string: "") {
-                let data = try? Data(contentsOf: imageUrl!)
-                image = UIImage(data: data!)!
-            }
             textFieldName = profileViewModel.name
             textFieldEmail = profileViewModel.email
             
@@ -202,13 +213,6 @@ struct ProfileView: View {
             if let received = dataReceived {
                 if received {
                     imageUrl = URL(string: profileViewModel.pictureUrl ?? "")
-                    if imageUrl != URL(string: "") {
-                        let data = try? Data(contentsOf: imageUrl!)
-                        image = UIImage(data: data!)!
-                    }
-                    else {
-                        image = UIImage()
-                    }
                     textFieldName = profileViewModel.name
                     textFieldEmail = profileViewModel.email
                 }
