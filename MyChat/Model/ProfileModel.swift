@@ -144,12 +144,13 @@ class ProfileModel {
                             "email": user.email,
                             "pictureUrl": ""
                         ]) { error in
-                            if error == nil {
-                                self.user?.name = user.name
-                                self.user?.email = user.email
-                                self.user?.pictureUrl = nil
-                                self.profileDelegate?.onDataReceived(user: self.user!)
+                            guard error == nil else {
+                                return
                             }
+                            self.user?.name = user.name
+                            self.user?.email = user.email
+                            self.user?.pictureUrl = nil
+                            self.profileDelegate?.onDataReceived(user: self.user!)
                         }
                     }
                 case .failure(_):

@@ -106,18 +106,19 @@ class FriendsModel {
         usersRef.document(userDocumentID).updateData([
             "friends": FieldValue.arrayRemove([mobile])
         ]) { [self] error in
-            if error == nil {
-                if let index = friends.firstIndex(of: mobile) {
-                    friends.remove(at: index)
-                }
-                for index in 0..<friendsInfo.count {
-                    if friendsInfo[index].mobile == mobile {
-                        friendsInfo.remove(at: index)
-                        break
-                    }
-                }
-                friendsDelegate?.onFriendsDataReceived(friends: friendsInfo)
+            guard error == nil else {
+                return
             }
+            if let index = friends.firstIndex(of: mobile) {
+                friends.remove(at: index)
+            }
+            for index in 0..<friendsInfo.count {
+                if friendsInfo[index].mobile == mobile {
+                    friendsInfo.remove(at: index)
+                    break
+                }
+            }
+            friendsDelegate?.onFriendsDataReceived(friends: friendsInfo)
         }
     }
     
@@ -125,20 +126,21 @@ class FriendsModel {
         usersRef.document(userDocumentID).updateData([
             "friends": FieldValue.arrayRemove(mobile)
         ]) { [self] error in
-            if error == nil {
-                for m in mobile {
-                    if let index = friends.firstIndex(of: m) {
-                        friends.remove(at: index)
-                    }
-                    for index in 0..<friendsInfo.count {
-                        if friendsInfo[index].mobile == m {
-                            friendsInfo.remove(at: index)
-                            break
-                        }
+            guard error == nil else {
+                return
+            }
+            for m in mobile {
+                if let index = friends.firstIndex(of: m) {
+                    friends.remove(at: index)
+                }
+                for index in 0..<friendsInfo.count {
+                    if friendsInfo[index].mobile == m {
+                        friendsInfo.remove(at: index)
+                        break
                     }
                 }
-                friendsDelegate?.onFriendsDataReceived(friends: friendsInfo)
             }
+            friendsDelegate?.onFriendsDataReceived(friends: friendsInfo)
         }
     }
     
@@ -168,48 +170,47 @@ class FriendsModel {
                 usersRef.document(userDocumentID).updateData([
                     "friends": FieldValue.arrayUnion([mobile])
                 ]) { [self] error in
-                    if error == nil {
-                        friends.append(mobile)
-                        usersRef.order(by: "lastSeen", descending: true).whereField("friends", arrayContains: userDefaultsModel.mobile).getDocuments { querySnapshot2, error2 in
-                            guard error2 == nil else {
-                                friendsDelegate?.onCreateFriendUnsuccessfulWithUnknownReason()
-                                return
+                    guard error == nil else {
+                        friendsDelegate?.onCreateFriendUnsuccessfulWithUnknownReason()
+                        return
+                    }
+                    friends.append(mobile)
+                    usersRef.order(by: "lastSeen", descending: true).whereField("friends", arrayContains: userDefaultsModel.mobile).getDocuments { querySnapshot, error in
+                        guard error == nil else {
+                            friendsDelegate?.onCreateFriendUnsuccessfulWithUnknownReason()
+                            return
+                        }
+                        friendsInfo = [FriendType]()
+                        for document in querySnapshot!.documents {
+                            let result2 = Result {
+                                try document.data(as: DocUserType.self)
                             }
-                            friendsInfo = [FriendType]()
-                            for document in querySnapshot2!.documents {
-                                let result2 = Result {
-                                    try document.data(as: DocUserType.self)
-                                }
-                                switch result2 {
-                                case .success(let candidateCrossFriend):
-                                    if let candidateCrossFriend = candidateCrossFriend {
-                                        if friends.contains(candidateCrossFriend.mobile) {
-                                            friendsInfo.append(FriendType(mobile: candidateCrossFriend.mobile, name: candidateCrossFriend.name, email: candidateCrossFriend.email, lastSeen: candidateCrossFriend.lastSeen, pictureUrl: candidateCrossFriend.pictureUrl))
-                                        }
+                            switch result2 {
+                            case .success(let candidateCrossFriend):
+                                if let candidateCrossFriend = candidateCrossFriend {
+                                    if friends.contains(candidateCrossFriend.mobile) {
+                                        friendsInfo.append(FriendType(mobile: candidateCrossFriend.mobile, name: candidateCrossFriend.name, email: candidateCrossFriend.email, lastSeen: candidateCrossFriend.lastSeen, pictureUrl: candidateCrossFriend.pictureUrl))
                                     }
-                                case .failure(_):
-                                    friendsDelegate?.onCreateFriendUnsuccessfulWithUnknownReason()
+                                }
+                            case .failure(_):
+                                friendsDelegate?.onCreateFriendUnsuccessfulWithUnknownReason()
+                                break
+                            }
+                        }
+                        var isFriend: Bool
+                        for friend in friends {
+                            isFriend = false
+                            for friendInfo in friendsInfo {
+                                if friendInfo.mobile == friend {
+                                    isFriend = true
                                     break
                                 }
                             }
-                            var isFriend: Bool
-                            for friend in friends {
-                                isFriend = false
-                                for friendInfo in friendsInfo {
-                                    if friendInfo.mobile == friend {
-                                        isFriend = true
-                                        break
-                                    }
-                                }
-                                if !isFriend {
-                                    friendsInfo.append(FriendType(mobile: friend, name: "", email: "", lastSeen: 0, pictureUrl: nil))
-                                }
+                            if !isFriend {
+                                friendsInfo.append(FriendType(mobile: friend, name: "", email: "", lastSeen: 0, pictureUrl: nil))
                             }
-                            friendsDelegate?.onCreateFriendSuccessful(friends: friendsInfo)
                         }
-                    }
-                    else {
-                        friendsDelegate?.onCreateFriendUnsuccessfulWithUnknownReason()
+                        friendsDelegate?.onCreateFriendSuccessful(friends: friendsInfo)
                     }
                 }
             }

@@ -26,14 +26,14 @@ struct ChatsView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            TopBarView(topBarType: TopBarType.Chats, friendsEditPressed: .constant(false), chatsEditPressed: $editPressed, newChatSelected: $newChatSelected, chatInfo: .constant(ChatType(id: "", mobile: "", name: "", pictureUrl: nil, lastSeen: 0, lastMessage: "", lastMessageTime: 0, unreadMessageNumber: 0, messages: [MessageType]())), friendCreationMobile: .constant(""), friendCreationResult: .constant(nil))
+            TopBarView(topBarType: TopBarType.chats, friendsEditPressed: .constant(false), chatsEditPressed: $editPressed, newChatSelected: $newChatSelected, chatInfo: .constant(ChatType(id: "", mobile: "", name: "", pictureUrl: nil, lastSeen: 0, lastMessage: "", lastMessageTime: 0, unreadMessageNumber: 0, messages: [MessageType]())), friendCreationMobile: .constant(""), friendCreationResult: .constant(nil))
                 .frame(height: 60)
             ScrollView(showsIndicators: false) {
                 ForEach($chatsViewModel.chats) { chat in
                     ChatsRowView(chat: chat, anyChatDragging: $anyChatDragging, anyDragCancelled: $anyDragCancelled, editPressed: $editPressed, deletion: $singleDeletion, multipleDeletePressed: $multipleDeletePressed)
                 }
             }
-            BottomBarView(bottomBarType: editPressed ? BottomBarType.DeleteChat : BottomBarType.Chats, deleteFriendPressed: .constant(false), deleteChatPressed: $multipleDeletePressed)
+            BottomBarView(bottomBarType: editPressed ? .deleteChat : .chats, deleteFriendPressed: .constant(false), deleteChatPressed: $multipleDeletePressed)
         }
         .padding(.top, CGFloat(UIApplication.shared.windows.first?.safeAreaInsets.top ?? 0))
         .ignoresSafeArea(edges: .top)

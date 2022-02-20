@@ -8,10 +8,10 @@
 import SwiftUI
 
 enum TopBarType {
-    case Friends
-    case Chats
-    case SpecificChat
-    case Profile
+    case friends
+    case chats
+    case specificChat
+    case profile
 }
 
 struct TopBarView: View {
@@ -35,7 +35,7 @@ struct TopBarView: View {
     var body: some View {
         HStack {
             switch topBarType {
-            case .Friends:
+            case .friends:
                 ZStack {
                     HStack {
                         Spacer()
@@ -65,6 +65,7 @@ struct TopBarView: View {
                         Button {
                             UINavigationBar.setAnimationsEnabled(true)
                             friendCreationMobile = ""
+                            presentationMode.wrappedValue.dismiss()
                             showCreateFriendView = true
                         } label: {
                             Image(systemName: "plus")
@@ -77,7 +78,7 @@ struct TopBarView: View {
                         }
                     }
                 }
-            case .Chats:
+            case .chats:
                 ZStack {
                     HStack {
                         Spacer()
@@ -126,7 +127,7 @@ struct TopBarView: View {
                         enterChat = true
                     }
                 }
-            case .SpecificChat:
+            case .specificChat:
                 ZStack {
                     HStack {
                         Spacer()
@@ -136,6 +137,9 @@ struct TopBarView: View {
                             Text(chatInfo.name == "" ? "" : chatInfo.lastSeen.stringFormattedLastSeen())
                                 .font(.system(size: 15))
                                 .foregroundColor(Color("Gray"))
+                        }
+                        .onTapGesture {
+                            // TODO
                         }
                         Spacer()
                     }
@@ -154,9 +158,6 @@ struct TopBarView: View {
                                 .aspectRatio(1, contentMode: .fill)
                                 .frame(width: 50, height: 50)
                                 .padding()
-                                .onTapGesture {
-                                    // TODO
-                                }
                         }
                         else {
                             AsyncImage(url: URL(string: chatInfo.pictureUrl!)) { image in
@@ -173,13 +174,10 @@ struct TopBarView: View {
                                     .frame(width: 50, height: 50)
                                     .padding()
                             }
-                            .onTapGesture {
-                                // TODO
-                            }
                         }
                     }
                 }
-            case .Profile:
+            case .profile:
                 VStack {
                     HStack {
                         Spacer()
@@ -201,7 +199,7 @@ struct TopBarView: View {
 
 struct TopBarView_Previews: PreviewProvider {
     static var previews: some View {
-        TopBarView(topBarType: TopBarType.Friends, friendsEditPressed: .constant(false), chatsEditPressed: .constant(false), newChatSelected: .constant(false), chatInfo: .constant(ChatType(id: "", mobile: "", name: "", pictureUrl: nil, lastSeen: 0, lastMessage: "", lastMessageTime: 0, unreadMessageNumber: 0, messages: [MessageType]())), friendCreationMobile: .constant(""), friendCreationResult: .constant(nil))
+        TopBarView(topBarType: TopBarType.friends, friendsEditPressed: .constant(false), chatsEditPressed: .constant(false), newChatSelected: .constant(false), chatInfo: .constant(ChatType(id: "", mobile: "", name: "", pictureUrl: nil, lastSeen: 0, lastMessage: "", lastMessageTime: 0, unreadMessageNumber: 0, messages: [MessageType]())), friendCreationMobile: .constant(""), friendCreationResult: .constant(nil))
             .previewLayout(.sizeThatFits)
     }
 }

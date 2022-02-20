@@ -8,17 +8,16 @@
 import SwiftUI
 
 enum BottomBarType {
-    case Friends
-    case Chats
-    case Profile
-    case DeleteFriend
-    case DeleteChat
+    case friends
+    case chats
+    case profile
+    case deleteFriend
+    case deleteChat
 }
 
 struct BottomBarView: View {
     
     var bottomBarType: BottomBarType
-    
     @EnvironmentObject var friendSelection: FriendSelection
     @EnvironmentObject var chatSelection: ChatSelection
     @State private var showDeleteFriendConfirmation = false
@@ -29,7 +28,7 @@ struct BottomBarView: View {
     var body: some View {
         
         HStack(alignment: .center) {
-            if bottomBarType == BottomBarType.Friends || bottomBarType == BottomBarType.Chats || bottomBarType == BottomBarType.Profile {
+            if bottomBarType == BottomBarType.friends || bottomBarType == BottomBarType.chats || bottomBarType == BottomBarType.profile {
                 NavigationLink(destination: FriendsView()) {
                     VStack(spacing: 5) {
                         Image(systemName: "person.3.fill")
@@ -38,9 +37,9 @@ struct BottomBarView: View {
                             .font(.system(size: 11))
                     }
                     .offset(y: 10)
-                    .foregroundColor(bottomBarType == BottomBarType.Friends ? .blue : .gray)
+                    .foregroundColor(bottomBarType == BottomBarType.friends ? .blue : .gray)
                 }
-                .disabled(bottomBarType == BottomBarType.Friends)
+                .disabled(bottomBarType == BottomBarType.friends)
                 Spacer()
                 NavigationLink(destination: ChatsView()) {
                     VStack(spacing: 5) {
@@ -50,9 +49,9 @@ struct BottomBarView: View {
                             .font(.system(size: 11))
                     }
                     .offset(y: 10)
-                    .foregroundColor(bottomBarType == BottomBarType.Chats ? .blue : .gray)
+                    .foregroundColor(bottomBarType == BottomBarType.chats ? .blue : .gray)
                 }
-                .disabled(bottomBarType == BottomBarType.Chats)
+                .disabled(bottomBarType == BottomBarType.chats)
                 Spacer()
                 NavigationLink(destination: ProfileView()) {
                     VStack(spacing: 5) {
@@ -62,11 +61,11 @@ struct BottomBarView: View {
                             .font(.system(size: 11))
                     }
                     .offset(y: 10)
-                    .foregroundColor(bottomBarType == BottomBarType.Profile ? .blue : .gray)
+                    .foregroundColor(bottomBarType == BottomBarType.profile ? .blue : .gray)
                 }
-                .disabled(bottomBarType == BottomBarType.Profile)
+                .disabled(bottomBarType == BottomBarType.profile)
             }
-            else if bottomBarType == .DeleteFriend {
+            else if bottomBarType == .deleteFriend {
                 Spacer()
                 Button {
                     UINavigationBar.setAnimationsEnabled(true)
@@ -116,6 +115,6 @@ struct BottomBarView: View {
 
 struct BottomBarView_Previews: PreviewProvider {
     static var previews: some View {
-        BottomBarView(bottomBarType: BottomBarType.DeleteFriend, deleteFriendPressed: .constant(false), deleteChatPressed: .constant(false))
+        BottomBarView(bottomBarType: BottomBarType.deleteFriend, deleteFriendPressed: .constant(false), deleteChatPressed: .constant(false))
     }
 }

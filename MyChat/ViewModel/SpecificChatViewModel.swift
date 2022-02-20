@@ -25,6 +25,14 @@ class SpecificChatViewModel: ObservableObject, SpecificChatDelegate {
         specificChatModel.getChatData(mobile: mobile)
     }
     
+    func sendMessage(message: String){
+        specificChatModel.sendMessage(mobile: chat.mobile, message: message)
+    }
+    
+    func disappear(){
+        specificChatModel.updateLastSeen(mobile: chat.mobile)
+    }
+    
     
     // MARK: DELEGATE METHODS
     func onChatDataReceived(chat: ChatType) {

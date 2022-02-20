@@ -29,9 +29,9 @@ struct MyChatApp: App {
 
 // TODO LIST:
 
-// specificchatmodel'da bir chat'e mesaj eklenirken chatdocumentid'yi kontrol et, eger "" ise demek ki 2 kişi arasında ilk kez mesajlaşma olmuş, bu yuzden yeni bir document olustur ve id'ye aktar.
+// specific chat'ten chat'e geri donunce unreadmessagenumber kısmı guncellenmiyor. (ama en son mesaj kısmı guncelleniyor.)
 
-// specific bir chat'e girildiginde en alta scroll edilecek (anchor: .bottom). ama eger okunmamıs bir mesaj varsa, örneğin okunmamış 20 mesaj var, bu durumda okunmamış mesaj yazan yere scroll edilmesi lazım (anchor: .center)
+// specific chat view'a girince ilgili chat'in lastseen'ini timestamp max yap, cikinca yeniden cikilan anın timestamp'ine esitle. boylece eger ilgili chat'teyken o chat'e bir mesaj gelirse unreadmessages gorunmemis olur.
 
 // friendstabview onappear metodunda animation false yapılıyor, ancak eger welcomepage'den gelindiyse animation true olmalı, daha sonrasında tablar arası gecislerde false olmalı. bunun icin friendstabview'a bir tane degisken tanımlanıp onappear'da o degiskene gore anımation true ya da false'a cekilebilir.
 

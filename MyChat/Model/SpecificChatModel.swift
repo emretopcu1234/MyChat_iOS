@@ -62,7 +62,7 @@ class SpecificChatModel{
                                 }
                             }
                         }
-                        chatInfo = ChatType(id: chatDocumentID, mobile: receivedChat.user2, name: friendName, pictureUrl: friendPictureUrl, lastSeen: friendLastSeen, lastMessage: messages.count > 0 ? messages[messages.count-1].message : "", lastMessageTime: receivedChat.lastMessageTime, unreadMessageNumber: unreadMessageNumber, messages: messages)
+                        chatInfo = ChatType(id: chatDocumentID, mobile: receivedChat.user2, name: friendName, pictureUrl: friendPictureUrl, lastSeen: friendLastSeen, lastMessage: "", lastMessageTime: receivedChat.lastMessageTime, unreadMessageNumber: unreadMessageNumber, messages: messages)
                         specificChatDelegate?.onChatDataReceived(chat: chatInfo)
                     }
                 case .failure(_):
@@ -78,6 +78,7 @@ class SpecificChatModel{
                     return
                 }
                 for document in querySnapshot!.documents {
+                    chatDocumentID = document.documentID
                     let result = Result {
                         try document.data(as: DocChatType.self)
                     }
@@ -98,7 +99,7 @@ class SpecificChatModel{
                                     }
                                 }
                             }
-                            chatInfo = ChatType(id: chatDocumentID, mobile: receivedChat.user2, name: friendName, pictureUrl: friendPictureUrl, lastSeen: friendLastSeen, lastMessage: messages.count > 0 ? messages[messages.count-1].message : "", lastMessageTime: receivedChat.lastMessageTime, unreadMessageNumber: unreadMessageNumber, messages: messages)
+                            chatInfo = ChatType(id: chatDocumentID, mobile: receivedChat.user2, name: friendName, pictureUrl: friendPictureUrl, lastSeen: friendLastSeen, lastMessage: "", lastMessageTime: receivedChat.lastMessageTime, unreadMessageNumber: unreadMessageNumber, messages: messages)
                             specificChatDelegate?.onChatDataReceived(chat: chatInfo)
                         }
                     case .failure(_):
@@ -109,7 +110,121 @@ class SpecificChatModel{
                 if chatExist {
                     return
                 }
+                chatDocumentID = ""
                 specificChatDelegate?.onChatDataReceived(chat: ChatType(id: chatDocumentID, mobile: mobile, name: friendInfo.name, pictureUrl: friendInfo.pictureUrl, lastSeen: friendInfo.lastSeen, lastMessage: "", lastMessageTime: 0, unreadMessageNumber: 0, messages: [MessageType]()))
+            }
+        }
+    }
+    
+    func sendMessage(mobile: String, message: String){
+        if chatDocumentID != "" {
+            chatsRef.document(chatDocumentID).getDocument { [self] querySnapshot, error in
+                guard error == nil else {
+                    return
+                }
+                let result = Result {
+                    try querySnapshot!.data(as: DocChatType.self)
+                }
+                switch result {
+                case .success(let receivedChat):
+                    if let receivedChat = receivedChat {
+                        let time: TimeInterval = NSDate().timeIntervalSince1970
+                        let docMessageInfo: [String:Any] = ["time": TimeInterval(Int(time)), "message": message, "sender": userDefaultsModel.mobile]
+                        let messageInfo = MessageType(time: TimeInterval(Int(time)), message: message, sender: userDefaultsModel.mobile)
+                        if receivedChat.user1 == userDefaultsModel.mobile {
+                            chatsRef.document(chatDocumentID).updateData([
+                                "messages": FieldValue.arrayUnion([docMessageInfo]),
+                                "lastMessageTime": TimeInterval(Int(time)),
+                                "lastSeen1": TimeInterval(Int(time))
+                            ]) { [self] error in
+                                guard error == nil else {
+                                    return
+                                }
+                                chatInfo.messages.append(messageInfo)
+                                chatInfo.lastMessage = message
+                                chatInfo.lastMessageTime = TimeInterval(Int(time))
+                                chatInfo.unreadMessageNumber = 0
+                                specificChatDelegate?.onChatDataReceived(chat: chatInfo)
+                            }
+                        }
+                        else {
+                            chatsRef.document(chatDocumentID).updateData([
+                                "messages": FieldValue.arrayUnion([docMessageInfo]),
+                                "lastMessageTime": TimeInterval(Int(time)),
+                                "lastSeen2": TimeInterval(Int(time))
+                            ]) { [self] error in
+                                guard error == nil else {
+                                    return
+                                }
+                                chatInfo.messages.append(messageInfo)
+                                chatInfo.lastMessage = message
+                                chatInfo.lastMessageTime = TimeInterval(Int(time))
+                                chatInfo.unreadMessageNumber = 0
+                                specificChatDelegate?.onChatDataReceived(chat: chatInfo)
+                            }
+                        }
+                    }
+                case .failure(_):
+                    break
+                }
+            }
+        }
+        else {
+            let time: TimeInterval = NSDate().timeIntervalSince1970
+            let newChatDoc = chatsRef.document()
+            chatDocumentID = newChatDoc.documentID
+            let newChat = DocChatType(user1: userDefaultsModel.mobile, user2: mobile, lastSeen1: TimeInterval(Int(time)), lastSeen2: 0, lastDelete1: 0, lastDelete2: 0, lastMessageTime: TimeInterval(Int(time)), messages: [DocMessageType(time: TimeInterval(Int(time)), message: message, sender: userDefaultsModel.mobile)])
+            do {
+                try chatsRef.document(chatDocumentID).setData(from: newChat) { [self] error in
+                    guard error == nil else {
+                        return
+                    }
+                    friendInfo = friendsModel.getFriendInfo(mobile: mobile) ?? FriendType(mobile: mobile, name: "", email: "", lastSeen: 0, pictureUrl: nil)
+                    chatInfo = ChatType(id: chatDocumentID, mobile: mobile, name: friendInfo.name, pictureUrl: friendInfo.pictureUrl, lastSeen: friendInfo.lastSeen, lastMessage: "", lastMessageTime: TimeInterval(Int(time)), unreadMessageNumber: 0, messages: [MessageType(time: TimeInterval(Int(time)), message: message, sender: userDefaultsModel.mobile)])
+                    specificChatDelegate?.onChatDataReceived(chat: chatInfo)
+                }
+            }
+            catch {}
+        }
+    }
+    
+    func updateLastSeen(mobile: String){
+        chatsRef.document(chatDocumentID).getDocument { [self] querySnapshot, error in
+            guard error == nil else {
+                return
+            }
+            let result = Result {
+                try querySnapshot!.data(as: DocChatType.self)
+            }
+            switch result {
+            case .success(let receivedChat):
+                if let receivedChat = receivedChat {
+                    let time: TimeInterval = NSDate().timeIntervalSince1970
+                    if receivedChat.user1 == userDefaultsModel.mobile {
+                        chatsRef.document(chatDocumentID).updateData([
+                            "lastSeen1": TimeInterval(Int(time))
+                        ]) { [self] error in
+                            guard error == nil else {
+                                return
+                            }
+                            chatInfo.unreadMessageNumber = 0
+                            specificChatDelegate?.onChatDataReceived(chat: chatInfo)
+                        }
+                    }
+                    else {
+                        chatsRef.document(chatDocumentID).updateData([
+                            "lastSeen2": TimeInterval(Int(time))
+                        ]) { [self] error in
+                            guard error == nil else {
+                                return
+                            }
+                            chatInfo.unreadMessageNumber = 0
+                            specificChatDelegate?.onChatDataReceived(chat: chatInfo)
+                        }
+                    }
+                }
+            case .failure(_):
+                break
             }
         }
     }

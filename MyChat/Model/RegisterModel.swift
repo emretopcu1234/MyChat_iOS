@@ -40,7 +40,7 @@ class RegisterModel {
                 }
             }
             else {
-                let user = DocUserType(mobile: registerData.mobile, name: registerData.name, email: registerData.email, lastSeen:TimeInterval(Int64(NSDate().timeIntervalSince1970)), pictureUrl: "", friends: ["222222","444444"])
+                let user = DocUserType(mobile: registerData.mobile, name: registerData.name, email: registerData.email, lastSeen: NSDate().timeIntervalSince1970, pictureUrl: "", friends: [])
                 do {
                     try usersRef.document().setData(from: user) { error in
                         if error != nil {

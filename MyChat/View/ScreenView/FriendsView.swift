@@ -24,27 +24,14 @@ struct FriendsView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            TopBarView(topBarType: TopBarType.Friends, friendsEditPressed: $editPressed, chatsEditPressed: .constant(false), newChatSelected: .constant(false), chatInfo: .constant(ChatType(id: "", mobile: "", name: "", pictureUrl: nil, lastSeen: 0, lastMessage: "", lastMessageTime: 0, unreadMessageNumber: 0, messages: [MessageType]())), friendCreationMobile: $friendCreationMobile, friendCreationResult: $friendCreationResult)
+            TopBarView(topBarType: TopBarType.friends, friendsEditPressed: $editPressed, chatsEditPressed: .constant(false), newChatSelected: .constant(false), chatInfo: .constant(ChatType(id: "", mobile: "", name: "", pictureUrl: nil, lastSeen: 0, lastMessage: "", lastMessageTime: 0, unreadMessageNumber: 0, messages: [MessageType]())), friendCreationMobile: $friendCreationMobile, friendCreationResult: $friendCreationResult)
                 .frame(height: 60)
-//            ScrollViewReader { scrollIndex in
-//                ScrollView(showsIndicators: false) {
-//                    ForEach($friendsViewModel.friends) { friend in
-//                        FriendsRowView(friend: friend, anyFriendDragging: $anyFriendDragging, anyDragCancelled: $anyDragCancelled, editPressed: $editPressed, deletion: $singleDeletion, multipleDeletePressed: $multipleDeletePressed)
-//                            .id(friend.id)
-//                    }
-//                }
-//                .onAppear {
-//                    scrollIndex.scrollTo("00000" as String?, anchor: .center)
-//                }
-//            }
-            // bunun icin ilgili struct'ın / class'ın identifiable olması gerekiyor, yani specificchatview'da kullanılacak struct identifiable olacak, id'si de init'in icerisinde tanımlanacak ve timestamp degerine esit olacak. (ama string'e falan cast edilebilir. böylece scrollto'nun icine ilgili timestamp degerinden cast edilmis string degeri girilerek istenilen row'a scroll edilebilecek)
-            
             ScrollView(showsIndicators: false) {
                 ForEach($friendsViewModel.friends) { friend in
                     FriendsRowView(friend: friend, anyFriendDragging: $anyFriendDragging, anyDragCancelled: $anyDragCancelled, editPressed: $editPressed, deletion: $singleDeletion, multipleDeletePressed: $multipleDeletePressed)
                 }
             }
-            BottomBarView(bottomBarType: editPressed ? BottomBarType.DeleteFriend : BottomBarType.Friends, deleteFriendPressed: $multipleDeletePressed, deleteChatPressed: .constant(false))
+            BottomBarView(bottomBarType: editPressed ? BottomBarType.deleteFriend : BottomBarType.friends, deleteFriendPressed: $multipleDeletePressed, deleteChatPressed: .constant(false))
         }
         .padding(.top, CGFloat(UIApplication.shared.windows.first?.safeAreaInsets.top ?? 0))
         .ignoresSafeArea(edges: .top)
