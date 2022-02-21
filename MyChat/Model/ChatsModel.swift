@@ -33,52 +33,14 @@ class ChatsModel {
     }
     
     func getChatsData(){
-        friendsInfo = friendsModel.getFriendsInfo()
-        chatsRef.whereField("user1", isEqualTo: userDefaultsModel.mobile).getDocuments { [self] querySnapshot, error in
-            guard error == nil else {
-                return
-            }
-            chatsInfo = [ChatType]()
-            for document in querySnapshot!.documents {
-                let result = Result {
-                    try document.data(as: DocChatType.self)
-                }
-                switch result {
-                case .success(let receivedChat):
-                    if let receivedChat = receivedChat {
-                        var friendName: String = ""
-                        var friendPictureUrl: String? = nil
-                        var friendLastSeen: TimeInterval = 0
-                        for friend in friendsInfo {
-                            if receivedChat.user2 == friend.mobile {
-                                friendName = friend.name
-                                friendPictureUrl = friend.pictureUrl
-                                friendLastSeen = friend.lastSeen
-                                break
-                            }
-                        }
-                        var messages = [MessageType]()
-                        var unreadMessageNumber = 0
-                        for message in receivedChat.messages {
-                            if message.time > receivedChat.lastDelete1 {
-                                messages.append(MessageType(time: message.time, message: message.message, sender: message.sender))
-                                if message.time > receivedChat.lastSeen1 {
-                                    unreadMessageNumber += 1
-                                }
-                            }
-                        }
-                        if messages.count > 0 {
-                            chatsInfo.append(ChatType(id: document.documentID, mobile: receivedChat.user2, name: friendName, pictureUrl: friendPictureUrl, lastSeen: friendLastSeen, lastMessage: messages[messages.count-1].message, lastMessageTime: receivedChat.lastMessageTime, unreadMessageNumber: unreadMessageNumber, messages: messages))
-                        }
-                    }
-                case .failure(_):
-                    break
-                }
-            }
-            chatsRef.whereField("user2", isEqualTo: userDefaultsModel.mobile).getDocuments { [self] querySnapshot, error in
+        // in order to get latest data when exiting from specific chat. (first specific chat view writes, then chats view reads.)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
+            friendsInfo = friendsModel.getFriendsInfo()
+            chatsRef.whereField("user1", isEqualTo: userDefaultsModel.mobile).getDocuments { [self] querySnapshot, error in
                 guard error == nil else {
                     return
                 }
+                chatsInfo = [ChatType]()
                 for document in querySnapshot!.documents {
                     let result = Result {
                         try document.data(as: DocChatType.self)
@@ -87,11 +49,13 @@ class ChatsModel {
                     case .success(let receivedChat):
                         if let receivedChat = receivedChat {
                             var friendName: String = ""
+                            var friendEmail: String = ""
                             var friendPictureUrl: String? = nil
                             var friendLastSeen: TimeInterval = 0
                             for friend in friendsInfo {
-                                if receivedChat.user1 == friend.mobile {
+                                if receivedChat.user2 == friend.mobile {
                                     friendName = friend.name
+                                    friendEmail = friend.email
                                     friendPictureUrl = friend.pictureUrl
                                     friendLastSeen = friend.lastSeen
                                     break
@@ -100,23 +64,66 @@ class ChatsModel {
                             var messages = [MessageType]()
                             var unreadMessageNumber = 0
                             for message in receivedChat.messages {
-                                if message.time > receivedChat.lastDelete2 {
+                                if message.time > receivedChat.lastDelete1 {
                                     messages.append(MessageType(time: message.time, message: message.message, sender: message.sender))
-                                    if message.time > receivedChat.lastSeen2 {
+                                    if message.time > receivedChat.lastSeen1 {
                                         unreadMessageNumber += 1
                                     }
                                 }
                             }
                             if messages.count > 0 {
-                                chatsInfo.append(ChatType(id: document.documentID, mobile: receivedChat.user1, name: friendName, pictureUrl: friendPictureUrl, lastSeen: friendLastSeen, lastMessage: messages[messages.count-1].message, lastMessageTime: receivedChat.lastMessageTime, unreadMessageNumber: unreadMessageNumber, messages: messages))
+                                chatsInfo.append(ChatType(id: document.documentID, mobile: receivedChat.user2, name: friendName, email: friendEmail, pictureUrl: friendPictureUrl, lastSeen: friendLastSeen, lastMessage: messages[messages.count-1].message, lastMessageTime: receivedChat.lastMessageTime, unreadMessageNumber: unreadMessageNumber, messages: messages))
                             }
                         }
                     case .failure(_):
                         break
                     }
                 }
-                chatsInfo = chatsInfo.sorted(by: { $0.lastMessageTime > $1.lastMessageTime })
-                chatsDelegate?.onChatsDataReceived(chats: chatsInfo)
+                chatsRef.whereField("user2", isEqualTo: userDefaultsModel.mobile).getDocuments { [self] querySnapshot, error in
+                    guard error == nil else {
+                        return
+                    }
+                    for document in querySnapshot!.documents {
+                        let result = Result {
+                            try document.data(as: DocChatType.self)
+                        }
+                        switch result {
+                        case .success(let receivedChat):
+                            if let receivedChat = receivedChat {
+                                var friendName: String = ""
+                                var friendEmail: String = ""
+                                var friendPictureUrl: String? = nil
+                                var friendLastSeen: TimeInterval = 0
+                                for friend in friendsInfo {
+                                    if receivedChat.user1 == friend.mobile {
+                                        friendName = friend.name
+                                        friendEmail = friend.email
+                                        friendPictureUrl = friend.pictureUrl
+                                        friendLastSeen = friend.lastSeen
+                                        break
+                                    }
+                                }
+                                var messages = [MessageType]()
+                                var unreadMessageNumber = 0
+                                for message in receivedChat.messages {
+                                    if message.time > receivedChat.lastDelete2 {
+                                        messages.append(MessageType(time: message.time, message: message.message, sender: message.sender))
+                                        if message.time > receivedChat.lastSeen2 {
+                                            unreadMessageNumber += 1
+                                        }
+                                    }
+                                }
+                                if messages.count > 0 {
+                                    chatsInfo.append(ChatType(id: document.documentID, mobile: receivedChat.user1, name: friendName, email: friendEmail, pictureUrl: friendPictureUrl, lastSeen: friendLastSeen, lastMessage: messages[messages.count-1].message, lastMessageTime: receivedChat.lastMessageTime, unreadMessageNumber: unreadMessageNumber, messages: messages))
+                                }
+                            }
+                        case .failure(_):
+                            break
+                        }
+                    }
+                    chatsInfo = chatsInfo.sorted(by: { $0.lastMessageTime > $1.lastMessageTime })
+                    chatsDelegate?.onChatsDataReceived(chats: chatsInfo)
+                }
             }
         }
     }

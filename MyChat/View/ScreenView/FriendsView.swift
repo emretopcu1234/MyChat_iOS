@@ -24,7 +24,7 @@ struct FriendsView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            TopBarView(topBarType: TopBarType.friends, friendsEditPressed: $editPressed, chatsEditPressed: .constant(false), newChatSelected: .constant(false), chatInfo: .constant(ChatType(id: "", mobile: "", name: "", pictureUrl: nil, lastSeen: 0, lastMessage: "", lastMessageTime: 0, unreadMessageNumber: 0, messages: [MessageType]())), friendCreationMobile: $friendCreationMobile, friendCreationResult: $friendCreationResult)
+            TopBarView(topBarType: TopBarType.friends, friendsEditPressed: $editPressed, chatsEditPressed: .constant(false), newChatSelected: .constant(false), chatInfo: .constant(ChatType(id: "", mobile: "", name: "", email: "", pictureUrl: nil, lastSeen: 0, lastMessage: "", lastMessageTime: 0, unreadMessageNumber: 0, messages: [MessageType]())), friendCreationMobile: $friendCreationMobile, friendCreationResult: $friendCreationResult)
                 .frame(height: 60)
             ScrollView(showsIndicators: false) {
                 ForEach($friendsViewModel.friends) { friend in

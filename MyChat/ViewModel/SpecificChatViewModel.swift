@@ -17,7 +17,7 @@ class SpecificChatViewModel: ObservableObject, SpecificChatDelegate {
     init(){
         specificChatModel = SpecificChatModel.shared
         userDefaultsModel = UserDefaultsModel.shared
-        chat = ChatType(id: "", mobile: "", name: "", pictureUrl: nil, lastSeen: 0, lastMessage: "", lastMessageTime: 0, unreadMessageNumber: 0, messages: [MessageType]())
+        chat = ChatType(id: "", mobile: "", name: "", email: "", pictureUrl: nil, lastSeen: 0, lastMessage: "", lastMessageTime: 0, unreadMessageNumber: 0, messages: [MessageType]())
         specificChatModel.specificChatDelegate = self
     }
     

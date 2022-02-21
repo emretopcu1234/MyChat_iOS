@@ -30,7 +30,7 @@ class SpecificChatModel{
         chatsRef = dbRef.collection("chats")
         storageRef = Storage.storage().reference()
         chatDocumentID = ""
-        chatInfo = ChatType(id: "", mobile: "", name: "", pictureUrl: nil, lastSeen: 0, lastMessage: "", lastMessageTime: 0, unreadMessageNumber: 0, messages: [MessageType]())
+        chatInfo = ChatType(id: "", mobile: "", name: "", email: "", pictureUrl: nil, lastSeen: 0, lastMessage: "", lastMessageTime: 0, unreadMessageNumber: 0, messages: [MessageType]())
     }
     
     func getChatData(mobile: String){
@@ -50,6 +50,7 @@ class SpecificChatModel{
                     chatExist = true
                     if let receivedChat = receivedChat {
                         let friendName: String = friendInfo.name
+                        let friendEmail: String = friendInfo.email
                         let friendPictureUrl: String? = friendInfo.pictureUrl
                         let friendLastSeen: TimeInterval = friendInfo.lastSeen
                         var messages = [MessageType]()
@@ -62,7 +63,7 @@ class SpecificChatModel{
                                 }
                             }
                         }
-                        chatInfo = ChatType(id: chatDocumentID, mobile: receivedChat.user2, name: friendName, pictureUrl: friendPictureUrl, lastSeen: friendLastSeen, lastMessage: "", lastMessageTime: receivedChat.lastMessageTime, unreadMessageNumber: unreadMessageNumber, messages: messages)
+                        chatInfo = ChatType(id: chatDocumentID, mobile: receivedChat.user2, name: friendName, email: friendEmail, pictureUrl: friendPictureUrl, lastSeen: friendLastSeen, lastMessage: "", lastMessageTime: receivedChat.lastMessageTime, unreadMessageNumber: unreadMessageNumber, messages: messages)
                         specificChatDelegate?.onChatDataReceived(chat: chatInfo)
                     }
                 case .failure(_):
@@ -87,6 +88,7 @@ class SpecificChatModel{
                         chatExist = true
                         if let receivedChat = receivedChat {
                             let friendName: String = friendInfo.name
+                            let friendEmail: String = friendInfo.email
                             let friendPictureUrl: String? = friendInfo.pictureUrl
                             let friendLastSeen: TimeInterval = friendInfo.lastSeen
                             var messages = [MessageType]()
@@ -99,7 +101,7 @@ class SpecificChatModel{
                                     }
                                 }
                             }
-                            chatInfo = ChatType(id: chatDocumentID, mobile: receivedChat.user2, name: friendName, pictureUrl: friendPictureUrl, lastSeen: friendLastSeen, lastMessage: "", lastMessageTime: receivedChat.lastMessageTime, unreadMessageNumber: unreadMessageNumber, messages: messages)
+                            chatInfo = ChatType(id: chatDocumentID, mobile: receivedChat.user2, name: friendName, email: friendEmail, pictureUrl: friendPictureUrl, lastSeen: friendLastSeen, lastMessage: "", lastMessageTime: receivedChat.lastMessageTime, unreadMessageNumber: unreadMessageNumber, messages: messages)
                             specificChatDelegate?.onChatDataReceived(chat: chatInfo)
                         }
                     case .failure(_):
@@ -111,7 +113,7 @@ class SpecificChatModel{
                     return
                 }
                 chatDocumentID = ""
-                specificChatDelegate?.onChatDataReceived(chat: ChatType(id: chatDocumentID, mobile: mobile, name: friendInfo.name, pictureUrl: friendInfo.pictureUrl, lastSeen: friendInfo.lastSeen, lastMessage: "", lastMessageTime: 0, unreadMessageNumber: 0, messages: [MessageType]()))
+                specificChatDelegate?.onChatDataReceived(chat: ChatType(id: chatDocumentID, mobile: mobile, name: friendInfo.name, email: friendInfo.email, pictureUrl: friendInfo.pictureUrl, lastSeen: friendInfo.lastSeen, lastMessage: "", lastMessageTime: 0, unreadMessageNumber: 0, messages: [MessageType]()))
             }
         }
     }
@@ -180,7 +182,7 @@ class SpecificChatModel{
                         return
                     }
                     friendInfo = friendsModel.getFriendInfo(mobile: mobile) ?? FriendType(mobile: mobile, name: "", email: "", lastSeen: 0, pictureUrl: nil)
-                    chatInfo = ChatType(id: chatDocumentID, mobile: mobile, name: friendInfo.name, pictureUrl: friendInfo.pictureUrl, lastSeen: friendInfo.lastSeen, lastMessage: "", lastMessageTime: TimeInterval(Int(time)), unreadMessageNumber: 0, messages: [MessageType(time: TimeInterval(Int(time)), message: message, sender: userDefaultsModel.mobile)])
+                    chatInfo = ChatType(id: chatDocumentID, mobile: mobile, name: friendInfo.name, email: friendInfo.email, pictureUrl: friendInfo.pictureUrl, lastSeen: friendInfo.lastSeen, lastMessage: "", lastMessageTime: TimeInterval(Int(time)), unreadMessageNumber: 0, messages: [MessageType(time: TimeInterval(Int(time)), message: message, sender: userDefaultsModel.mobile)])
                     specificChatDelegate?.onChatDataReceived(chat: chatInfo)
                 }
             }

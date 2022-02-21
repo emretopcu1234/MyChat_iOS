@@ -23,6 +23,7 @@ struct TopBarView: View {
     @State private var showCreateFriendView = false
     @State private var showCreateChatView = false
     @State private var enterChat: Bool?
+    @State private var showFriendProfile = false
     @State var enterChatMobile: String = ""
     
     @Binding var friendsEditPressed: Bool
@@ -139,7 +140,10 @@ struct TopBarView: View {
                                 .foregroundColor(Color("Gray"))
                         }
                         .onTapGesture {
-                            // TODO
+                            showFriendProfile = true
+                        }
+                        .sheet(isPresented: $showFriendProfile) {
+                            FriendProfileView(friend: FriendType(mobile: chatInfo.mobile, name: chatInfo.name, email: chatInfo.email, lastSeen: chatInfo.lastSeen, pictureUrl: chatInfo.pictureUrl))
                         }
                         Spacer()
                     }
@@ -199,7 +203,7 @@ struct TopBarView: View {
 
 struct TopBarView_Previews: PreviewProvider {
     static var previews: some View {
-        TopBarView(topBarType: TopBarType.friends, friendsEditPressed: .constant(false), chatsEditPressed: .constant(false), newChatSelected: .constant(false), chatInfo: .constant(ChatType(id: "", mobile: "", name: "", pictureUrl: nil, lastSeen: 0, lastMessage: "", lastMessageTime: 0, unreadMessageNumber: 0, messages: [MessageType]())), friendCreationMobile: .constant(""), friendCreationResult: .constant(nil))
+        TopBarView(topBarType: TopBarType.friends, friendsEditPressed: .constant(false), chatsEditPressed: .constant(false), newChatSelected: .constant(false), chatInfo: .constant(ChatType(id: "", mobile: "", name: "", email: "", pictureUrl: nil, lastSeen: 0, lastMessage: "", lastMessageTime: 0, unreadMessageNumber: 0, messages: [MessageType]())), friendCreationMobile: .constant(""), friendCreationResult: .constant(nil))
             .previewLayout(.sizeThatFits)
     }
 }

@@ -11,6 +11,7 @@ struct ChatType: Identifiable {
     var id: String
     var mobile: String
     var name: String
+    var email: String
     var pictureUrl: String?
     var lastSeen: TimeInterval
     var lastMessage: String
@@ -18,10 +19,11 @@ struct ChatType: Identifiable {
     var unreadMessageNumber: Int
     var messages: [MessageType]
     
-    init(id: String, mobile: String, name: String, pictureUrl: String?, lastSeen: TimeInterval, lastMessage: String, lastMessageTime: TimeInterval, unreadMessageNumber: Int, messages: [MessageType]){
+    init(id: String, mobile: String, name: String, email: String, pictureUrl: String?, lastSeen: TimeInterval, lastMessage: String, lastMessageTime: TimeInterval, unreadMessageNumber: Int, messages: [MessageType]){
         self.id = id
         self.mobile = mobile
         self.name = name
+        self.email = email
         self.pictureUrl = pictureUrl
         self.lastSeen = lastSeen
         self.lastMessage = lastMessage

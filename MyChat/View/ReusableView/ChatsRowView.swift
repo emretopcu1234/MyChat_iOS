@@ -88,7 +88,7 @@ struct ChatsRowView: View {
                                 Text(chat.lastMessageTime.stringFormattedLastMessageTime())
                                     .font(.system(size: 15))
                                     .foregroundColor(Color("Gray"))
-                                    .frame(width: 75, alignment: .trailing)
+                                    .frame(width: 80, alignment: .trailing)
                                 ZStack {
                                     Image(systemName: "circle.fill")
                                         .scaleEffect(1.5)
@@ -231,6 +231,6 @@ struct ChatsRowView: View {
 
 struct ChatsRowView_Previews: PreviewProvider {
     static var previews: some View {
-        ChatsRowView(chat: .constant(ChatType(id: "", mobile: "", name: "", pictureUrl: nil, lastSeen: 0, lastMessage: "", lastMessageTime: 0, unreadMessageNumber: 0, messages: [MessageType]())), anyChatDragging: .constant(false), anyDragCancelled: .constant(true), editPressed: .constant(false), deletion: .constant(""), multipleDeletePressed: .constant(false))
+        ChatsRowView(chat: .constant(ChatType(id: "", mobile: "", name: "", email: "", pictureUrl: nil, lastSeen: 0, lastMessage: "", lastMessageTime: 0, unreadMessageNumber: 0, messages: [MessageType]())), anyChatDragging: .constant(false), anyDragCancelled: .constant(true), editPressed: .constant(false), deletion: .constant(""), multipleDeletePressed: .constant(false))
     }
 }

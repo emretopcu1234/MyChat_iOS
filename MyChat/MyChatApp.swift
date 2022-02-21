@@ -29,9 +29,9 @@ struct MyChatApp: App {
 
 // TODO LIST:
 
-// specific chat'ten chat'e geri donunce unreadmessagenumber kısmı guncellenmiyor. (ama en son mesaj kısmı guncelleniyor.)
+// chat silme islemi icin chatsmodel'daki ilgili metodlar cagiriliyor. onları doldur.
 
-// specific chat view'a girince ilgili chat'in lastseen'ini timestamp max yap, cikinca yeniden cikilan anın timestamp'ine esitle. boylece eger ilgili chat'teyken o chat'e bir mesaj gelirse unreadmessages gorunmemis olur.
+// herhangi bir mesaj geldiginde eger karsidaki kisinin numberofunreadmessages'ı 0'dan büyük ise, her gelen mesajda degeri 1 artır, 0 ise 0'da sabit tut.
 
 // friendstabview onappear metodunda animation false yapılıyor, ancak eger welcomepage'den gelindiyse animation true olmalı, daha sonrasında tablar arası gecislerde false olmalı. bunun icin friendstabview'a bir tane degisken tanımlanıp onappear'da o degiskene gore anımation true ya da false'a cekilebilir.
 
