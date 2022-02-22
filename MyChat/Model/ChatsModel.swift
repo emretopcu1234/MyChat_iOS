@@ -129,10 +129,96 @@ class ChatsModel {
     }
     
     func deleteChat(id: String){
-        
+        chatsRef.document(id).getDocument { [self] querySnapshot, error in
+            guard error == nil else {
+                return
+            }
+            let result = Result {
+                try querySnapshot!.data(as: DocChatType.self)
+            }
+            switch result {
+            case .success(let receivedChat):
+                if let receivedChat = receivedChat {
+                    let time: TimeInterval = NSDate().timeIntervalSince1970
+                    if receivedChat.user1 == userDefaultsModel.mobile {
+                        chatsRef.document(id).updateData([
+                            "lastDelete1": TimeInterval(Int(time))
+                        ]) { [self] error in
+                            guard error == nil else {
+                                return
+                            }
+                            for index in 0..<chatsInfo.count {
+                                if chatsInfo[index].id == id {
+                                    chatsInfo.remove(at: index)
+                                    break
+                                }
+                            }
+                            chatsDelegate?.onChatsDataReceived(chats: chatsInfo)
+                        }
+                    }
+                    else {
+                        chatsRef.document(id).updateData([
+                            "lastDelete2": TimeInterval(Int(time))
+                        ]) { [self] error in
+                            guard error == nil else {
+                                return
+                            }
+                            for index in 0..<chatsInfo.count {
+                                if chatsInfo[index].id == id {
+                                    chatsInfo.remove(at: index)
+                                    break
+                                }
+                            }
+                            chatsDelegate?.onChatsDataReceived(chats: chatsInfo)
+                        }
+                    }
+                }
+            case .failure(_):
+                break
+            }
+        }
     }
     
     func deleteChats(id: [String]){
-        
+        // firestore restriction: maximum 10 ids can be given to the query.
+        chatsRef.whereField(FieldPath.documentID(), in: id).getDocuments { [self] querySnapshot, error in
+            guard error == nil else {
+                return
+            }
+            let batch = dbRef.batch()
+            let time: TimeInterval = NSDate().timeIntervalSince1970
+            for document in querySnapshot!.documents {
+                let result = Result {
+                    try document.data(as: DocChatType.self)
+                }
+                switch result {
+                case .success(let receivedChat):
+                    if let receivedChat = receivedChat {
+                        if receivedChat.user1 == userDefaultsModel.mobile {
+                            batch.updateData(["lastDelete1": TimeInterval(Int(time))], forDocument: document.reference)
+                        }
+                        else {
+                            batch.updateData(["lastDelete2": TimeInterval(Int(time))], forDocument: document.reference)
+                        }
+                    }
+                case .failure(_):
+                    break
+                }
+            }
+            batch.commit { error in
+                guard error == nil else {
+                    return
+                }
+                for id in id {
+                    for index in 0..<chatsInfo.count {
+                        if chatsInfo[index].id == id {
+                            chatsInfo.remove(at: index)
+                            break
+                        }
+                    }
+                }
+                chatsDelegate?.onChatsDataReceived(chats: chatsInfo)
+            }
+        }
     }
 }

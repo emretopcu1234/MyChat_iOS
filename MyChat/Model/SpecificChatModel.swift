@@ -101,7 +101,7 @@ class SpecificChatModel{
                                     }
                                 }
                             }
-                            chatInfo = ChatType(id: chatDocumentID, mobile: receivedChat.user2, name: friendName, email: friendEmail, pictureUrl: friendPictureUrl, lastSeen: friendLastSeen, lastMessage: "", lastMessageTime: receivedChat.lastMessageTime, unreadMessageNumber: unreadMessageNumber, messages: messages)
+                            chatInfo = ChatType(id: chatDocumentID, mobile: receivedChat.user1, name: friendName, email: friendEmail, pictureUrl: friendPictureUrl, lastSeen: friendLastSeen, lastMessage: "", lastMessageTime: receivedChat.lastMessageTime, unreadMessageNumber: unreadMessageNumber, messages: messages)
                             specificChatDelegate?.onChatDataReceived(chat: chatInfo)
                         }
                     case .failure(_):

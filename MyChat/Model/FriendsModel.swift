@@ -182,10 +182,10 @@ class FriendsModel {
                         }
                         friendsInfo = [FriendType]()
                         for document in querySnapshot!.documents {
-                            let result2 = Result {
+                            let result = Result {
                                 try document.data(as: DocUserType.self)
                             }
-                            switch result2 {
+                            switch result {
                             case .success(let candidateCrossFriend):
                                 if let candidateCrossFriend = candidateCrossFriend {
                                     if friends.contains(candidateCrossFriend.mobile) {

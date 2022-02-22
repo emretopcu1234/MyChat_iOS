@@ -18,8 +18,6 @@ struct ChatsView: View {
     @State var singleDeletion: String = ""
     @State var newChatSelected = false
     @State var enteredChatMobile: String = ""
-//    @State var friendCreationMobile: String = ""
-//    @State var friendCreationResult: CreateFriendState? = nil
     
     let chatSelection = ChatSelection.shared
     let selectedChats = [String]()
@@ -61,14 +59,6 @@ struct ChatsView: View {
                 }
             }
         }
-//        .onChange(of: friendCreationMobile) { mobile in
-//            if mobile.count > 0 {
-//                friendsViewModel.createFriend(mobile: mobile)
-//            }
-//        }
-//        .onReceive(friendsViewModel.$createFriendState) { state in
-//            friendCreationResult = state
-//        }
     }
 }
 
