@@ -49,7 +49,7 @@ class FriendsModel {
     }
     
     func getFriendsData(){
-        usersRef.whereField("mobile", isEqualTo: userDefaultsModel.mobile).getDocuments { [self] querySnapshot, error in
+        usersRef.whereField("mobile", isEqualTo: userDefaultsModel.mobile).addSnapshotListener { [self] querySnapshot, error in
             guard error == nil else {
                 return
             }
@@ -62,7 +62,7 @@ class FriendsModel {
                 case .success(let receivedUser):
                     if let receivedUser = receivedUser {
                         friends = receivedUser.friends
-                        usersRef.order(by: "lastSeen", descending: true).whereField("friends", arrayContains: userDefaultsModel.mobile).getDocuments { querySnapshot, error in
+                        usersRef.order(by: "lastSeen", descending: true).whereField("friends", arrayContains: userDefaultsModel.mobile).addSnapshotListener { querySnapshot, error in
                             guard error == nil else {
                                 return
                             }

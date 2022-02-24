@@ -47,12 +47,7 @@ struct SpecificChatView: View {
                             .onChange(of: scrollId, perform: { id in
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                                     withAnimation {
-                                        if id == "unreadMessages" {
-                                            scrollIndex.scrollTo(id as String?, anchor: .center)
-                                        }
-                                        else {
-                                            scrollIndex.scrollTo(id as String?, anchor: .bottom)
-                                        }
+                                        scrollIndex.scrollTo(id as String?, anchor: .bottom)
                                     }
                                 }
                             })
@@ -192,11 +187,8 @@ struct SpecificChatView: View {
                     }
                 }
                 rows.insert(SpecificChatRowType(id: "unreadMessages", rowEnum: SpecificChatRowEnum.unreadMessages, rowInfo1: nil, rowInfo2: nil), at: insert)
-                scrollId = rows[insert + 1].id
             }
-            if chat.unreadMessageNumber == 0 {
-                scrollId = rows[rows.count - 1].id
-            }
+            scrollId = rows[rows.count - 1].id
         }
     }
 }

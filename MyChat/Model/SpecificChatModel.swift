@@ -35,7 +35,7 @@ class SpecificChatModel{
     
     func getChatData(mobile: String){
         friendInfo = friendsModel.getFriendInfo(mobile: mobile) ?? FriendType(mobile: mobile, name: "", email: "", lastSeen: 0, pictureUrl: nil)
-        chatsRef.whereField("user1", isEqualTo: userDefaultsModel.mobile).whereField("user2", isEqualTo: mobile).getDocuments { [self] querySnapshot, error in
+        chatsRef.whereField("user1", isEqualTo: userDefaultsModel.mobile).whereField("user2", isEqualTo: mobile).addSnapshotListener { [self] querySnapshot, error in
             guard error == nil else {
                 return
             }
@@ -74,7 +74,7 @@ class SpecificChatModel{
             if chatExist {
                 return
             }
-            chatsRef.whereField("user2", isEqualTo: userDefaultsModel.mobile).whereField("user1", isEqualTo: mobile).getDocuments { [self] querySnapshot, error in
+            chatsRef.whereField("user2", isEqualTo: userDefaultsModel.mobile).whereField("user1", isEqualTo: mobile).addSnapshotListener { [self] querySnapshot, error in
                 guard error == nil else {
                     return
                 }
@@ -132,38 +132,19 @@ class SpecificChatModel{
                     if let receivedChat = receivedChat {
                         let time: TimeInterval = NSDate().timeIntervalSince1970
                         let docMessageInfo: [String:Any] = ["time": TimeInterval(Int(time)), "message": message, "sender": userDefaultsModel.mobile]
-                        let messageInfo = MessageType(time: TimeInterval(Int(time)), message: message, sender: userDefaultsModel.mobile)
                         if receivedChat.user1 == userDefaultsModel.mobile {
                             chatsRef.document(chatDocumentID).updateData([
                                 "messages": FieldValue.arrayUnion([docMessageInfo]),
                                 "lastMessageTime": TimeInterval(Int(time)),
                                 "lastSeen1": TimeInterval(Int(time))
-                            ]) { [self] error in
-                                guard error == nil else {
-                                    return
-                                }
-                                chatInfo.messages.append(messageInfo)
-                                chatInfo.lastMessage = message
-                                chatInfo.lastMessageTime = TimeInterval(Int(time))
-                                chatInfo.unreadMessageNumber = 0
-                                specificChatDelegate?.onChatDataReceived(chat: chatInfo)
-                            }
+                            ])
                         }
                         else {
                             chatsRef.document(chatDocumentID).updateData([
                                 "messages": FieldValue.arrayUnion([docMessageInfo]),
                                 "lastMessageTime": TimeInterval(Int(time)),
                                 "lastSeen2": TimeInterval(Int(time))
-                            ]) { [self] error in
-                                guard error == nil else {
-                                    return
-                                }
-                                chatInfo.messages.append(messageInfo)
-                                chatInfo.lastMessage = message
-                                chatInfo.lastMessageTime = TimeInterval(Int(time))
-                                chatInfo.unreadMessageNumber = 0
-                                specificChatDelegate?.onChatDataReceived(chat: chatInfo)
-                            }
+                            ])
                         }
                     }
                 case .failure(_):
@@ -182,8 +163,6 @@ class SpecificChatModel{
                         return
                     }
                     friendInfo = friendsModel.getFriendInfo(mobile: mobile) ?? FriendType(mobile: mobile, name: "", email: "", lastSeen: 0, pictureUrl: nil)
-                    chatInfo = ChatType(id: chatDocumentID, mobile: mobile, name: friendInfo.name, email: friendInfo.email, pictureUrl: friendInfo.pictureUrl, lastSeen: friendInfo.lastSeen, lastMessage: "", lastMessageTime: TimeInterval(Int(time)), unreadMessageNumber: 0, messages: [MessageType(time: TimeInterval(Int(time)), message: message, sender: userDefaultsModel.mobile)])
-                    specificChatDelegate?.onChatDataReceived(chat: chatInfo)
                 }
             }
             catch {}

@@ -36,7 +36,7 @@ class ChatsModel {
         // in order to get latest data when exiting from specific chat. (first specific chat view writes, then chats view reads.)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
             friendsInfo = friendsModel.getFriendsInfo()
-            chatsRef.whereField("user1", isEqualTo: userDefaultsModel.mobile).getDocuments { [self] querySnapshot, error in
+            chatsRef.whereField("user1", isEqualTo: userDefaultsModel.mobile).addSnapshotListener { [self] querySnapshot, error in
                 guard error == nil else {
                     return
                 }
@@ -79,7 +79,7 @@ class ChatsModel {
                         break
                     }
                 }
-                chatsRef.whereField("user2", isEqualTo: userDefaultsModel.mobile).getDocuments { [self] querySnapshot, error in
+                chatsRef.whereField("user2", isEqualTo: userDefaultsModel.mobile).addSnapshotListener { [self] querySnapshot, error in
                     guard error == nil else {
                         return
                     }

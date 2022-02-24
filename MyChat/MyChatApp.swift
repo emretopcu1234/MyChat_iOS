@@ -45,6 +45,3 @@ fileprivate class SceneDelegate: NSObject, UIWindowSceneDelegate {
         ContentModel.shared.exitApp()
     }
 }
-
-
-// herhangi bir mesaj geldiginde eger karsidaki kisinin numberofunreadmessages'ı 0'dan büyük ise, her gelen mesajda degeri 1 artır, 0 ise 0'da sabit tut.
