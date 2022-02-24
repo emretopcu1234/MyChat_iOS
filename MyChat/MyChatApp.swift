@@ -10,11 +10,12 @@ import Firebase
 
 @main
 struct MyChatApp: App {
-    
-    let contentViewModel = ContentViewModel()
+    let contentViewModel: ContentViewModel
+    @UIApplicationDelegateAdaptor(AppDelegate.self) fileprivate var appDelegate
     
     init(){
         FirebaseApp.configure()
+        contentViewModel = ContentViewModel()
     }
 
     var body: some Scene {
@@ -24,17 +25,26 @@ struct MyChatApp: App {
     }
 }
 
-// UNUTMA: viewmodel'lerin statelerini nil'e (ya da defaultu neyse ona) cekme isini onAppear yerine onDisappear'da yap. cunku onAppear'dan once bazen onReceive, onChange vb handle edilme riski var.
-// UNUTMA: onchangeof: kendi class'ında gecen bir state ya da binding, onreceive baska bir observable class'ta gecen published variable icin kullanılır.
+fileprivate class AppDelegate: NSObject, UIApplicationDelegate {
+    
+    func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
+        let sceneConfig = UISceneConfiguration(name: nil, sessionRole: connectingSceneSession.role)
+        sceneConfig.delegateClass = SceneDelegate.self
+        return sceneConfig
+    }
+}
 
-// TODO LIST:
 
-// chat silme islemi icin chatsmodel'daki ilgili metodlar cagiriliyor. onları doldur.
+fileprivate class SceneDelegate: NSObject, UIWindowSceneDelegate {
+    
+    func sceneDidBecomeActive(_ scene: UIScene) {
+        ContentModel.shared.enterApp()
+    }
+    
+    func sceneWillResignActive(_ scene: UIScene) {
+        ContentModel.shared.exitApp()
+    }
+}
+
 
 // herhangi bir mesaj geldiginde eger karsidaki kisinin numberofunreadmessages'ı 0'dan büyük ise, her gelen mesajda degeri 1 artır, 0 ise 0'da sabit tut.
-
-// friendstabview onappear metodunda animation false yapılıyor, ancak eger welcomepage'den gelindiyse animation true olmalı, daha sonrasında tablar arası gecislerde false olmalı. bunun icin friendstabview'a bir tane degisken tanımlanıp onappear'da o degiskene gore anımation true ya da false'a cekilebilir.
-
-// uygulamaya girilince timestamp = 2147483647 yap. (online oldugunun anlasilması icin)
-
-// uygulamadan cikilinca once timestamp degerini guncelle, sonra da signout yap (keeploggedin secili olsa bile, cunku uygulamaya her girildiginde manuel ya da otomatik signin yapiliyor)

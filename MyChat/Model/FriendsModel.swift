@@ -31,6 +31,10 @@ class FriendsModel {
         friendsInfo = [FriendType]()
     }
     
+    func getUserDocumentID() -> String {
+        return userDocumentID
+    }
+    
     func getFriendsInfo() -> [FriendType] {
         return friendsInfo
     }

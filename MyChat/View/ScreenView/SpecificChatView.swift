@@ -192,7 +192,7 @@ struct SpecificChatView: View {
                     }
                 }
                 rows.insert(SpecificChatRowType(id: "unreadMessages", rowEnum: SpecificChatRowEnum.unreadMessages, rowInfo1: nil, rowInfo2: nil), at: insert)
-                scrollId = "unreadMessages"
+                scrollId = rows[insert + 1].id
             }
             if chat.unreadMessageNumber == 0 {
                 scrollId = rows[rows.count - 1].id

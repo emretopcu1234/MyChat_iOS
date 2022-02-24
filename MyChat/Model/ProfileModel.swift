@@ -162,13 +162,42 @@ class ProfileModel {
     }
     
     func logout(){
-        do {
-            user = nil
-            userDefaultsModel.isKeptLoggedIn = false
-            try Auth.auth().signOut()
-        }
-        catch {
-            logout()
+        user = nil
+        userDefaultsModel.isKeptLoggedIn = false
+        usersRef.whereField("mobile", isEqualTo: userDefaultsModel.mobile).getDocuments { [self] querySnapshot, error in
+            guard error == nil else {
+                return
+            }
+            for document in querySnapshot!.documents {
+                let result = Result {
+                    try document.data(as: DocUserType.self)
+                }
+                switch result {
+                case .success(let receivedUser):
+                    if receivedUser != nil {
+                        let time: TimeInterval = NSDate().timeIntervalSince1970
+                        usersRef.document(document.documentID).updateData([
+                            "lastSeen": TimeInterval(Int(time))
+                        ])
+                        { error in
+                            if error == nil {
+                                do {
+                                    try Auth.auth().signOut()
+                                }
+                                catch {
+                                    logout()
+                                }
+                            }
+                            else {
+                                logout()
+                            }
+                        }
+                    }
+                case .failure(_):
+                    break
+                }
+                break // since just one document will be returned
+            }
         }
     }
 }
