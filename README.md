@@ -2,9 +2,11 @@
 
 Telegram like chatting app with basic messaging and networking functions.
 
-Developed by using SwiftUI
+Developed by using SwiftUI and MVVM architecture.
 
-All infos are stored in Firestore. Images are stored in Firebase Storage. Async images are used when getting an image from a url.
+Login infos are stored by using FirebaseAuth. 
+All other infos are stored in Firestore.
+Images are stored in Firebase Storage. Async images are used when getting an image from a url.
 
 REGISTER: You can register with your mobile and personal info:
 
